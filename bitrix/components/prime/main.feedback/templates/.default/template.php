@@ -9,8 +9,7 @@ if(!defined("B_PROLOG_INCLUDED")||B_PROLOG_INCLUDED!==true)die();
  * @global CMain $APPLICATION
  * @global CUser $USER
  */
-?>
-<form action="<?=POST_FORM_ACTION_URI?>" method="POST" enctype="multipart/form-data" class="form-callback">
+?><form action="<?=POST_FORM_ACTION_URI?>" method="POST" enctype="multipart/form-data" class="form-callback">
     <?=bitrix_sessid_post()?>
     <div class="form-callback_title">
         Заказать звонок
@@ -48,10 +47,10 @@ if(!defined("B_PROLOG_INCLUDED")||B_PROLOG_INCLUDED!==true)die();
     <div class="text-center">
         <span class="form-static_policy-text">
 
-Нажимая кнопку вы соглашаетес с
-<a href="/upload/politics.pdf" target="_blank">политикой конфилициальности </a>
+Нажимая кнопку вы соглашаетесь с
+<a href="/upload/politics.pdf" target="_blank" style="color: #0000FF">политикой конфиденциальности </a>
 и
-<a href="/upload/compliance.pdf" target="_blank">правилами обработки персональных данных</a>
+<a href="/upload/compliance.pdf"  target="_blank" style="color: #0000FF">правилами обработки персональных данных</a>
 
 </span>
     </div>

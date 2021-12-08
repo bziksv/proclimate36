@@ -4,13 +4,15 @@
     <meta content="<?=SITE_TEMPLATE_PATH?>/browserconfig.xml" name="msapplication-config" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title><?$APPLICATION->ShowTitle()?></title>
-    <link href="<?=SITE_DIR?>img/favicon.ico" rel="icon" type="image/png" />
+    <title><?$APPLICATION->ShowTitle()?></title>    <link href="<?=SITE_DIR?>img/favicon.ico" rel="icon" type="image/png" />
     <link href="<?=SITE_DIR?>img/favicon.png" rel="icon" type="image/png" />
     <link href="<?=SITE_DIR?>img/apple-touch-icon.png" rel="apple-touch-icon" />
     <? $APPLICATION->ShowHead(); ?>
     <style>body{opacity: 0;}</style>
-    <script>var filterPrice = {};</script>
+    <script>var filterPrice = {},filterPrice_2 = {},filterPrice_3 = {},filterPrice_4 = {},filterPrice_5 = {},filterPrice_6 = {},filterPrice_7 = {},filterPrice_8 = {},filterPrice_9 = {},filterPrice_10 = {},filterPrice_11 = {},filterPrice_12 = {},filterPrice_13 = {},filterPrice_14 = {},filterPrice_15 = {},filterPrice_16 = {},filterPrice_17 = {},filterPrice_18 = {},filterPrice_19 = {},filterPrice_20 = {},filterPrice_21 = {},filterPrice_22 = {},filterPrice_23 = {},filterPrice_24 = {},filterPrice_25 = {},filterPrice_26 = {},filterPrice_27 = {},filterPrice_28 = {},filterPrice_29 = {},filterPrice_30 = {},filterPrice_31 = {},filterPrice_32 = {},filterPrice_33 = {},filterPrice_34 = {},filterPrice_35 = {},filterPrice_36 = {},filterPrice_37 = {},filterPrice_38 = {},filterPrice_39 = {},filterPrice_40 = {};</script>
+<meta name="yandex-verification" content="61fd2e608af458fc" />
+<meta name="google-site-verification" content="XVUUN__jKHjLxmKfdliCBFVVRv9jrw9XoC6BGbpXYiI" />
+<link rel="icon" type="image/x-icon" href="<?=SITE_TEMPLATE_PATH?>/favicon.ico" />
 </head>
 <body>
 <div id="panel"><? $APPLICATION->ShowPanel(); ?></div>

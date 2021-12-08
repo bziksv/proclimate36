@@ -47,13 +47,15 @@
                             </a>
                         </li>
                     </ul>
-                    <ul class="social-network">
-                        <li><a href=""><span class="glipf-vk"></span></a></li>
-                        <li><a href=""><span class="glipf-fb"></span></a></li>
-                        <li><a href=""><span class="glipf-odnoklassniki"></span></a></li>
-                        <li><a href=""><span class="glipf-twitter"></span></a></li>
-                    </ul>
+
+
+					<ul class="container">
+						<li> <a href="/upload/politics.pdf" target="_blank"><small>Политика конфиденциальности </small></a> </li>
+						<li> <a href="/upload/compliance.pdf"  target="_blank"><small>Правила обработки персональных данных </small></a></li>
+						<li> <a href="https://prime-ltd.su/?from=proclimate36.ru"><img style="margin-left: -12px; width: 80%; height: 80%;" src="http://prime-ltd.su/logo/white.svg"; title="Продвижение сайтов" alt="Продвижение сайтов"></a></li>
+					</ul>
                 </div>
+
             </div>
         </div>
     </div>
@@ -118,6 +120,32 @@
 <script src="<?=SITE_TEMPLATE_PATH?>/js/min.js"></script>
 <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
 <script src="<?=SITE_TEMPLATE_PATH?>/js/main.js"></script>
+
+
+
+<!-- Yandex.Metrika counter -->
+<script type="text/javascript" >
+   (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+   m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+   (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+
+   ym(62466880, "init", {
+        clickmap:true,
+        trackLinks:true,
+        accurateTrackBounce:true,
+        webvisor:true
+   });
+</script>
+<noscript><div><img src="https://mc.yandex.ru/watch/62466880" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<!-- /Yandex.Metrika counter -->
+
+<script>
+	$('[data-text]').each(function(i, el){
+        let self = $(el);
+        self.html(self.data('text'));
+    });
+</script>
+
+
 </body>
 </html>
-

@@ -17,7 +17,7 @@ $this->setFrameMode(true);
     <div class="col-lg-4 col-md-6 col-sm-6">
         <div class="category-item_mod">
             <span class="category-item_mod-img">
-                <img data-src="<?=$arSection['PICTURE']['SRC']?>" alt="<?=$arSection['NAME']?>">
+				<a href="<?=$arSection['SECTION_PAGE_URL']?>"><img data-src="<?=$arSection['PICTURE']['SRC']?>" alt="<?=$arSection['NAME']?>"></a>
             </span>
             <div class="category-item_mod-title"><a href="<?=$arSection['SECTION_PAGE_URL']?>"><?=$arSection['NAME']?></a></div>
             <span class="category-item_view-categories">Посмотреть категории</span>

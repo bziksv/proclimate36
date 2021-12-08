@@ -1,0 +1,3 @@
+<?
+$sSectionName="brands-kond";
+?>

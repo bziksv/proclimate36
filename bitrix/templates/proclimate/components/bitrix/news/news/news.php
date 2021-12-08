@@ -24,7 +24,7 @@ $arLen = [15, 30, 45];
         );
         ?>
 
-        <h1>Новости</h1>
+        <h1>Статьи</h1>
         <div class="unified-sorter-pahel">
             <div class="unified_show-by_box">
                 <span class="text">Показывать по:</span>

@@ -39,6 +39,7 @@ body {
 
 
 ol, ul {
+  color: #757575;
   list-style: none;
   margin-bottom: 0;
 }
@@ -63,6 +64,10 @@ p {
   color: #515151;
   line-height: 1.5;
   margin-bottom: 1em;
+}
+
+li {
+  color: #757575;
 }
 
 a {
@@ -2116,6 +2121,12 @@ h4, .h4 {
 .product-item_list .product-item_title {
   min-height: auto;
 }
+.brends-item_title {
+  font-weight: 500;
+  font-size: 1.15rem;
+  margin-bottom: 5px;
+}
+
 
 .banner {
   background: url(../img/bg/banner/01.jpg) no-repeat center top;

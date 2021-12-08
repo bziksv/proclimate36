@@ -1,97 +1,80 @@
 <?
 require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
+$APPLICATION->SetPageProperty("description", "Мы предлагаем широкий ассортимент кондиционеров по адекватным ценам.");
 $APPLICATION->SetTitle("Кондиционеры в Воронеже");
-?>
-
-<main class="main-content">
-
-    <div class="main-section">
-        <div class="container">
-            <?$APPLICATION->IncludeComponent("bitrix:news.line", "slider", Array(
-                "ACTIVE_DATE_FORMAT" => "d.m.Y",	// Формат показа даты
-                "CACHE_GROUPS" => "Y",	// Учитывать права доступа
-                "CACHE_TIME" => "300",	// Время кеширования (сек.)
-                "CACHE_TYPE" => "A",	// Тип кеширования
-                "DETAIL_URL" => "",	// URL, ведущий на страницу с содержимым элемента раздела
-                "FIELD_CODE" => array(	// Поля
-                    0 => "CODE",
-                    1 => "NAME",
-                    2 => "PREVIEW_TEXT",
-                    3 => "PREVIEW_PICTURE",
-                    4 => "",
-                ),
-                "IBLOCKS" => array(	// Код информационного блока
-                    0 => "7",
-                ),
-                "IBLOCK_TYPE" => "news",	// Тип информационного блока
-                "NEWS_COUNT" => "20",	// Количество новостей на странице
-                "SORT_BY1" => "ACTIVE_FROM",	// Поле для первой сортировки новостей
-                "SORT_BY2" => "SORT",	// Поле для второй сортировки новостей
-                "SORT_ORDER1" => "DESC",	// Направление для первой сортировки новостей
-                "SORT_ORDER2" => "ASC",	// Направление для второй сортировки новостей
-            ),
-                false
-            );?>
-        </div>
-    </div>
-    <!-- end main-section -->
-
-    <div class="advantages-section">
-        <div class="container">
-            <?$APPLICATION->IncludeComponent("bitrix:news.line", "advantage", Array(
-                "ACTIVE_DATE_FORMAT" => "d.m.Y",	// Формат показа даты
-                "CACHE_GROUPS" => "Y",	// Учитывать права доступа
-                "CACHE_TIME" => "300",	// Время кеширования (сек.)
-                "CACHE_TYPE" => "A",	// Тип кеширования
-                "DETAIL_URL" => "",	// URL, ведущий на страницу с содержимым элемента раздела
-                "FIELD_CODE" => array(	// Поля
-                    0 => "CODE",
-                    1 => "PREVIEW_TEXT",
-                    2 => "",
-                ),
-                "IBLOCKS" => array(	// Код информационного блока
-                    0 => "8",
-                ),
-                "IBLOCK_TYPE" => "news",	// Тип информационного блока
-                "NEWS_COUNT" => "20",	// Количество новостей на странице
-                "SORT_BY1" => "ACTIVE_FROM",	// Поле для первой сортировки новостей
-                "SORT_BY2" => "SORT",	// Поле для второй сортировки новостей
-                "SORT_ORDER1" => "DESC",	// Направление для первой сортировки новостей
-                "SORT_ORDER2" => "ASC",	// Направление для второй сортировки новостей
-            ),
-                false
-            );?>
-        </div>
-    </div>
-    <!-- end advantages-section -->
-
-    <div class="container">
-        <?$APPLICATION->IncludeComponent(
-            "bitrix:catalog.section.list",
-            "main",
-            Array(
-                "ADD_SECTIONS_CHAIN" => "N",
-                "CACHE_FILTER" => "N",
-                "CACHE_GROUPS" => "Y",
-                "CACHE_TIME" => "36000000",
-                "CACHE_TYPE" => "A",
-                "COUNT_ELEMENTS" => "N",
-                "FILTER_NAME" => "sectionsFilter",
-                "IBLOCK_ID" => "2",
-                "IBLOCK_TYPE" => "catalog",
-                "SECTION_CODE" => "",
-                "SECTION_FIELDS" => array(0=>"",1=>"",),
-                "SECTION_ID" => "",
-                "SECTION_URL" => "",
-                "SECTION_USER_FIELDS" => array(0=>"",1=>"",),
-                "SHOW_PARENT_NAME" => "Y",
-                "TOP_DEPTH" => "1",
-                "VIEW_MODE" => "LINE"
-            )
-        );?>
-        <!-- end category-section -->
-
-        <?
+?><main class="main-content">
+<div class="main-section">
+	<div class="container">
+		 <?$APPLICATION->IncludeComponent(
+	"bitrix:news.line",
+	"slider",
+	Array(
+		"ACTIVE_DATE_FORMAT" => "d.m.Y",
+		"CACHE_GROUPS" => "Y",
+		"CACHE_TIME" => "300",
+		"CACHE_TYPE" => "A",
+		"DETAIL_URL" => "",
+		"FIELD_CODE" => array(0=>"CODE",1=>"NAME",2=>"PREVIEW_TEXT",3=>"PREVIEW_PICTURE",4=>"",),
+		"IBLOCKS" => array(0=>"7",),
+		"IBLOCK_TYPE" => "news",
+		"NEWS_COUNT" => "20",
+		"SORT_BY1" => "ACTIVE_FROM",
+		"SORT_BY2" => "SORT",
+		"SORT_ORDER1" => "DESC",
+		"SORT_ORDER2" => "ASC"
+	)
+);?>
+	</div>
+</div>
+ <!-- end main-section -->
+<div class="advantages-section">
+	<div class="container">
+		 <?$APPLICATION->IncludeComponent(
+	"bitrix:news.line",
+	"advantage",
+	Array(
+		"ACTIVE_DATE_FORMAT" => "d.m.Y",
+		"CACHE_GROUPS" => "Y",
+		"CACHE_TIME" => "300",
+		"CACHE_TYPE" => "A",
+		"DETAIL_URL" => "",
+		"FIELD_CODE" => array(0=>"CODE",1=>"PREVIEW_TEXT",2=>"",),
+		"IBLOCKS" => array(0=>"8",),
+		"IBLOCK_TYPE" => "news",
+		"NEWS_COUNT" => "20",
+		"SORT_BY1" => "ACTIVE_FROM",
+		"SORT_BY2" => "SORT",
+		"SORT_ORDER1" => "DESC",
+		"SORT_ORDER2" => "ASC"
+	)
+);?>
+	</div>
+</div>
+ <!-- end advantages-section -->
+<div class="container">
+	 <?$APPLICATION->IncludeComponent(
+	"bitrix:catalog.section.list",
+	"main",
+	Array(
+		"ADD_SECTIONS_CHAIN" => "N",
+		"CACHE_FILTER" => "N",
+		"CACHE_GROUPS" => "Y",
+		"CACHE_TIME" => "36000000",
+		"CACHE_TYPE" => "A",
+		"COUNT_ELEMENTS" => "N",
+		"FILTER_NAME" => "sectionsFilter",
+		"IBLOCK_ID" => "2",
+		"IBLOCK_TYPE" => "catalog",
+		"SECTION_CODE" => "",
+		"SECTION_FIELDS" => array(0=>"",1=>"",),
+		"SECTION_ID" => "",
+		"SECTION_URL" => "",
+		"SECTION_USER_FIELDS" => array(0=>"",1=>"",),
+		"SHOW_PARENT_NAME" => "Y",
+		"TOP_DEPTH" => "1",
+		"VIEW_MODE" => "LINE"
+	)
+);?> <!-- end category-section --> <?
         $arPopular = array();
         $arSelect = Array("IBLOCK_ID", "ID", "NAME");
         $arFilter = Array("IBLOCK_ID" => 2, "ACTIVE" => "Y", "PROPERTY_POPULAR_VALUE" => "Y");
@@ -112,8 +95,8 @@ $APPLICATION->SetTitle("Кондиционеры в Воронеже");
             );
 
             $APPLICATION->IncludeComponent(
-	"bitrix:catalog.section",
-	"popular",
+	"bitrix:catalog.section", 
+	"popular", 
 	array(
 		"ACTION_VARIABLE" => "action_crp",
 		"ADD_PICT_PROP" => "-",
@@ -139,7 +122,7 @@ $APPLICATION->SetTitle("Кондиционеры в Воронеже");
 		"DISPLAY_BOTTOM_PAGER" => "Y",
 		"DISPLAY_COMPARE" => "N",
 		"DISPLAY_TOP_PAGER" => "N",
-		"ELEMENT_SORT_FIELD" => "sort",
+		"ELEMENT_SORT_FIELD" => "name",
 		"ELEMENT_SORT_FIELD2" => "id",
 		"ELEMENT_SORT_ORDER" => "asc",
 		"ELEMENT_SORT_ORDER2" => "desc",
@@ -149,24 +132,24 @@ $APPLICATION->SetTitle("Кондиционеры в Воронеже");
 		"HIDE_NOT_AVAILABLE_OFFERS" => "N",
 		"IBLOCK_ID" => $arPopular["IBLOCK_ID"],
 		"LIST_PROPERTY_CODE" => array(
-            0 => "TYPE",
-            1 => "AREA",
-            2 => "COMPRESSOR",
-            3 => "COOLING",
-            4 => "MAX_TEMP_POWER",
-            5 => "AVERAGE_FUEL",
-            6 => "NUMBER_TEMP_HEART",
-            7 => "EFFECTIVE_SQUARE",
-            8 => "NUMB_SECTION",
-            9 => "GARANT",
-            10 => "POWER",
-            11 => "NUMBER_OF_SPEEDS",
-            12 => "IDLING",
-            13 => "UNDER_LOAD",
-            14 => "DIAM_ALMZ_CROWN",
-            15 => "CONNECTION",
-            16 => "DIAM_CROWN",
-            17 => "CROWN_LENGH"
+			0 => "TYPE",
+			1 => "AREA",
+			2 => "COMPRESSOR",
+			3 => "COOLING",
+			4 => "MAX_TEMP_POWER",
+			5 => "AVERAGE_FUEL",
+			6 => "NUMBER_TEMP_HEART",
+			7 => "EFFECTIVE_SQUARE",
+			8 => "NUMB_SECTION",
+			9 => "GARANT",
+			10 => "POWER",
+			11 => "NUMBER_OF_SPEEDS",
+			12 => "IDLING",
+			13 => "UNDER_LOAD",
+			14 => "DIAM_ALMZ_CROWN",
+			15 => "CONNECTION",
+			16 => "DIAM_CROWN",
+			17 => "CROWN_LENGH",
 		),
 		"IBLOCK_TYPE" => "catalog",
 		"INCLUDE_SUBSECTIONS" => "Y",
@@ -238,125 +221,125 @@ $APPLICATION->SetTitle("Кондиционеры в Воронеже");
 		"SECTION_URL" => "",
 		"DETAIL_URL" => "",
 		"SECTION_ID_VARIABLE" => "",
-		"SEF_RULE" => ""
+		"SEF_RULE" => "",
+		"COMPOSITE_FRAME_MODE" => "A",
+		"COMPOSITE_FRAME_TYPE" => "AUTO"
 	),
 	false
 );
         }
-        ?>
-        <!-- end product-section -->
+        ?> <!-- end product-section --> <?$APPLICATION->IncludeComponent(
+	"bitrix:main.include",
+	"",
+	Array(
+		"AREA_FILE_SHOW" => "file",
+		"AREA_FILE_SUFFIX" => "inc",
+		"EDIT_TEMPLATE" => "",
+		"PATH" => "/include/banner.php"
+	)
+);?> <!-- end banner --> <?$APPLICATION->IncludeComponent(
+	"bitrix:news.line",
+	"services",
+	Array(
+		"ACTIVE_DATE_FORMAT" => "d.m.Y",
+		"CACHE_GROUPS" => "Y",
+		"CACHE_TIME" => "300",
+		"CACHE_TYPE" => "A",
+		"DETAIL_URL" => "",
+		"FIELD_CODE" => array(0=>"PREVIEW_TEXT",),
+		"IBLOCKS" => array(0=>"5",),
+		"IBLOCK_TYPE" => "news",
+		"NEWS_COUNT" => "3",
+		"SORT_BY1" => "ACTIVE_FROM",
+		"SORT_BY2" => "SORT",
+		"SORT_ORDER1" => "DESC",
+		"SORT_ORDER2" => "ASC"
+	)
+);?> <!-- end services-section --> <?$APPLICATION->IncludeComponent("bitrix:news.line", "news", array(
+	"ACTIVE_DATE_FORMAT" => "d.m.Y",
+		"CACHE_GROUPS" => "Y",
+		"CACHE_TIME" => "300",
+		"CACHE_TYPE" => "A",
+		"DETAIL_URL" => "",
+		"FIELD_CODE" => array(
+			0 => "PREVIEW_PICTURE",
+			1 => "PREVIEW_TEXT",
+		),
+		"IBLOCKS" => array(
+			0 => "1",
+		),
+		"IBLOCK_TYPE" => "news",
+		"NEWS_COUNT" => "4",
+		"SORT_BY1" => "ACTIVE_FROM",
+		"SORT_BY2" => "SORT",
+		"SORT_ORDER1" => "DESC",
+		"SORT_ORDER2" => "ASC"
+	),
+	false,
+	array(
+	"ACTIVE_COMPONENT" => "N"
+	)
+);?> <!-- end news-section --> <?$APPLICATION->IncludeComponent(
+	"bitrix:news.line",
+	"brands",
+	Array(
+		"ACTIVE_DATE_FORMAT" => "d.m.Y",
+		"CACHE_GROUPS" => "Y",
+		"CACHE_TIME" => "300",
+		"CACHE_TYPE" => "A",
+		"DETAIL_URL" => "",
+		"FIELD_CODE" => array(0=>"PREVIEW_PICTURE",1=>"PREVIEW_TEXT",),
+		"IBLOCKS" => array(0=>"4",),
+		"IBLOCK_TYPE" => "news",
+		"NEWS_COUNT" => "15",
+		"SORT_BY1" => "ACTIVE_FROM",
+		"SORT_BY2" => "SORT",
+		"SORT_ORDER1" => "DESC",
+		"SORT_ORDER2" => "ASC"
+	)
+);?> <!-- end brands-section -->
+	<div class="section-title">
+		 Наши сертификаты
+	</div>
+	<div class="container" align="center">
 
-        <?$APPLICATION->IncludeComponent(
-            "bitrix:main.include",
-            "",
-            Array(
-                "AREA_FILE_SHOW" => "file",
-                "AREA_FILE_SUFFIX" => "inc",
-                "EDIT_TEMPLATE" => "",
-                "PATH" => "/include/banner.php"
-            )
-        );?>
-        <!-- end banner -->
+ <a target="_blank" href="/images/dealer_certificate_1_LESSAR_Sert2021.pdf"><img src="/images/preview_dealer_certificate_1_LESSAR_Sert2021.jpg" title="Сертификат дилера LESSAR"></a> 
 
-        <?$APPLICATION->IncludeComponent(
-            "bitrix:news.line",
-            "services",
-            Array(
-                "ACTIVE_DATE_FORMAT" => "d.m.Y",
-                "CACHE_GROUPS" => "Y",
-                "CACHE_TIME" => "300",
-                "CACHE_TYPE" => "A",
-                "DETAIL_URL" => "",
-                "FIELD_CODE" => array(0 => "PREVIEW_TEXT",),
-                "IBLOCKS" => array(0 => "5",),
-                "IBLOCK_TYPE" => "news",
-                "NEWS_COUNT" => "3",
-                "SORT_BY1" => "ACTIVE_FROM",
-                "SORT_BY2" => "SORT",
-                "SORT_ORDER1" => "DESC",
-                "SORT_ORDER2" => "ASC"
-            )
-        );?>
-        <!-- end services-section -->
+<a target="_blank" href="/images/dealer_certificate_2_TOSOT.pdf"><img src="/images/preview_dealer_certificate_2_TOSOT.jpg" title="Сертификат дилера TOSOT"></a>
 
-        <?$APPLICATION->IncludeComponent(
-            "bitrix:news.line",
-            "news",
-            Array(
-                "ACTIVE_DATE_FORMAT" => "d.m.Y",
-                "CACHE_GROUPS" => "Y",
-                "CACHE_TIME" => "300",
-                "CACHE_TYPE" => "A",
-                "DETAIL_URL" => "",
-                "FIELD_CODE" => array(0 => "PREVIEW_PICTURE", 1 => "PREVIEW_TEXT",),
-                "IBLOCKS" => array(0 => "1",),
-                "IBLOCK_TYPE" => "news",
-                "NEWS_COUNT" => "4",
-                "SORT_BY1" => "ACTIVE_FROM",
-                "SORT_BY2" => "SORT",
-                "SORT_ORDER1" => "DESC",
-                "SORT_ORDER2" => "ASC"
-            )
-        );?>
-        <!-- end news-section -->
+<a target="_blank" href="/images/dealer_certificate_3_Haier.pdf"><img src="/images/preview_dealer_certificate_3_Haier.jpg" title="Сертификат дилера Haier"></a>
 
-        <?$APPLICATION->IncludeComponent(
-            "bitrix:news.line",
-            "brands",
-            Array(
-                "ACTIVE_DATE_FORMAT" => "d.m.Y",
-                "CACHE_GROUPS" => "Y",
-                "CACHE_TIME" => "300",
-                "CACHE_TYPE" => "A",
-                "DETAIL_URL" => "",
-                "FIELD_CODE" => array(0 => "PREVIEW_PICTURE", 1 => "PREVIEW_TEXT",),
-                "IBLOCKS" => array(0 => "4",),
-                "IBLOCK_TYPE" => "news",
-                "NEWS_COUNT" => "15",
-                "SORT_BY1" => "ACTIVE_FROM",
-                "SORT_BY2" => "SORT",
-                "SORT_ORDER1" => "DESC",
-                "SORT_ORDER2" => "ASC"
-            )
-        );?>
-        <!-- end brands-section -->
-    </div>
-
-    <div class="contact-section">
-        <div class="container-fluid">
-            <div class="row no-gutters  align-items-center">
-                <div class="col-md-6">
-                    <div class="contact-section_desc">
-                        <div class="section-title">Наши контакты</div>
-                        <ul class="contact-list">
-                            <li>
-                                <span class="glipf-placeholder"></span>
-                                <?= tplvar('street', true);?>
-                            </li>
-                            <li>
-                                <span class="glipf-phone"></span>
-                                <a href="tel:<?= tplvar('phone');?>"><?= tplvar('phone', true);?></a>
-                            </li>
-                            <li>
-                                <a href="mailto:online@rusklimat.ru">
-                                    <span class="glipf-email"></span>
-                                    <?= tplvar('email', true);?>
-                                </a>
-                            </li>
-                        </ul>
-                        <a href="#callback" data-toggle="modal" class="callback-btn main-btn">Заказать звонок</a>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="map-container">
-                        <div id="map"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- end contact-section -->
-</main>
-<!-- end main-content -->
-
-<?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php");?>
+	</div>
+ <br>
+ <br>
+	<div class="contact-section">
+		<div class="container-fluid">
+			<div class="row no-gutters align-items-center">
+				<div class="col-md-6">
+					<div class="contact-section_desc">
+						<div class="section-title">
+							 Наши контакты
+						</div>
+						<ul class="contact-list">
+							<li> <span class="glipf-placeholder"></span>
+							<?= tplvar('street', true);?> </li>
+							<li> <span class="glipf-phone"></span> <a href="tel:<?= tplvar('phone');?>"><?= tplvar('phone', true);?></a> </li>
+							<li> <a href="mailto:online@rusklimat.ru"> <span class="glipf-email"></span>
+							<?= tplvar('email', true);?> </a> </li>
+						</ul>
+ <a href="#callback" data-toggle="modal" class="callback-btn main-btn">Заказать звонок</a>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="map-container">
+						<div id="map">
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	 <!-- end contact-section -->
+</div>
+ </main>
+<!-- end main-content --><?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php");?>

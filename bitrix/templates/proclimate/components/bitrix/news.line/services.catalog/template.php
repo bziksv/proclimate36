@@ -21,6 +21,14 @@ $this->setFrameMode(true);
     $db_props = CIBlockElement::GetProperty($arItem['IBLOCK_ID'], $arItem['ID'], array(), Array("CODE" => "MAIN_ICON"));
     if($ar_props = $db_props->Fetch())
         $ICON = $ar_props["VALUE"];
+
+    $ANCOR = "Подробнее";
+    $db_props = CIBlockElement::GetProperty($arItem['IBLOCK_ID'], $arItem['ID'], array(), Array("CODE" => "ANCOR"));
+    if($ar_props = $db_props->Fetch()){
+        if($ar_props["VALUE"]){
+            $ANCOR = $ar_props["VALUE"];  
+        }  
+    }
     ?>
     <div class="services-item_sidebar">
         <div class="services-item_sidebar-header">
@@ -29,7 +37,7 @@ $this->setFrameMode(true);
         </div>
         <p><?=$arItem['PREVIEW_TEXT']?></p>
         <a href="<?=$arItem['DETAIL_PAGE_URL']?>" class="services-item_more-details">
-            <span class="text">Подробнее</span> <span class="arrow">→</span>
+            <span class="text"><?=$ANCOR?></span> <span class="arrow">→</span>
         </a>
     </div>
     <?endforeach;?>

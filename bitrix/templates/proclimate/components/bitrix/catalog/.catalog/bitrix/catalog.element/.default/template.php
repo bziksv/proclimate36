@@ -99,7 +99,15 @@ $this->setFrameMode(true);
                             ?>
                         <li>
                             <span class="<?=($arResult['PROPERTIES'][$code]['HINT']) ?: 'glipf-swing'?>"></span>
-                            <?=$arResult['PROPERTIES'][$code]['NAME']?> - <? echo (is_array($arResult['PROPERTIES'][$code]['VALUE']) ? implode(' / ', $arResult['PROPERTIES'][$code]['VALUE']) : $arResult['PROPERTIES'][$code]['VALUE']);?>
+								<? //echo $arResult['PROPERTIES'][$code]['NAME']?>
+								<?
+									if($arResult['PROPERTIES'][$code]['CODE'] == 'AREA' && $arResult['PROPERTIES']['CHANGE_AREA_FIELD_NAME']['VALUE'] != '') {
+										echo $arResult['PROPERTIES']['CHANGE_AREA_FIELD_NAME']['VALUE'];
+									} else {
+										echo $arResult['PROPERTIES'][$code]['NAME'];
+									}
+								?>
+							 - <? echo (is_array($arResult['PROPERTIES'][$code]['VALUE']) ? implode(' / ', $arResult['PROPERTIES'][$code]['VALUE']) : $arResult['PROPERTIES'][$code]['VALUE']);?>
                         </li>
                         <? endforeach; ?>
                     </ul>
@@ -158,7 +166,7 @@ $this->setFrameMode(true);
     <ul class="selected-product_tab-names">
         <li class="tab active">Описание</li>
         <li class="tab">Характеристики</li>
-        <li class="tab">Оплата и доставка</li>
+        <li><a href="/payment/" target="_blank">Оплата и доставка</a></li>
     </ul>
     <div class="selected-product_content-tabs">
         <div class="tab-item is-visible"><?=$arResult['DETAIL_TEXT']?></div>
@@ -183,7 +191,6 @@ $this->setFrameMode(true);
                 <? endforeach; ?>
             </ul>
         </div>
-        <div class="tab-item"><?=$arResult['PROPERTIES']['DELIVERY_TEXT']['~VALUE']['TEXT']?></div>
     </div>
 </div>
 

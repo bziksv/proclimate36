@@ -84,6 +84,7 @@ $this->setFrameMode(true);
 
         <?
         //not prices
+        $sl = 2;
         foreach($arResult["ITEMS"] as $key=>$arItem)
         {
             if(
@@ -109,6 +110,74 @@ $this->setFrameMode(true);
                     $arCur = current($arItem["VALUES"]);
                     switch ($arItem["DISPLAY_TYPE"])
                     {
+                        case "A"://NUMBERS_WITH_SLIDER
+                            ?>
+                            <div class="filter-number">
+                                <div id="slider-range_<?=$sl?>"></div>
+                                <div class="field-number_container">
+                                    <div class="wrapper_field-number">
+                                        <span class="text"><?=GetMessage("CT_BCSF_FILTER_FROM")?></span>
+                                        <input
+                                                class="field-number"
+                                                type="text"
+                                                name="<?echo $arItem["VALUES"]["MIN"]["CONTROL_NAME"]?>"
+                                                id="price-min_<?=$sl?>"
+                                                value="<?echo $arItem["VALUES"]["MIN"]["VALUE"]?>"
+                                                onkeyup="smartFilter.keyup(this)"
+                                        />
+                                    </div>
+                                    <div class="wrapper_field-number wrapper_field-number_second">
+                                        <span class="text">- <?=GetMessage("CT_BCSF_FILTER_TO")?></span>
+                                        <input
+                                                class="field-number"
+                                                type="text"
+                                                name="<?echo $arItem["VALUES"]["MAX"]["CONTROL_NAME"]?>"
+                                                id="price-max_<?=$sl?>"
+                                                value="<?echo round($arItem["VALUES"]["MAX"]["VALUE"])?>"
+                                                onkeyup="smartFilter.keyup(this)"
+                                        />
+                                    </div>
+                                </div>
+<!--                                 <div class="col-xs-10 col-xs-offset-1 bx-ui-slider-track-container">
+                                    <div class="bx-ui-slider-track" id="drag_track_<?=$key?>">
+                                        <?
+                                        $precision = $arItem["DECIMALS"]? $arItem["DECIMALS"]: 0;
+                                        $step = ($arItem["VALUES"]["MAX"]["VALUE"] - $arItem["VALUES"]["MIN"]["VALUE"]) / 4;
+                                        $value1 = number_format($arItem["VALUES"]["MIN"]["VALUE"], $precision, ".", "");
+                                        $value2 = number_format($arItem["VALUES"]["MIN"]["VALUE"] + $step, $precision, ".", "");
+                                        $value3 = number_format($arItem["VALUES"]["MIN"]["VALUE"] + $step * 2, $precision, ".", "");
+                                        $value4 = number_format($arItem["VALUES"]["MIN"]["VALUE"] + $step * 3, $precision, ".", "");
+                                        $value5 = number_format($arItem["VALUES"]["MAX"]["VALUE"], $precision, ".", "");
+                                        ?>
+                                        <div class="bx-ui-slider-part p1"><span><?=$value1?></span></div>
+                                        <div class="bx-ui-slider-part p2"><span><?=$value2?></span></div>
+                                        <div class="bx-ui-slider-part p3"><span><?=$value3?></span></div>
+                                        <div class="bx-ui-slider-part p4"><span><?=$value4?></span></div>
+                                        <div class="bx-ui-slider-part p5"><span><?=$value5?></span></div>
+
+                                        <div class="bx-ui-slider-pricebar-vd" style="left: 0;right: 0;" id="colorUnavailableActive_<?=$key?>"></div>
+                                        <div class="bx-ui-slider-pricebar-vn" style="left: 0;right: 0;" id="colorAvailableInactive_<?=$key?>"></div>
+                                        <div class="bx-ui-slider-pricebar-v"  style="left: 0;right: 0;" id="colorAvailableActive_<?=$key?>"></div>
+                                        <div class="bx-ui-slider-range"     id="drag_tracker_<?=$key?>"  style="left: 0;right: 0;">
+                                            <a class="bx-ui-slider-handle left"  style="left:0;" href="javascript:void(0)" id="left_slider_<?=$key?>"></a>
+                                            <a class="bx-ui-slider-handle right" style="right:0;" href="javascript:void(0)" id="right_slider_<?=$key?>"></a>
+                                        </div>
+                                    </div>
+                                </div> -->
+                            </div>
+                            <?
+                            $arJsParams = array(
+                                        "minPrice" => $arItem["VALUES"]["MIN"]["VALUE"],
+                                        "maxPrice" => $arItem["VALUES"]["MAX"]["VALUE"],
+                                        "curMinPrice" => $arItem["VALUES"]["MIN"]["HTML_VALUE"],
+                                        "curMaxPrice" => $arItem["VALUES"]["MAX"]["HTML_VALUE"]
+                            );?>
+                                <script type="text/javascript">
+                                    var filterPrice_<?=$sl?> = <?=CUtil::PhpToJSObject($arJsParams)?>;
+                                </script>
+                            <?
+                            $sl++;
+                            break;
                         case "K"://RADIO_BUTTONS
                             ?>
                             <ul class="sidebar-filter_parameters">
@@ -137,7 +206,7 @@ $this->setFrameMode(true);
                                             <? echo $ar["CHECKED"]? 'checked="checked"': '' ?>
                                                 onclick="smartFilter.click(this)"
                                         />
-                                        <span class="radio-text"><?=$ar["VALUE"];?></span>
+                                        <span class="radio-text"><a href="?<? echo $ar["CONTROL_NAME_ALT"] ?>=<? echo $ar["HTML_VALUE_ALT"] ?>"><?=$ar["VALUE"];?></a></span>
                                     </label>
                                 </li>
                             <?endforeach;?>
@@ -159,7 +228,7 @@ $this->setFrameMode(true);
                                             <? echo $ar["CHECKED"]? 'checked="checked"': '' ?>
                                                 onclick="smartFilter.click(this)"
                                         />
-                                        <span class="checkbox-text"><?=$ar["VALUE"];?></span>
+                                        <span class="checkbox-text"><a href="?<? echo $ar["CONTROL_NAME"] ?>=<? echo $ar["HTML_VALUE"] ?>"><?=$ar["VALUE"];?></a></span>
                                     </label>
                                 </li>
                             <?endforeach;?>
@@ -198,23 +267,23 @@ $this->setFrameMode(true);
     <div class="tablet-small_hidden">
         <div class="section-title sidebar-title">Наши услуги</div>
         <?$APPLICATION->IncludeComponent("bitrix:news.line", "services.catalog", Array(
-            "ACTIVE_DATE_FORMAT" => "d.m.Y",	// Формат показа даты
-            "CACHE_GROUPS" => "Y",	// Учитывать права доступа
-            "CACHE_TIME" => "300",	// Время кеширования (сек.)
-            "CACHE_TYPE" => "A",	// Тип кеширования
-            "DETAIL_URL" => "",	// URL, ведущий на страницу с содержимым элемента раздела
-            "FIELD_CODE" => array(	// Поля
+            "ACTIVE_DATE_FORMAT" => "d.m.Y",    // Формат показа даты
+            "CACHE_GROUPS" => "Y",  // Учитывать права доступа
+            "CACHE_TIME" => "300",  // Время кеширования (сек.)
+            "CACHE_TYPE" => "A",    // Тип кеширования
+            "DETAIL_URL" => "", // URL, ведущий на страницу с содержимым элемента раздела
+            "FIELD_CODE" => array(  // Поля
                 0 => "PREVIEW_TEXT",
             ),
-            "IBLOCKS" => array(	// Код информационного блока
+            "IBLOCKS" => array( // Код информационного блока
                 0 => "5",
             ),
-            "IBLOCK_TYPE" => "news",	// Тип информационного блока
-            "NEWS_COUNT" => "4",	// Количество новостей на странице
-            "SORT_BY1" => "ACTIVE_FROM",	// Поле для первой сортировки новостей
-            "SORT_BY2" => "SORT",	// Поле для второй сортировки новостей
-            "SORT_ORDER1" => "DESC",	// Направление для первой сортировки новостей
-            "SORT_ORDER2" => "ASC",	// Направление для второй сортировки новостей
+            "IBLOCK_TYPE" => "news",    // Тип информационного блока
+            "NEWS_COUNT" => "4",    // Количество новостей на странице
+            "SORT_BY1" => "ACTIVE_FROM",    // Поле для первой сортировки новостей
+            "SORT_BY2" => "SORT",   // Поле для второй сортировки новостей
+            "SORT_ORDER1" => "DESC",    // Направление для первой сортировки новостей
+            "SORT_ORDER2" => "ASC", // Направление для второй сортировки новостей
         ),
             false
         );?>
@@ -222,5 +291,5 @@ $this->setFrameMode(true);
 </aside>
 
 <script type="text/javascript">
-	var smartFilter = new JCSmartFilter('<?echo CUtil::JSEscape($arResult["FORM_ACTION"])?>', '<?=CUtil::JSEscape($arParams["FILTER_VIEW_MODE"])?>', <?=CUtil::PhpToJSObject($arResult["JS_FILTER_PARAMS"])?>);
+    var smartFilter = new JCSmartFilter('<?echo CUtil::JSEscape($arResult["FORM_ACTION"])?>', '<?=CUtil::JSEscape($arParams["FILTER_VIEW_MODE"])?>', <?=CUtil::PhpToJSObject($arResult["JS_FILTER_PARAMS"])?>);
 </script>

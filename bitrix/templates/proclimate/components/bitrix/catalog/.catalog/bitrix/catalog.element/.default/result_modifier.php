@@ -590,6 +590,10 @@ foreach($arResult['PROPERTIES']['GALLERY']['VALUE'] as &$gallery){
 	$gallery = CFile::GetPath($gallery);
 }
 
+if($arResult['PROPERTIES']['SEO_NAME']['VALUE']){
+	$arResult['NAME'] = $arResult['PROPERTIES']['SEO_NAME']['VALUE'];
+}
+
 if($arParams['SERVICE_IBLOCK_ID']){
 	$arSelect = Array("ID", "NAME", "PREVIEW_TEXT", "DATE_ACTIVE_FROM");
 	$arFilter = Array("IBLOCK_ID" => $arParams['SERVICE_IBLOCK_ID'], "ACTIVE" => "Y");

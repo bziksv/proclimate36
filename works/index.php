@@ -1,6 +1,8 @@
 <?
 require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
-$APPLICATION->SetTitle("works");
+$APPLICATION->SetPageProperty("title", "Наши работы по установке кондиционеров");
+$APPLICATION->SetPageProperty("description", "Установка кондиционеров по выгодной цене в Воронеже");
+$APPLICATION->SetTitle("Наши работы");
 
 $currentLen = $_REQUEST['len'];
 $arLen = [15, 30, 45];
@@ -54,10 +56,10 @@ if($ar_res = $res->GetNext())
                 ),
                     false
                 );?>
-
-                <div class="text-section">
+					<div class="text-section">
                     <?=$arBlock['DESCRIPTION'];?>
                 </div>
+
             </div>
         </div>
         <!-- end works-section -->

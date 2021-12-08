@@ -15,11 +15,9 @@ use Bitrix\Main\ModuleManager;
 
 $this->setFrameMode(true);
 $currentLen = $_REQUEST['len'];
-$arLen = [15, 30, 45];
+$arLen = [30, 45];
 $arSort = ['shows' => 'Популярности','SCALED_PRICE_1' => 'Цене', 'name' => 'Название'];
-?>
-
-<div class="catalog-section">
+?><div class="catalog-section">
 	<div class="container">
 
         <?$APPLICATION->IncludeComponent(
@@ -37,10 +35,20 @@ $arSort = ['shows' => 'Популярности','SCALED_PRICE_1' => 'Цене',
         $APPLICATION->IncludeComponent("bitrix:breadcrumb", "breadcrumb", Array("SITE_ID" => SITE_ID),
             false
         );
-        ?>
 
-		<h1>Каталог товаров</h1>
-
+   $arFilterS = array('IBLOCK_ID' => $arParams['IBLOCK_ID'],'CODE' =>$arResult["VARIABLES"]["SECTION_CODE"]);
+   $rsSectS = CIBlockSection::GetList(array(),$arFilterS,false,array("UF_SEO_NAME"));
+   if ($arSectS = $rsSectS->GetNext())
+   {
+		if($arSectS["UF_SEO_NAME"]){
+			$nesH = $arSectS["UF_SEO_NAME"];
+	   }
+   }?>
+		<?if($nesH){?>
+			<h1><?=$nesH?></h1>
+		<?}else{?>
+			<h1>Каталог товаров</h1>
+		<?}?>
         <div class="row">
 			<div class="col-xl-3 col-lg-4 col-md-4">
                 <?
@@ -152,6 +160,49 @@ $arSort = ['shows' => 'Популярности','SCALED_PRICE_1' => 'Цене',
                     $component,
                     array("HIDE_ICONS" => "Y")
                 );?>
+        <?
+          global $menuTag;
+          $arFilterTag = Array('IBLOCK_ID'=>$arParams["IBLOCK_ID"], 'CODE'=>$arResult["VARIABLES"]["SECTION_CODE"]);
+          $db_listTag = CIBlockSection::GetList(Array($by=>$order), $arFilterTag, true, Array("UF_TAG"));
+          while($ar_resultTag = $db_listTag->GetNext())
+          {
+            if($ar_resultTag["UF_TAG"]){
+                foreach($ar_resultTag["UF_TAG"] as $tag){
+                    $menuTag[] = explode("##",$tag);
+                }
+            }
+          }
+
+if($menuTag):?>
+				<?//if(count($menuTag)>5):?>
+        <div class="slider_product_show_all slider_product_b tag_menu_b tag_menu_bc" id="tag_menu_b">
+            <?
+            foreach ($menuTag as $tag)
+            {
+                ?>
+                    <div>
+                        <a href="<?=$tag[1]?>"><?=$tag[0]?></a>
+                    </div>
+                <?
+            }
+            ?>
+        </div>
+				<?//endif;?>
+    <div class="slider_product_show_all slider_product_b tag_menu_b slider_product_c tag_menu_all" style="display:none;" id="tag_menu_all">
+
+        <?
+        foreach ($menuTag as $tag)
+        {
+            ?>
+
+                    <a href="<?=$tag[1]?>"><?=$tag[0]?></a>
+
+            <?
+        }
+        ?>
+    </div>
+<div class="navi"><span class="open is-act">Показать все</span><span class="closem">Свернуть</span></div>
+<?endif;?>
 
                 <div class="catalog-top_box">
                     <? if($arCurSection['UF_FILTER']): ?>
@@ -179,6 +230,8 @@ $arSort = ['shows' => 'Популярности','SCALED_PRICE_1' => 'Цене',
                         <? } ?>
 					</div>
                     <? endif; ?>
+
+
 					<div class="catalog-filter_panel">
 						<div class="row">
 							<div class="col-sm-6 left-column">
@@ -214,11 +267,12 @@ $arSort = ['shows' => 'Популярности','SCALED_PRICE_1' => 'Цене',
 						</div>
 					</div>
 				</div>
-
+ 
                 <?$intSectionID = $APPLICATION->IncludeComponent(
                     "bitrix:catalog.section",
                     "",
                     array(
+						"SECTION_USER_FIELDS" => ["UF_*"],
                         "LIST_PROPERTY_CODE" => $arParams['LIST_PROPERTY_CODE'],
                         "IBLOCK_TYPE" => $arParams["IBLOCK_TYPE"],
                         "IBLOCK_ID" => $arParams["IBLOCK_ID"],
@@ -315,7 +369,209 @@ $arSort = ['shows' => 'Популярности','SCALED_PRICE_1' => 'Цене',
                     $component
                 );
                 ?>
+				
+		<?
+			
+			global $USER;
+			if ($USER->IsAdmin()):
+			//вывод блока рекомендуемых товаров
+			global $arrFilterRec;
+		//	echo "<pre>"; print_r($arResult); echo "</pre>";
+		//echo $arResult["VARIABLES"]["SECTION_CODE"];
+		$res = CIBlockSection::GetList(array(), array('IBLOCK_ID' => 2, 'CODE' => $arResult["VARIABLES"]["SECTION_CODE"], 'SITE_ID' => "s1"));
+$section = $res->Fetch();
+  
+$section_id =  $section["ID"];
+//echo $section_id;
+			//$rsResult2 = CIBlockSection::GetList(array("SORT"=>"ASC"), array("IBLOCK_ID"=>2, 'ACTIVE'=>'Y', "SECTION_ID"=>$section_id), true, array("UF_RECPRODUCTS"));
+			//	while($arResult2 = $rsResult2->GetNext())
+			//	{
+			//	echo "<pre>"; print_r($arResult2); echo "</pre>";
+			//	}
+				//$arrID = array();
+				$i=0;
+				$arFilterSeo = Array('IBLOCK_ID'=>2, 'ACTIVE'=>'Y', "ID"=>$section_id);
+				$db_listSeo = CIBlockSection::GetList(Array($by=>$order), $arFilterSeo, true, Array('UF_RECPRODUCTS'));
+				if($ar_resultSeo = $db_listSeo->GetNext())
+				{
+					 
+					 foreach ($ar_resultSeo["~UF_RECPRODUCTS"] as $value) {
+							//echo $value; 
+							
+							$id = explode(';', $value);
+							//echo $id[0];
+							$arrID[] = $id[0];
+							//$i++;
+							echo "<br/>";
+						}
+				   /*print_r($ar_resultSeo["~UF_RECPRODUCTS"]);
+				   echo "<br/>";
+				  print_r($ar_resultSeo["~UF_RECPRODUCTS"][$i]);
+				  $arrID = $ar_resultSeo[$i];
+				 $i++;*/
+				}
 
+			//print_r($arrID);
+            global $arrFilterRec;
+			$arrFilterRec['ID'] = $arrID; 
+			//$arParams["FILTER_NAME"] = "arrFilterRec";
+				if (!empty($arrFilterRec['ID'])):
+			?>
+				<br/>
+				<div class="section-title">Рекомендуемые товары</div>
+				
+			<?
+				
+			$APPLICATION->IncludeComponent(
+                    "bitrix:catalog.section",
+                    "rec_section_by_ko",
+                    array(
+                        "LIST_PROPERTY_CODE" => $arParams['LIST_PROPERTY_CODE'],
+                        "IBLOCK_TYPE" => $arParams["IBLOCK_TYPE"],
+                        "IBLOCK_ID" => $arParams["IBLOCK_ID"],
+                        "ELEMENT_SORT_FIELD" => ($_REQUEST['SORT']) ?: $arParams["ELEMENT_SORT_FIELD"],
+                        "ELEMENT_SORT_ORDER" => ($_REQUEST['SORT']) ? 'asc' : $arParams["ELEMENT_SORT_ORDER"],
+                        "ELEMENT_SORT_FIELD2" => $arParams["ELEMENT_SORT_FIELD2"],
+                        "ELEMENT_SORT_ORDER2" => $arParams["ELEMENT_SORT_ORDER2"],
+                        "PROPERTY_CODE" => $arParams["LIST_PROPERTY_CODE"],
+                        "META_KEYWORDS" => $arParams["LIST_META_KEYWORDS"],
+                        "META_DESCRIPTION" => $arParams["LIST_META_DESCRIPTION"],
+                        "BROWSER_TITLE" => $arParams["LIST_BROWSER_TITLE"],
+                        "SET_LAST_MODIFIED" => $arParams["SET_LAST_MODIFIED"],
+                        "INCLUDE_SUBSECTIONS" => "A",
+                        "BASKET_URL" => $arParams["BASKET_URL"],
+                        "ACTION_VARIABLE" => $arParams["ACTION_VARIABLE"],
+                        "PRODUCT_ID_VARIABLE" => $arParams["PRODUCT_ID_VARIABLE"],
+                        "SECTION_ID_VARIABLE" => $arParams["SECTION_ID_VARIABLE"],
+                        "PRODUCT_QUANTITY_VARIABLE" => $arParams["PRODUCT_QUANTITY_VARIABLE"],
+                        "PRODUCT_PROPS_VARIABLE" => $arParams["PRODUCT_PROPS_VARIABLE"],
+                        "FILTER_NAME" => "arrFilterRec",
+						"USE_FILTER" => "Y",
+                        "CACHE_TYPE" => $arParams["CACHE_TYPE"],
+                        "CACHE_TIME" => $arParams["CACHE_TIME"],
+                        "CACHE_FILTER" => $arParams["CACHE_FILTER"],
+                        "CACHE_GROUPS" => $arParams["CACHE_GROUPS"],
+                        "SET_TITLE" => $arParams["SET_TITLE"],
+                        "MESSAGE_404" => $arParams["MESSAGE_404"],
+                        "SET_STATUS_404" => $arParams["SET_STATUS_404"],
+                        "SHOW_404" => $arParams["SHOW_404"],
+                        "FILE_404" => $arParams["FILE_404"],
+                        "DISPLAY_COMPARE" => $arParams["USE_COMPARE"],
+                        "PAGE_ELEMENT_COUNT" => ($currentLen) ?: $arParams["PAGE_ELEMENT_COUNT"],
+                        "LINE_ELEMENT_COUNT" => $arParams["LINE_ELEMENT_COUNT"],
+                        "PRICE_CODE" => $arParams["PRICE_CODE"],
+                        "USE_PRICE_COUNT" => $arParams["USE_PRICE_COUNT"],
+                        "SHOW_PRICE_COUNT" => $arParams["SHOW_PRICE_COUNT"],
+
+                        "PRICE_VAT_INCLUDE" => $arParams["PRICE_VAT_INCLUDE"],
+                        "USE_PRODUCT_QUANTITY" => $arParams['USE_PRODUCT_QUANTITY'],
+                        "ADD_PROPERTIES_TO_BASKET" => (isset($arParams["ADD_PROPERTIES_TO_BASKET"]) ? $arParams["ADD_PROPERTIES_TO_BASKET"] : ''),
+                        "PARTIAL_PRODUCT_PROPERTIES" => (isset($arParams["PARTIAL_PRODUCT_PROPERTIES"]) ? $arParams["PARTIAL_PRODUCT_PROPERTIES"] : ''),
+                        "PRODUCT_PROPERTIES" => $arParams["PRODUCT_PROPERTIES"],
+						"SHOW_ALL_WO_SECTION" => "Y",
+                        "DISPLAY_TOP_PAGER" => $arParams["DISPLAY_TOP_PAGER"],
+                        "DISPLAY_BOTTOM_PAGER" => $arParams["DISPLAY_BOTTOM_PAGER"],
+                        "PAGER_TITLE" => $arParams["PAGER_TITLE"],
+                        "PAGER_SHOW_ALWAYS" => $arParams["PAGER_SHOW_ALWAYS"],
+                        "PAGER_TEMPLATE" => $arParams["PAGER_TEMPLATE"],
+                        "PAGER_DESC_NUMBERING" => $arParams["PAGER_DESC_NUMBERING"],
+                        "PAGER_DESC_NUMBERING_CACHE_TIME" => $arParams["PAGER_DESC_NUMBERING_CACHE_TIME"],
+                        "PAGER_SHOW_ALL" => $arParams["PAGER_SHOW_ALL"],
+                        "PAGER_BASE_LINK_ENABLE" => $arParams["PAGER_BASE_LINK_ENABLE"],
+                        "PAGER_BASE_LINK" => $arParams["PAGER_BASE_LINK"],
+                        "PAGER_PARAMS_NAME" => $arParams["PAGER_PARAMS_NAME"],
+
+                        "OFFERS_CART_PROPERTIES" => $arParams["OFFERS_CART_PROPERTIES"],
+                        "OFFERS_FIELD_CODE" => $arParams["LIST_OFFERS_FIELD_CODE"],
+                        "OFFERS_PROPERTY_CODE" => $arParams["LIST_OFFERS_PROPERTY_CODE"],
+                        "OFFERS_SORT_FIELD" => $arParams["OFFERS_SORT_FIELD"],
+                        "OFFERS_SORT_ORDER" => $arParams["OFFERS_SORT_ORDER"],
+                        "OFFERS_SORT_FIELD2" => $arParams["OFFERS_SORT_FIELD2"],
+                        "OFFERS_SORT_ORDER2" => $arParams["OFFERS_SORT_ORDER2"],
+                        "OFFERS_LIMIT" => $arParams["LIST_OFFERS_LIMIT"],
+
+                        "SECTION_ID" => "",
+                        "SECTION_CODE" => "",
+                        "SECTION_URL" => $arResult["FOLDER"].$arResult["URL_TEMPLATES"]["section"],
+                        "DETAIL_URL" => $arResult["FOLDER"].$arResult["URL_TEMPLATES"]["element"],
+                        "USE_MAIN_ELEMENT_SECTION" => $arParams["USE_MAIN_ELEMENT_SECTION"],
+                        'CONVERT_CURRENCY' => $arParams['CONVERT_CURRENCY'],
+                        'CURRENCY_ID' => $arParams['CURRENCY_ID'],
+                        'HIDE_NOT_AVAILABLE' => $arParams["HIDE_NOT_AVAILABLE"],
+
+                        'LABEL_PROP' => $arParams['LABEL_PROP'],
+                        'ADD_PICT_PROP' => $arParams['ADD_PICT_PROP'],
+                        'PRODUCT_DISPLAY_MODE' => $arParams['PRODUCT_DISPLAY_MODE'],
+
+                        'OFFER_ADD_PICT_PROP' => $arParams['OFFER_ADD_PICT_PROP'],
+                        'OFFER_TREE_PROPS' => $arParams['OFFER_TREE_PROPS'],
+                        'PRODUCT_SUBSCRIPTION' => $arParams['PRODUCT_SUBSCRIPTION'],
+                        'SHOW_DISCOUNT_PERCENT' => $arParams['SHOW_DISCOUNT_PERCENT'],
+                        'SHOW_OLD_PRICE' => $arParams['SHOW_OLD_PRICE'],
+                        'MESS_BTN_BUY' => $arParams['MESS_BTN_BUY'],
+                        'MESS_BTN_ADD_TO_BASKET' => $arParams['MESS_BTN_ADD_TO_BASKET'],
+                        'MESS_BTN_SUBSCRIBE' => $arParams['MESS_BTN_SUBSCRIBE'],
+                        'MESS_BTN_DETAIL' => $arParams['MESS_BTN_DETAIL'],
+                        'MESS_NOT_AVAILABLE' => $arParams['MESS_NOT_AVAILABLE'],
+
+                        'TEMPLATE_THEME' => "rec_section_by_ko",
+                        "ADD_SECTIONS_CHAIN" => "Y",
+                        'ADD_TO_BASKET_ACTION' => $basketAction,
+                        'SHOW_CLOSE_POPUP' => isset($arParams['COMMON_SHOW_CLOSE_POPUP']) ? $arParams['COMMON_SHOW_CLOSE_POPUP'] : '',
+                        'COMPARE_PATH' => $arResult['FOLDER'].$arResult['URL_TEMPLATES']['compare']
+                    ),
+                    $component
+                );
+				
+				endif;
+		
+		endif;
+		
+		?>
+		
+        <?
+          global $menuTagB;
+          $arFilterTag = Array('IBLOCK_ID'=>$arParams["IBLOCK_ID"], 'CODE'=>$arResult["VARIABLES"]["SECTION_CODE"]);
+          $db_listTag = CIBlockSection::GetList(Array($by=>$order), $arFilterTag, true, Array("UF_TAG_2"));
+          while($ar_resultTag = $db_listTag->GetNext())
+          {
+            if($ar_resultTag["UF_TAG_2"]){
+                foreach($ar_resultTag["UF_TAG_2"] as $tag){
+                    $menuTagB[] = explode("##",$tag);
+                }
+            }
+          }
+
+if($menuTagB):?>
+                <?//if(count($menuTag)>5):?>
+        <div class="slider_product_show_all slider_product_b tag_menu_b tag_menu_c tag_menu_bc" id="tag_menu_b">
+            <?
+            foreach ($menuTagB as $tag)
+            {
+                ?>
+                    <div>
+                        <a href="<?=$tag[1]?>"><?=$tag[0]?></a>
+                    </div>
+                <?
+            }
+            ?>
+        </div>
+                <?//endif;?>
+    <div class="slider_product_show_all slider_product_b tag_menu_c tag_menu_b slider_product_c tag_menu_all" style="display:none;" id="tag_menu_all">
+
+        <?
+        foreach ($menuTagB as $tag)
+        {
+            ?>
+
+                    <a href="<?=$tag[1]?>"><?=$tag[0]?></a>
+
+            <?
+        }
+        ?>
+    </div>
+<div class="navi tag_menu_c"><span class="open is-act">Показать все</span><span class="closem">Свернуть</span></div>
+<?endif;?>
                 <div class="tablet-small_visible">
 					<div class="section-title">Наши услуги</div>
                     <?$APPLICATION->IncludeComponent("bitrix:news.line", "services.catalog", Array(
@@ -341,7 +597,139 @@ $arSort = ['shows' => 'Популярности','SCALED_PRICE_1' => 'Цене',
                     );?>
 				</div>
 
+<!-- brands-section -->
+<?if (($APPLICATION->GetCurDir() == "/catalog/konditsionery/") || ($APPLICATION->GetCurDir() == "/catalog/split_sistemy/") || ($APPLICATION->GetCurDir() == "/catalog/multi_split_sistemy/")) {
+$APPLICATION->IncludeComponent(
+	"bitrix:news.line",
+	"brands-kond",
+	Array(
+		"ACTIVE_DATE_FORMAT" => "d.m.Y",
+		"CACHE_GROUPS" => "Y",
+		"CACHE_TIME" => "300",
+		"CACHE_TYPE" => "A",
+		"DETAIL_URL" => "",
+		"FIELD_CODE" => array(0=>"PREVIEW_PICTURE",1=>"PREVIEW_TEXT",2=>"PROPERTY_BREND_LINK",),
+		"IBLOCKS" => array(0=>"14",),
+		"IBLOCK_TYPE" => "news",
+		"NEWS_COUNT" => "50",
+		"SORT_BY1" => "ACTIVE_FROM",
+		"SORT_BY2" => "SORT",
+		"SORT_ORDER1" => "DESC",
+		"SORT_ORDER2" => "ASC"
+	)
+);
+}?>
+<?if (($APPLICATION->GetCurDir() == "/catalog/ventilyatsiya/") || ($APPLICATION->GetCurDir() == "/catalog/filtr_tonkoy_ochistki/") || ($APPLICATION->GetCurDir() == "/catalog/kompaktnye_bytovye_pribory/") || ($APPLICATION->GetCurDir() == "/catalog/pritochnye_ochistiteli_vozdukha/") || ($APPLICATION->GetCurDir() == "/catalog/pritochno_vytyazhnye_ustanovki/")) {
+$APPLICATION->IncludeComponent(
+	"bitrix:news.line",
+	"brands-kond",
+	Array(
+		"ACTIVE_DATE_FORMAT" => "d.m.Y",
+		"CACHE_GROUPS" => "Y",
+		"CACHE_TIME" => "300",
+		"CACHE_TYPE" => "A",
+		"DETAIL_URL" => "",
+		"FIELD_CODE" => array(0=>"PREVIEW_PICTURE",1=>"PREVIEW_TEXT",2=>"PROPERTY_BREND_LINK",),
+		"IBLOCKS" => array(0=>"50",),
+		"IBLOCK_TYPE" => "news",
+		"NEWS_COUNT" => "50",
+		"SORT_BY1" => "ACTIVE_FROM",
+		"SORT_BY2" => "SORT",
+		"SORT_ORDER1" => "DESC",
+		"SORT_ORDER2" => "ASC"
+	)
+);
+}?>
+<?if (($APPLICATION->GetCurDir() == "/catalog/obogrevateli/") || ($APPLICATION->GetCurDir() == "/catalog/konvektory/") || ($APPLICATION->GetCurDir() == "/catalog/infrakrasnye_obogrevateli/") || ($APPLICATION->GetCurDir() == "/catalog/maslyanye_radiatory/") || ($APPLICATION->GetCurDir() == "/catalog/teploventilyatory/")) {
+$APPLICATION->IncludeComponent(
+	"bitrix:news.line",
+	"brands-kond",
+	Array(
+		"ACTIVE_DATE_FORMAT" => "d.m.Y",
+		"CACHE_GROUPS" => "Y",
+		"CACHE_TIME" => "300",
+		"CACHE_TYPE" => "A",
+		"DETAIL_URL" => "",
+		"FIELD_CODE" => array(0=>"PREVIEW_PICTURE",1=>"PREVIEW_TEXT",2=>"PROPERTY_BREND_LINK",),
+		"IBLOCKS" => array(0=>"16",),
+		"IBLOCK_TYPE" => "news",
+		"NEWS_COUNT" => "50",
+		"SORT_BY1" => "ACTIVE_FROM",
+		"SORT_BY2" => "SORT",
+		"SORT_ORDER1" => "DESC",
+		"SORT_ORDER2" => "ASC"
+	)
+);
+}?>
+<?if ($APPLICATION->GetCurDir() == "/catalog/uvlazhniteli_i_ochistiteli_vozdukha/") {
+$APPLICATION->IncludeComponent(
+	"bitrix:news.line",
+	"brands-kond",
+	Array(
+		"ACTIVE_DATE_FORMAT" => "d.m.Y",
+		"CACHE_GROUPS" => "Y",
+		"CACHE_TIME" => "300",
+		"CACHE_TYPE" => "A",
+		"DETAIL_URL" => "",
+		"FIELD_CODE" => array(0=>"PREVIEW_PICTURE",1=>"PREVIEW_TEXT",2=>"PROPERTY_BREND_LINK",),
+		"IBLOCKS" => array(0=>"17",),
+		"IBLOCK_TYPE" => "news",
+		"NEWS_COUNT" => "50",
+		"SORT_BY1" => "ACTIVE_FROM",
+		"SORT_BY2" => "SORT",
+		"SORT_ORDER1" => "DESC",
+		"SORT_ORDER2" => "ASC"
+	)
+);
+}?>
+<?if (($APPLICATION->GetCurDir() == "/catalog/teplyy_pol/") || ($APPLICATION->GetCurDir() == "/catalog/nagrevatelnye_maty/") || ($APPLICATION->GetCurDir() == "/catalog/nagrevatelnye_sektsii/") || ($APPLICATION->GetCurDir() == "/catalog/infrakrasnaya_plenka/") || ($APPLICATION->GetCurDir() == "/catalog/termoregulyatory/") || ($APPLICATION->GetCurDir() == "/catalog/sistemy_antiobledeneniya/")) {
+$APPLICATION->IncludeComponent(
+	"bitrix:news.line",
+	"brands-kond",
+	Array(
+		"ACTIVE_DATE_FORMAT" => "d.m.Y",
+		"CACHE_GROUPS" => "Y",
+		"CACHE_TIME" => "300",
+		"CACHE_TYPE" => "A",
+		"DETAIL_URL" => "",
+		"FIELD_CODE" => array(0=>"PREVIEW_PICTURE",1=>"PREVIEW_TEXT",2=>"PROPERTY_BREND_LINK",),
+		"IBLOCKS" => array(0=>"18",),
+		"IBLOCK_TYPE" => "news",
+		"NEWS_COUNT" => "50",
+		"SORT_BY1" => "ACTIVE_FROM",
+		"SORT_BY2" => "SORT",
+		"SORT_ORDER1" => "DESC",
+		"SORT_ORDER2" => "ASC"
+	)
+);
+}?>
+<?if (($APPLICATION->GetCurDir() == "/catalog/almaznoe_burenie/") || ($APPLICATION->GetCurDir() == "/catalog/oborudovanie/") || ($APPLICATION->GetCurDir() == "/catalog/dvigateli_almaznogo_sverleniya/") || ($APPLICATION->GetCurDir() == "/catalog/komplekty_stoyka_dvigatel/") || ($APPLICATION->GetCurDir() == "/catalog/stoyki_dlya_dvigateley_almaznogo_sverleniya/") || 
+($APPLICATION->GetCurDir() == "/catalog/koronki/") || ($APPLICATION->GetCurDir() == "/catalog/podrozetniki/") || ($APPLICATION->GetCurDir() == "/catalog/promyshlennaya_lineyka/")) {
+$APPLICATION->IncludeComponent(
+	"bitrix:news.line",
+	"brands-kond",
+	Array(
+		"ACTIVE_DATE_FORMAT" => "d.m.Y",
+		"CACHE_GROUPS" => "Y",
+		"CACHE_TIME" => "300",
+		"CACHE_TYPE" => "A",
+		"DETAIL_URL" => "",
+		"FIELD_CODE" => array(0=>"PREVIEW_PICTURE",1=>"PREVIEW_TEXT",2=>"PROPERTY_BREND_LINK",),
+		"IBLOCKS" => array(0=>"19",),
+		"IBLOCK_TYPE" => "news",
+		"NEWS_COUNT" => "50",
+		"SORT_BY1" => "ACTIVE_FROM",
+		"SORT_BY2" => "SORT",
+		"SORT_ORDER1" => "DESC",
+		"SORT_ORDER2" => "ASC"
+	)
+);
+}?>
+ <!-- end brands-section -->
+
 				<div class="text-section"><?=$arCurSection['DESCRIPTION']?></div>
+
+
 			</div>
 		</div>
 	</div>

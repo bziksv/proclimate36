@@ -1,8 +1,7 @@
 <?
 require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
 $APPLICATION->SetTitle("Заказы");
-?>
-    <main class="main-content">
+?>    <main class="main-content">
         <div class="cart-section">
             <div class="container">
 

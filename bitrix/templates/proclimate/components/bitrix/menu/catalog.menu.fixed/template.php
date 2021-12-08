@@ -15,7 +15,7 @@ $this->setFrameMode(true);
 ?>
 <div class="head-catalog">
     <span class="head-catalog_hamburger"></span>
-    <span class="head-catalog_text">Каталог товаров</span>
+    <span class="head-catalog_text"><a href="/catalog/">Каталог товаров</a></span>
     <div class="head-catalog_dropdown">
         <?foreach($arResult["MENU_STRUCTURE"] as $itemID => $arColumns):?>
         <?$existPictureDescColomn = ($arResult["ALL_ITEMS"][$itemID]["PARAMS"]["picture_src"] || $arResult["ALL_ITEMS"][$itemID]["PARAMS"]["description"]) ? true : false;?>

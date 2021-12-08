@@ -35,7 +35,7 @@ $this->setFrameMode(true);
                         if($arItem['PROPERTIES']['MARK']['VALUE_XML_ID'])
                             include('mark/'.$arItem['PROPERTIES']['MARK']['VALUE_XML_ID'].'.php');
                         ?>
-                        <a href="<?=$arItem['SECTION']['SECTION_PAGE_URL'];?><?=$arItem['CODE']?>/">
+                        <a href="<?=$arItem['DETAIL_PAGE_URL'];?>/">
                             <img data-src="<?=$arItem['PREVIEW_PICTURE']['SRC']?>" alt="<?=$arItem['NAME']?>">
                         </a>
                     </div>
@@ -43,7 +43,7 @@ $this->setFrameMode(true);
                         <?=$arItem['SECTION']['NAME'];?>
                     </span>
                     <div class="product-item_title">
-                        <a href="<?=$arItem['SECTION']['SECTION_PAGE_URL'];?><?=$arItem['CODE']?>/"><?=$arItem['NAME']?></a>
+                        <a href="<?=$arItem['DETAIL_PAGE_URL']?>"><?=$arItem['NAME']?></a>
                     </div>
                     <span class="product-item_price"><?=$arItem['PRICES']['BASE']['PRINT_VALUE']?></span>
                     <div class="product-item_hidden">

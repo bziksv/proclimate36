@@ -1,0 +1,216 @@
+.bx-404-container a {
+    color: #17769b;
+    text-decoration:none;
+}
+.bx-404-container a:hover {
+	text-decoration:underline;
+}
+.bx-404-container{
+    margin-top: 45px;
+}
+.bx-404-container .bx-404-block{
+	float: left;
+    margin-right: 45px;
+	font-size: 170px;
+}
+.bx-404-container .bx-404-text-block{
+    overflow: overlay;
+	padding: 45px 0;
+}
+.bx-404-container .bx-404-text-block h2{
+    margin-bottom: 10px;
+}
+.bx-404-container .bx-404-text-block-in{
+    padding-left: 30px;
+    font-size: 24px;
+}
+@media (max-width: 991px){
+	.bx-404-container .bx-404-text-block-in {
+		padding-left: 0;
+		font-size: 20px;
+	}
+}
+@media (max-width: 768px){
+	.bx-404-container .bx-404-block{
+		float: none;
+		margin:0;
+		text-align: center;
+	}
+	.bx-404-container .bx-404-text-block{
+		padding: 0;
+		width: 310px;
+		margin: 0 auto;
+	}
+	.bx-404-container .bx-404-text-block h2{
+		font-size: 30px;
+	}
+	.bx-404-container .bx-404-text-block-in {
+		font-size: 16px;
+	}
+	.bx-404-container {
+		margin-bottom: 45px;
+	}
+}
+
+.tag_menu_c.tag_menu_b.slider_product_b a {
+    color: #000;
+    border: #000 solid 1px;
+}
+.tag_menu_c.tag_menu_b a:hover {
+    background: #000;
+    color: #fff !important;
+}
+.tag_menu_c.navi span {
+    color: #000;
+    border-bottom: #000 solid 1px;
+}
+.tag_menu_c .slick-arrow:hover {
+    border-color: #000;
+}
+
+.slider_product_b .slick-arrow2{position:absolute;display:block;margin:0;padding:0;width:50px;height:60px;top:50%;margin-top:-30px;text-indent:-9999px;cursor:pointer;border:0;outline:0;-webkit-border-radius:0;border-radius:0;background-color:#e5eff8;-webkit-backface-visibility:visible;background-image:url('/bitrix/templates/proclimate/img/product_arrow.png');-webkit-transition:background-color 200ms ease;-moz-transition:background-color 200ms ease;-ms-transition:background-color 200ms ease;-o-transition:background-color 200ms ease;transition:background-color 200ms ease}
+
+.slider_product_b .slick-arrow2.slick-prev{left:-51px;background-position:0 0}
+
+.slider_product_b .slick-arrow2.slick-next{right:-51px;background-position:-55px 0}
+
+.slider_product_b .slick-dots{position:absolute;width:100%;bottom:-50px;text-align:center;padding:0;margin:0}
+.slider_product_b .slick-dots li{display:inline-block;list-style-type:none}
+.slider_product_b .slick-dots li:first-child button{margin:0}
+.slider_product_b .slick-dots li button{display:block;cursor:pointer;margin-left:15px;width:12px;height:12px;background:#8a9398;outline:0;border:0;-webkit-border-radius:10px;border-radius:10px;text-indent:-9999px}
+
+.slider_product_b .slick-dots li.slick-active button{background:#0464bb}
+.slider_product_b .product{padding:30px 20px 30px 30px;border-left:1px solid #cdd2d6;position:relative;margin-left:-1px}
+.slider_product_b .product .name{color:#0464bb;text-decoration:none;margin:40px 0 15px;display:block;min-height:145px}
+
+.slider_product_b .product .price{font-size:1.142em;margin-bottom:15px}
+.slider_product_b .product .price span{font-weight:600}
+.slider_product_b .product .cart{color:#fff;background-color:#0464bb;background:#0464bb url(/bitrix/templates/proclimate/img/product_cart.png) no-repeat left center;background-position:15px center;text-decoration:none;padding:12px 25px 12px 50px;border-radius:5px;display:inline-block;-moz-transition:all .3s ease;-o-transition:all .3s ease;-webkit-transition:all .3s ease;transition:all .3s ease}
+
+.slider_product_b .product .stock{color:#00a600;position:relative;display:none;margin-top:20px}
+.slider_product_b .product .stock:after{content:'';display:block;position:absolute;left:125px;top:0;width:18px;height:18px;border-radius:50%;background-color:#00a600;background-image:url(/bitrix/templates/proclimate/img/product_stock.png);background-repeat:no-repeat;background-position:center}
+.slider_product_b .product .cart{padding:12px 15px 12px 45px}
+.slider_product_b .product{text-align:center;border:0}
+.slider_product_b .product img{margin:auto}
+.slider_product_b .product .cart{width:160px;background-position:20px center;font-size:14px}
+.slider_product_b .slick-arrow2.slick-next{right:-21px;background-position:-51px 0}
+.slider_product_b .slick-arrow2.slick-prev{left:-21px;background-position:-12px 0}
+
+#tag_menu_c a{
+	border-color: #2b2b28;
+    color: #2b2b28 !important;
+    background: #fff;
+}
+.navi{
+    text-align: right;
+    margin-top: -25px;
+	margin-bottom: 20px;
+    z-index: 31;
+   position: relative;
+    margin-top: 10px;
+}
+
+.navi span{
+    color: #0497C0;
+    border-bottom: #0497C0 solid 1px;
+    cursor: pointer;
+	display:none;
+}
+.navi span.is-act{
+	display:inline-block;
+}
+.navi span:hover{
+    border-bottom: #fff solid 1px;
+}
+
+.slider_product_b .slick-prev{
+	left:-10px;
+}
+.slider_product_b .slick-next{
+	right:-10px;
+}
+.slider_product_b .slick-prev:after {
+    content: '';
+    display: inline-block;
+    width: 45px;
+    height: 90px;
+    background: url(/bitrix/templates/proclimate/img/grad-left.png) no-repeat;
+background-size: cover;
+    position: absolute;
+top: -13px;
+    right: 0;
+    z-index: 99;
+	transform: rotate( 
+-225deg
+ );
+}
+.slider_product_b .slick-next:after {
+    display: inline-block;
+    content: '';
+    width: 45px;
+    height: 90px;
+    background: url(/bitrix/templates/proclimate/img/grad-right.png) no-repeat;
+    background-size: cover;
+    background-position: 100% 50%;
+    position: absolute;
+    top: -19px;
+    left: -24px;
+    z-index: 99;
+    transform: rotate( 
+-45deg
+ );
+}
+.slider_product_b .slick-next2:before {
+	content: "\f105";
+    font-family: FontAwesome;
+    display: inline-block;
+    font-weight: 400;
+    font-style: normal;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    color: #0497C0;
+    font-size: 26px;
+    vertical-align: middle;
+}
+.tag_menu a{
+    border: 1px solid #0060bf;
+    display: block;
+    margin-top: 10px;
+    padding: 7px 15px;
+}
+.tag_menu a:hover{
+    background:#0060bf;
+    color:#fff;
+}
+.tag_menu_b {
+    margin-top: 35px;
+}
+.tag_menu_b a{
+    border: 1px solid #0060bf;
+    display: block;
+    padding: 7px 15px;
+}
+.tag_menu_b a:hover{
+    background:#0060bf;
+    color:#fff !important;
+}
+.tag_menu_b.slider_product_b{
+    border: none !important;
+}
+.tag_menu_b.slider_product_b a{
+    color: #0497C0;
+    border: #0497C0 solid 1px;
+    padding: 4px 20px;
+    border-radius: 5px;
+    display: inline-block;
+    margin:5px 7px;
+	white-space: nowrap;
+}
+.tag_menu_b.slider_product_b{
+    margin: 15px 0  0;
+}
+
+.slider_product_b.tag_menu_b .slick-arrow2{
+    background-color: #fff !important;
+}
