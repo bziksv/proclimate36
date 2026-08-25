@@ -140,7 +140,8 @@ else
         );
         ?>
 
-        <?$APPLICATION->IncludeComponent(
+	<?
+	$APPLICATION->IncludeComponent(
 	"bitrix:catalog.recommended.products",
 	"recommended.products",
 	array(

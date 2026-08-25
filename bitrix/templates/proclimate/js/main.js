@@ -3036,13 +3036,30 @@ if(maxPrice_40){
     return false;
   });
 
-  $('input[type="tel"]').inputmask("+7 (999) 999 99 99", {
+  $('input[type="tel"]').inputmask("+7-999-999-99-99", {
     "clearIncomplete": true,
     showMaskOnHover: false,
+    showMaskOnFocus: true,
+    placeholder: '_'
+  });
+
+  // phone mask for dynamically rendered order form fields
+  $(document).on('focus', '#bx-soa-order input[type="tel"], #bx-soa-order input[autocomplete="tel"]', function () {
+    var $input = $(this);
+    if ($input.data('soa-phone-masked') || !$.fn.inputmask) {
+      return;
+    }
+    $input.inputmask("+7-999-999-99-99", {
+      clearIncomplete: true,
+      showMaskOnHover: false,
+      showMaskOnFocus: true,
+      placeholder: '_'
+    });
+    $input.data('soa-phone-masked', true);
   });
 
   //add to cart product
-  $('.main-btn').click(function () {
+  $('body').on('click', '.main-btn', function () {
       if($(this).data('id')){
         $.get("/ajax/add.php", { id : $(this).data('id') }).done(function(data) {
           $.get("/ajax/basket.small.php").done(function (cart) {

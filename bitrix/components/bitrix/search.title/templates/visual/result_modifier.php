@@ -78,7 +78,7 @@ if (!empty($arResult["ELEMENTS"]) && CModule::IncludeModule("iblock"))
 			}
 		}
 	}
-
+	
 	$obParser = new CTextParser;
 
 	if (is_array($arParams["PRICE_CODE"]))
@@ -127,7 +127,7 @@ foreach($arResult["SEARCH"] as $i=>$arItem)
 			if(array_key_exists($arItem["ITEM_ID"], $arResult["ELEMENTS"]))
 			{
 				$arElement = &$arResult["ELEMENTS"][$arItem["ITEM_ID"]];
-
+				
 				if ($arParams["SHOW_PREVIEW"] == "Y")
 				{
 					if ($arElement["PREVIEW_PICTURE"] > 0)

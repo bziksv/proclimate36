@@ -1,5 +1,6 @@
 <?
 require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
+$APPLICATION->SetPageProperty("description", "Сертификаты магазина Proclimate");
 $APPLICATION->SetTitle("О магазине");
 ?><main class="main-content">
 <div class="about-us_section">

@@ -39,34 +39,44 @@
                                 <div class="hamburger-inner"></div>
                             </div>
                         </div>
+
+					<div class="logo-head">
                         <div class="head-logo">
                             <a href="/">
                                 <img data-src="<?=SITE_TEMPLATE_PATH?>/img/static/logo.png" alt="alt">
                             </a>
                         </div>
+						<div class="logo-head-text">Климатическая техника с установкой</div>
+					</div>
+
                     </div>
                     <div class="col-sm-9 col-5 head_right-column">
-                        <?$APPLICATION->IncludeComponent("bitrix:search.title", "search.title", Array(
-                            "CATEGORY_0" => array(	// Ограничение области поиска
-                                0 => "iblock_catalog",
-                            ),
-                            "CATEGORY_0_TITLE" => "",	// Название категории
-                            "CATEGORY_0_iblock_catalog" => array(	// Искать в информационных блоках типа "iblock_catalog"
-                                0 => "2",
-                            ),
-                            "CHECK_DATES" => "N",	// Искать только в активных по дате документах
-                            "CONTAINER_ID" => "title-search",	// ID контейнера, по ширине которого будут выводиться результаты
-                            "INPUT_ID" => "title-search-input",	// ID строки ввода поискового запроса
-                            "NUM_CATEGORIES" => "1",	// Количество категорий поиска
-                            "ORDER" => "rank",	// Сортировка результатов
-                            "PAGE" => "#SITE_DIR#search/index.php",	// Страница выдачи результатов поиска (доступен макрос #SITE_DIR#)
-                            "SHOW_INPUT" => "Y",	// Показывать форму ввода поискового запроса
-                            "SHOW_OTHERS" => "N",	// Показывать категорию "прочее"
-                            "TOP_COUNT" => "10",	// Количество результатов в каждой категории
-                            "USE_LANGUAGE_GUESS" => "N",	// Включить автоопределение раскладки клавиатуры
-                        ),
-                            false
-                        );?>
+                        <?
+							$APPLICATION->IncludeComponent("bitrix:search.title", "visual", Array(
+								"CATEGORY_0" => array(	// Ограничение области поиска
+										0 => "iblock_catalog",
+									),
+									"CATEGORY_0_TITLE" => "",	// Название категории
+									"CATEGORY_0_iblock_catalog" => array(	// Искать в информационных блоках типа "iblock_catalog"
+										0 => "2",
+									),
+									"CHECK_DATES" => "N",	// Искать только в активных по дате документах
+									"CONTAINER_ID" => "title-search",	// ID контейнера, по ширине которого будут выводиться результаты
+									"INPUT_ID" => "title-search-input",	// ID строки ввода поискового запроса
+									"NUM_CATEGORIES" => "1",	// Количество категорий поиска
+									"ORDER" => "rank",	// Сортировка результатов
+									"PAGE" => "#SITE_DIR#search/index.php",	// Страница выдачи результатов поиска (доступен макрос #SITE_DIR#)
+									"SHOW_INPUT" => "Y",	// Показывать форму ввода поискового запроса
+									"SHOW_OTHERS" => "N",	// Показывать категорию "прочее"
+									"TOP_COUNT" => "10",	// Количество результатов в каждой категории
+									"USE_LANGUAGE_GUESS" => "N",	// Включить автоопределение раскладки клавиатуры
+									"PRICE_CODE" => array(	// Тип цены
+										0 => "BASE",
+									),
+									"SHOW_PREVIEW" => "Y",	// Показать картинку
+								),
+								false
+							);?>
 
                         <div class="head-cart" id="small_cart">
                             <?$APPLICATION->IncludeComponent("bitrix:sale.basket.basket.line", "basket.small", Array(

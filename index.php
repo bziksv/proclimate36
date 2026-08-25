@@ -1,7 +1,7 @@
 <?
 require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
-$APPLICATION->SetPageProperty("description", "Мы предлагаем широкий ассортимент кондиционеров по адекватным ценам.");
-$APPLICATION->SetTitle("Кондиционеры в Воронеже");
+$APPLICATION->SetPageProperty("description", "Мы предлагаем широкий ассортимент кондиционеров по адекватным ценам");
+$APPLICATION->SetTitle("Кондиционеры с установкой в Воронеже | доставка и монтаж | для дома, квартиры, офиса | Proclimate");
 ?><main class="main-content">
 <div class="main-section">
 	<div class="container">

@@ -1,5 +1,6 @@
 <?
 require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
+$APPLICATION->SetPageProperty("description", "Контакты магазина Proclimate");
 $APPLICATION->SetTitle("Контакты");
 ?><main class="main-content">
 <div class="contact-mod_section">
@@ -32,15 +33,12 @@ $APPLICATION->SetTitle("Контакты");
 	"prime:main.feedback",
 	"contact",
 	Array(
-		"CAPTCHA_SERVER_KEY" => "",
-		"CAPTCHA_SITE_KEY" => "",
 		"COMPONENT_TEMPLATE" => "",
 		"EVENT_MESSAGE_ID" => array(0=>"7",),
 		"IBLOCK_ID" => "11",
 		"IBLOCK_TYPE" => "feedback",
 		"OK_TEXT" => "Спасибо, ваше сообщение принято.",
 		"PROPERTY_CODE" => array(0=>"NAME",1=>"EMAIL",2=>"PHONE",3=>"MSG",),
-		"USE_CAPTCHA" => "N"
 	)
 );?>
 				</div>

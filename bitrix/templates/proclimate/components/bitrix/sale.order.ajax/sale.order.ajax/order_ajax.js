@@ -1307,6 +1307,12 @@ BX.namespace('BX.Sale.OrderAjaxComponent');
 		bindEvents: function()
 		{
 			BX.bind(this.orderSaveBlockNode.querySelector('[data-save-button]'), 'click', BX.proxy(this.clickOrderSaveAction, this));
+			BX.bind(BX('bx-soa-pd-consent'), 'change', BX.proxy(function() {
+				if (BX('bx-soa-pd-consent') && BX('bx-soa-pd-consent').checked)
+				{
+					this.validatePersonalDataConsent();
+				}
+			}, this));
 			BX.bind(window, 'scroll', BX.proxy(this.totalBlockScrollCheck, this));
 			BX.bind(window, 'resize', BX.throttle(function(){
 				this.totalBlockResizeCheck();
@@ -1727,6 +1733,11 @@ BX.namespace('BX.Sale.OrderAjaxComponent');
 		 */
 		clickOrderSaveAction: function(event)
 		{
+			if (!this.validatePersonalDataConsent())
+			{
+				return BX.PreventDefault(event);
+			}
+
 			if (this.isValidForm())
 			{
 				this.allowOrderSave();
@@ -1742,6 +1753,43 @@ BX.namespace('BX.Sale.OrderAjaxComponent');
 			}
 
 			return BX.PreventDefault(event);
+		},
+
+		validatePersonalDataConsent: function()
+		{
+			var checkbox = BX('bx-soa-pd-consent'),
+				errorNode = BX('bx-soa-pd-consent-error'),
+				wrap = BX('bx-soa-pd-consent-wrap');
+
+			if (!checkbox)
+			{
+				return true;
+			}
+
+			if (!checkbox.checked)
+			{
+				if (errorNode)
+				{
+					errorNode.hidden = false;
+				}
+				if (wrap)
+				{
+					BX.addClass(wrap, 'bx-soa-pd-consent--error');
+				}
+				checkbox.focus();
+				return false;
+			}
+
+			if (errorNode)
+			{
+				errorNode.hidden = true;
+			}
+			if (wrap)
+			{
+				BX.removeClass(wrap, 'bx-soa-pd-consent--error');
+			}
+
+			return true;
 		},
 
 		doSaveAction: function()
@@ -7090,6 +7138,40 @@ BX.namespace('BX.Sale.OrderAjaxComponent');
 			return str.length ? BX.util.htmlspecialchars(str) : BX.message('SOA_NOT_SELECTED');
 		},
 
+		/**
+		 * Phone mask +7-___-___-__-__ for IS_PHONE properties
+		 */
+		applyPhoneMask: function(input)
+		{
+			if (!input)
+				return;
+
+			var apply = function()
+			{
+				if (typeof window.jQuery === 'undefined' || !jQuery.fn || !jQuery.fn.inputmask)
+					return false;
+
+				var $input = jQuery(input);
+				if ($input.data('soa-phone-masked'))
+					return true;
+
+				$input.inputmask('+7-999-999-99-99', {
+					clearIncomplete: true,
+					showMaskOnHover: false,
+					showMaskOnFocus: true,
+					placeholder: '_'
+				});
+				$input.data('soa-phone-masked', true);
+				return true;
+			};
+
+			if (!apply())
+			{
+				setTimeout(function(){ apply(); }, 100);
+				setTimeout(function(){ apply(); }, 500);
+			}
+		},
+
 		alterProperty: function(settings, propContainer)
 		{
 			var divs = BX.findChildren(propContainer, {tagName: 'DIV'}),
@@ -7106,6 +7188,8 @@ BX.namespace('BX.Sale.OrderAjaxComponent');
 
 			textNode = propContainer.querySelector('input[type=text]');
 			if (!textNode)
+				textNode = propContainer.querySelector('input[type=tel]');
+			if (!textNode)
 				textNode = propContainer.querySelector('textarea');
 
 			if (textNode)
@@ -7118,7 +7202,14 @@ BX.namespace('BX.Sale.OrderAjaxComponent');
 				if (settings.IS_PAYER == 'Y')
 					textNode.setAttribute('autocomplete', 'name');
 				if (settings.IS_PHONE == 'Y')
+				{
+					// keep type=text: BX.ajax.prepareForm skips input[type=tel]
 					textNode.setAttribute('autocomplete', 'tel');
+					textNode.setAttribute('inputmode', 'tel');
+					if (!textNode.getAttribute('placeholder'))
+						textNode.setAttribute('placeholder', '+7-___-___-__-__');
+					this.applyPhoneMask(textNode);
+				}
 
 				if (settings.PATTERN && settings.PATTERN.length)
 				{
@@ -7126,10 +7217,13 @@ BX.namespace('BX.Sale.OrderAjaxComponent');
 				}
 			}
 
-			inputs = propContainer.querySelectorAll('input[type=text]');
+			inputs = propContainer.querySelectorAll('input[type=text], input[type=tel]');
 			for (i = 0; i < inputs.length; i++)
 			{
-				inputs[i].placeholder = settings.DESCRIPTION;
+				if (settings.DESCRIPTION)
+					inputs[i].placeholder = settings.DESCRIPTION;
+				else if (settings.IS_PHONE == 'Y' && !inputs[i].placeholder)
+					inputs[i].placeholder = '+7-___-___-__-__';
 				BX.addClass(inputs[i], 'form-control bx-soa-customer-input bx-ios-fix');
 			}
 
@@ -7443,7 +7537,7 @@ BX.namespace('BX.Sale.OrderAjaxComponent');
 						return this.validateString(input, arProperty, fieldName);
 					}, this);
 
-					inputs = propContainer.querySelectorAll('input[type=text]');
+					inputs = propContainer.querySelectorAll('input[type=text], input[type=tel]');
 					if (inputs.length)
 					{
 						data.inputs = inputs;
@@ -7672,7 +7766,19 @@ BX.namespace('BX.Sale.OrderAjaxComponent');
 					}
 				}
 
-				if (value.length > 0 && arProperty.PATTERN && arProperty.PATTERN.length)
+				if (arProperty.IS_PHONE === 'Y')
+				{
+					input.value = value = BX.util.trim(value);
+					if (value.length)
+					{
+						re = /^\+7-\d{3}-\d{3}-\d{2}-\d{2}$/;
+						if (!re.test(value))
+						{
+							errors.push(field + ' ' + (BX.message('SOA_INVALID_PHONE') || BX.message('SOA_INVALID_PATTERN')));
+						}
+					}
+				}
+				else if (value.length > 0 && arProperty.PATTERN && arProperty.PATTERN.length)
 				{
 					re = new RegExp(arProperty.PATTERN);
 					if (!re.test(value))

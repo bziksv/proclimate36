@@ -1,17 +1,52 @@
-upload/*
-bitrix/php_interface/*
-!/bitrix/php_interface/init.php
+# === OS / IDE ===
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+*~
+
+# === Секреты / конфиг БД ===
 bitrix/.settings.php
-.idea/*
-bitrix/managed_cache/*
+bitrix/.settings_extra.php
+bitrix/php_interface/dbconn.php
+bitrix/license_key.php
+
+# php_interface: всё кроме init.php
+bitrix/php_interface/*
+!bitrix/php_interface/init.php
+
+# === Bitrix: кэш и временные ===
 bitrix/cache/*
+bitrix/managed_cache/*
 bitrix/stack_cache/*
-access/*
 bitrix/html_pages/*
+bitrix/tmp/*
 bitrix/backup/*
+bitrix/catalog_export/*
+bitrix/updates/*
+
+# === Медиа ===
+upload/*
+
+# === Логи и архивы ===
 *.log
 *.zip
+*.tar.gz
+*.sql
+*.sql.gz
+bitrix/modules/updater*.log
+bitrix/modules/updater_versions.php
+bitrix/modules/*.zip
+bitrix/modules/*.tar.gz
+bitrix/templates/*.tar.gz
+
+# === Sitemap (генерируются) ===
 sitemap.xml
 sitemap-iblock-*.xml
 sitemap-files.xml
+
+# === Служебное ===
+access/*
 .htaccess
+router.php

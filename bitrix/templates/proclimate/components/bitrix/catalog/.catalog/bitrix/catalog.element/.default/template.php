@@ -17,7 +17,7 @@ $this->setFrameMode(true);
     <div class="col-lg-5">
         <div class="selected-product_desc-header  tablet-visible">
             <span class="selected-product_desc-type"><?=$arResult['SECTION']['NAME']?></span>
-            <h1 class="selected-product_title"><?=$arResult['NAME']?></h1>
+            <div class="selected-product_title"><?=$arResult['NAME']?></div>
             <div class="selected-product_bottom-panel">
                 <? if($arResult['PROPERTIES']['ARTICLE']['VALUE']): ?>
                 <span class="selected-product_code">Код товара: <?=$arResult['PROPERTIES']['ARTICLE']['VALUE']?></span>
@@ -91,7 +91,7 @@ $this->setFrameMode(true);
             </div>
             <div class="row">
                 <div class="col-sm-5 col-mod-right">
-                    <div class="selected-product_features-title">Основные характеристики:</div>
+                    <div class="selected-product_features-title"></div>
                     <ul class="selected-product_features">
                         <? foreach ($arParams['DETAIL_PROPERTY_CODE'] as $code):
                             if(!$arResult['PROPERTIES'][$code]['VALUE'])

@@ -68,12 +68,6 @@ $arComponentParameters = array(
 			"VALUES" => $arProperty_LNS,
 			"ADDITIONAL_VALUES" => "N",
 		),
-		"USE_CAPTCHA" => Array(
-			"NAME" => GetMessage("MFP_CAPTCHA"), 
-			"TYPE" => "CHECKBOX",
-			"DEFAULT" => "Y", 
-			"PARENT" => "BASE",
-		),
 		"OK_TEXT" => Array(
 			"NAME" => GetMessage("MFP_OK_MESSAGE"), 
 			"TYPE" => "STRING",

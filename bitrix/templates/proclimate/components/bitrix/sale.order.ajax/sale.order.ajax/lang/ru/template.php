@@ -30,6 +30,7 @@ $MESS["SOA_LESS"] = "не менее";
 $MESS["SOA_MORE"] = "не более";
 $MESS["SOA_SYMBOLS"] = "символов";
 $MESS["SOA_INVALID_PATTERN"] = "не соответствует шаблону";
+$MESS["SOA_INVALID_PHONE"] = "должен быть в формате +7-___-___-__-__";
 $MESS["SOA_PROP_NEW_PROFILE"] = "Новый профиль";
 $MESS["SOA_PAY_SYSTEM"] = "Платежная система";
 $MESS["SOA_PAY_ACCOUNT3"] = "Средств достаточно для полной оплаты заказа.";

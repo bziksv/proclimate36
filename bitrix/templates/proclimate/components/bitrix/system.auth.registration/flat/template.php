@@ -42,7 +42,8 @@ if(!empty($arParams["~AUTH_RESULT"])):
 	<div class="alert alert-warning"><?echo GetMessage("AUTH_EMAIL_WILL_BE_SENT")?></div>
 <?endif?>
 
-<?if($arResult["SHOW_SMS_FIELD"] == true):?>
+<?
+if($arResult["SHOW_SMS_FIELD"] == true):?>
 
 <form method="post" action="<?=$arResult["AUTH_URL"]?>" name="regform">
 
@@ -108,12 +109,7 @@ new BX.PhoneAuth({
 			</div>
 		</div>
 
-		<div class="bx-authform-formgroup-container">
-			<div class="bx-authform-label-container"><span class="bx-authform-starrequired">*</span><?=GetMessage("AUTH_LOGIN_MIN")?></div>
-			<div class="bx-authform-input-container">
-				<input type="text" name="USER_LOGIN" maxlength="255" value="<?=$arResult["USER_LOGIN"]?>" />
-			</div>
-		</div>
+		<input type="hidden" name="USER_LOGIN" maxlength="255" value="<?=$arResult["USER_LOGIN"]?>" />
 
 		<div class="bx-authform-formgroup-container">
 			<div class="bx-authform-label-container"><span class="bx-authform-starrequired">*</span><?=GetMessage("AUTH_PASSWORD_REQ")?></div>
@@ -248,6 +244,7 @@ $APPLICATION->IncludeComponent(
 
 <script type="text/javascript">
 document.bform.USER_NAME.focus();
+
 </script>
 
 <?endif?>

@@ -50,13 +50,18 @@
 
 
 					<ul class="container">
-						<li> <a href="/upload/politics.pdf" target="_blank"><small>Политика конфиденциальности </small></a> </li>
-						<li> <a href="/upload/compliance.pdf"  target="_blank"><small>Правила обработки персональных данных </small></a></li>
 						<li> <a href="https://prime-ltd.su/?from=proclimate36.ru"><img style="margin-left: -12px; width: 80%; height: 80%;" src="http://prime-ltd.su/logo/white.svg"; title="Продвижение сайтов" alt="Продвижение сайтов"></a></li>
 					</ul>
                 </div>
 
             </div>
+
+
+<div style="border-top: 1px #757575 solid; padding-top: 15px; color: #757575;">
+    Наш сайт использует <a style="color: #17769b;" target="_blank" href="/legal/cookie.pdf">cookies</a> для обеспечения работоспособности и сбора статистики. С их помощью мы анализируем пользовательскую активность, улучшаем работу сайта и делаем рекламу более релевантной. Оставаясь на сайте, вы даете <a style="color: #17769b;" target="_blank" href="/legal/consent.pdf">согласие на обработку ваших персональных данных</a>. Вы можете отключить сохранение cookies в настройках браузера в любой момент. На сайте также применяются <a style="color: #17769b;" target="_blank" href="/legal/recommendation.pdf">рекомендательные технологии</a>. Подробнее об обработке персональных данных — в соответствующей <a style="color: #17769b;" target="_blank" href="/legal/personal-data.pdf">Политике</a>.
+</div>
+
+
         </div>
     </div>
 </footer>
@@ -84,9 +89,6 @@
                         0 => "NAME",
                         1 => "PHONE",
                     ),
-                    "USE_CAPTCHA" => "N",
-                    "CAPTCHA_SITE_KEY" => "",
-                    "CAPTCHA_SERVER_KEY" => "",
                     "COMPONENT_TEMPLATE" => ""
                 ),
                 false

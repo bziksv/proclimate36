@@ -11,8 +11,7 @@
 /** @var string $componentPath */
 /** @var CBitrixComponent $component */
 $this->setFrameMode(true);
-?>
-<script src="https://yastatic.net/share2/share.js" async="async"></script>
+?><script src="https://yastatic.net/share2/share.js" async="async"></script>
 
 <?if($arParams["DISPLAY_NAME"]!="N" && $arResult["NAME"]):?>
     <h1><?=$arResult["NAME"]?></h1>
@@ -60,5 +59,5 @@ $this->setFrameMode(true);
 <div class="news-detailed_footer">
     <span class="news-detailed_date"><?=$arResult['DISPLAY_ACTIVE_FROM']?></span>
     <span class="news-detailed_view"><span class="glipf-view"></span><?=$arResult['SHOW_COUNTER']?></span>
-    <span class="news-detailed_share ya-share2" data-services="vkontakte,twitter,facebook,gplus" data-limit="0"></span>
+    <span class="news-detailed_share ya-share2" data-services="vkontakte" data-limit="0"></span>
 </div>

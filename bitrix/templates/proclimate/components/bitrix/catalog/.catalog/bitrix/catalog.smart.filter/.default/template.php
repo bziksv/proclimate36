@@ -122,7 +122,7 @@ $this->setFrameMode(true);
                                                 type="text"
                                                 name="<?echo $arItem["VALUES"]["MIN"]["CONTROL_NAME"]?>"
                                                 id="price-min_<?=$sl?>"
-                                                value="<?echo $arItem["VALUES"]["MIN"]["VALUE"]?>"
+                                                value=""
                                                 onkeyup="smartFilter.keyup(this)"
                                         />
                                     </div>
@@ -133,7 +133,7 @@ $this->setFrameMode(true);
                                                 type="text"
                                                 name="<?echo $arItem["VALUES"]["MAX"]["CONTROL_NAME"]?>"
                                                 id="price-max_<?=$sl?>"
-                                                value="<?echo round($arItem["VALUES"]["MAX"]["VALUE"])?>"
+                                                value=""
                                                 onkeyup="smartFilter.keyup(this)"
                                         />
                                     </div>

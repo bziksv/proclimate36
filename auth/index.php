@@ -1,28 +1,38 @@
 <?
-define("NEED_AUTH", true);
 require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
+$APPLICATION->SetTitle("");
 
 $userName = CUser::GetFullName();
 if (!$userName)
 	$userName = CUser::GetLogin();
 ?>
-<script>
-	<?if ($userName):?>
-	BX.localStorage.set("eshop_user_name", "<?=CUtil::JSEscape($userName)?>", 604800);
-	<?else:?>
-	BX.localStorage.remove("eshop_user_name");
-	<?endif?>
 
-	<?if (isset($_REQUEST["backurl"]) && strlen($_REQUEST["backurl"])>0 && preg_match('#^/\w#', $_REQUEST["backurl"])):?>
-	document.location.href = "<?=CUtil::JSEscape($_REQUEST["backurl"])?>";
-	<?endif?>
-</script>
+<? if($_REQUEST["USER_LOGIN"] && $_REQUEST["USER_CHECKWORD"]): ?>
 
-<?
-$APPLICATION->SetTitle("Авторизация");
-?>
-<p>Вы зарегистрированы и успешно авторизовались.</p>
- 
-<p><a href="<?=SITE_DIR?>">Вернуться на главную страницу</a></p>
+<?$APPLICATION->IncludeComponent("bitrix:main.auth.changepasswd", ".default", Array(
+	"AUTH_AUTH_URL" => "/auth/",	// Страница для авторизации
+		"AUTH_REGISTER_URL" => "/auth/registration.php",	// Страница для регистрации
+		"COMPOSITE_FRAME_MODE" => "A",
+		"COMPOSITE_FRAME_TYPE" => "AUTO"
+	),
+	false
+);?>
+
+<? else: ?>
+
+<?$APPLICATION->IncludeComponent(
+	"bitrix:system.auth.form",
+	".default",
+	Array(
+		"COMPOSITE_FRAME_MODE" => "A",
+		"COMPOSITE_FRAME_TYPE" => "AUTO",
+		"FORGOT_PASSWORD_URL" => "/auth/forget.php",
+		"PROFILE_URL" => "/personal/",
+		"REGISTER_URL" => "/auth/registration.php",
+		"SHOW_ERRORS" => "Y"
+	)
+);?>
+
+<? endif; ?>
 
 <?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php");?>

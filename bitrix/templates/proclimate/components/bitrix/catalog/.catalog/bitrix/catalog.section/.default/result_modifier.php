@@ -478,4 +478,10 @@ if (!empty($arResult['ITEMS']))
 		}
 	}
 }
+
+$uf_brands = count($arResult['UF_BRANDS']) ? $arResult['UF_BRANDS'] : false;
+$res = CIBlockElement::GetList(Array(), ["IBLOCK_ID" => 4, "ID" => $uf_brands], false, false, ["ID", "IBLOCK_ID", "NAME", "CODE", "PREVIEW_PICTURE"]);
+while($arFields = $res->GetNext())
+	$arResult['BRANDS'][] = $arFields;
+
 ?>

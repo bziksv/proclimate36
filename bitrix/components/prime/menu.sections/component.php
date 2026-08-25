@@ -131,6 +131,7 @@ foreach($arResult["SECTIONS"] as $arSection)
 		$arSection["~SECTION_PAGE_URL"],
 		$arResult["ELEMENT_LINKS"][$arSection["ID"]],
 		array(
+			"ID" => $arSection["ID"],
 			"FROM_IBLOCK" => true,
 			"IS_PARENT" => false,
 			"DEPTH_LEVEL" => $arSection["DEPTH_LEVEL"],

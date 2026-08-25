@@ -491,6 +491,19 @@ else
 						}
 						?>
 					</div>
+
+
+					<div class="bx-soa-pd-consent" id="bx-soa-pd-consent-wrap">
+						<label class="bx-soa-pd-consent__label" for="bx-soa-pd-consent">
+							<input type="checkbox" id="bx-soa-pd-consent" name="pd_consent" value="Y">
+							<span class="bx-soa-pd-consent__text">Нажимая на эту кнопку, я даю свое <a href="/legal/consent.pdf" target="_blank" rel="noopener noreferrer" style="color: #0000FF;">согласие</a> на обработку персональных данных в соответствии с условиями <a href="/legal/personal-data.pdf" target="_blank" rel="noopener noreferrer" style="color: #0000FF;">политики обработки персональных данных</a>.</span>
+						</label>
+						<div class="bx-soa-pd-consent__error" id="bx-soa-pd-consent-error" hidden>Необходимо согласие на обработку персональных данных</div>
+					</div>
+
+
+
+
 					<a href="javascript:void(0)" style="margin: 10px 0" class="pull-right btn btn-default btn-lg hidden-xs" data-save-button="true">
 						<?=$arParams['MESS_ORDER']?>
 					</a>

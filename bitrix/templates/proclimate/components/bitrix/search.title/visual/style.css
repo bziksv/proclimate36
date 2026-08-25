@@ -1,0 +1,95 @@
+div.title-search-result {
+	border:1px solid #c6c6c6;
+	display:none;
+	overflow:hidden;
+	z-index:999;
+	min-width: 370px;
+	margin-top:-3px;
+	background-color: #FFF;
+}
+
+div.title-search-fader {
+	display:none;
+	background-image: url('images/fader.png');
+	background-position: right top;
+	background-repeat: repeat-y;
+	position:absolute;
+}
+
+/*========================*/
+.bx_searche{}
+.bx_searche .main-btn{
+	background: none;
+	cursor:pointer;
+	display: contents!important;
+}
+.bx_searche .main-btn:hover,
+.bx_searche .main-btn:before
+{
+	background: none!important;
+}
+.bx_searche .bx_img_element{
+	background: #fafafa;
+	float: left;
+	width: 67px;
+	padding: 5px 10px;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+}
+.bx_searche .bx_item_block{
+	min-height: 65px;
+	position: relative
+}
+.bx_searche .bx_image{
+	width: 45px;
+	height: 45px;
+	background-size: contain;
+	background-position: center;
+	background-repeat: no-repeat;
+	border: 1px solid #e8e8e8;
+}
+.bx_searche .bx_item_element{
+	/*float: left;*/
+	padding-left: 10px;
+	margin-left: 70px;
+}
+.bx_searche .bx_item_element hr{
+	margin: 0;
+	border: none;
+	border-bottom: 1px solid #e5e5e5;
+}
+.bx_searche .bx_item_element a{
+	margin-top: 10px;
+	display: inline-block;
+	color: #4788cb;
+	text-decoration: none;
+}
+.bx_searche .bx_item_element a b{color: #000;font-weight: normal;}
+.bx_searche .bx_item_element a:hover,
+.bx_searche .bx_item_element a:hover b{text-decoration: underline;}
+.bx_searche .bx_price{
+	font-weight:bold;
+}
+.bx_searche .bx_price .old{
+	font-weight:normal;
+	text-decoration: line-through;
+	color: #636363
+}
+.bx_item_block.all_result{min-height:0}
+.bx_item_block.others_result{
+	min-height: 0;
+	padding: 0 0 12px;
+	line-height: 12px;
+}
+.bx_item_block.all_result .all_result_title{
+	display: block;
+	color: #a7a7a7;
+	padding-top: 15px;
+	padding-bottom: 10px;
+}
+.bx_item_block.all_result .all_result_title a{color: #a7a7a7}
+.bx_item_block.all_result .all_result_title a:hover{color: #4788cb}
+.bx_item_block.all_result a{
+	margin-top: 0;
+}

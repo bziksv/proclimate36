@@ -1,0 +1,8 @@
+.product-item_list .product_item_desc-top {
+	flex: 80% 0 0!important;
+    max-width: 80%!important;
+}
+.product-item_list .product-item_hidden {
+	flex: 20% 0 0!important;
+    max-width: 20%!important;
+}

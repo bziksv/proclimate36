@@ -112,3 +112,20 @@ $this->setFrameMode(true);
 
 <? echo $arResult["NAV_STRING"]; ?>
 
+<? if(isset($arResult['BRANDS'])): ?>
+<div class="brands-section">
+    <div class="section-title">Бренды</div>
+    <div class="brands-slider">
+        <?foreach($arResult['BRANDS'] as $arItem):?>
+        
+        <div class="brand-item">
+            <a href="<?=$arItem['CODE']?>">
+				<div class="brends-item_title"><?=$arItem['NAME']?></div>
+               <img data-src="<?=CFile::GetPath($arItem['PREVIEW_PICTURE'])?>" alt="<?=$arItem['NAME']?>">
+            </a>
+        </div>
+        <?endforeach;?>
+    </div>
+</div>
+<? endif; ?>
+

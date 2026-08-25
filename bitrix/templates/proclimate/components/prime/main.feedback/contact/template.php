@@ -46,21 +46,17 @@ if(!defined("B_PROLOG_INCLUDED")||B_PROLOG_INCLUDED!==true)die();
 
     <div class="text-center">
         <input type="hidden" name="PARAMS_HASH" value="<?=$arResult["PARAMS_HASH"]?>">
-        <input type="submit" name="submit" class="main-btn form-callback_submit" value="Отправить">
-
-        <?if($arParams["USE_CAPTCHA"] == "Y"):?>
-            <div class="g-recaptcha" data-sitekey="<?=$arParams["CAPTCHA_SITE_KEY"]?>"></div>
-        <?endif;?>
+		<input type="submit" name="submit" class="main-btn form-callback_submit" value="Отправить">
     </div>
 
     <br>
     <div class="text-center">
         <span class="form-static_policy-text">
 
-Нажимая кнопку вы соглашаетес с
-<a href="/upload/politics.pdf" target="_blank">политикой конфилициальности </a>
-и
-<a href="/upload/compliance.pdf" target="_blank">правилами обработки персональных данных</a>
+Нажимая на эту кнопку, я даю свое согласие на обработку персональных данных и соглашаюсь с условиями 
+<a href="/upload/politics.pdf" target="_blank" rel="noopener noreferrer" style="color: #0000FF;">
+политики обработки персональных данных
+</a>
 
 </span>
     </div>

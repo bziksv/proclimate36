@@ -9,6 +9,7 @@ if(!isset($arParams["PAGE"]) || strlen($arParams["PAGE"])<=0)
 $arResult["CATEGORIES"] = array();
 
 $query = ltrim($_POST["q"]);
+//$query = ltrim($_GET["q"]);
 if(
 	!empty($query)
 	&& $_REQUEST["ajax_call"] === "y"

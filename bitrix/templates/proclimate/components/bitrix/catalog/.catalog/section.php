@@ -371,18 +371,12 @@ if($menuTag):?>
                 ?>
 				
 		<?
-			
-			global $USER;
-			if ($USER->IsAdmin()):
-			//вывод блока рекомендуемых товаров
-			global $arrFilterRec;
-		//	echo "<pre>"; print_r($arResult); echo "</pre>";
-		//echo $arResult["VARIABLES"]["SECTION_CODE"];
-		$res = CIBlockSection::GetList(array(), array('IBLOCK_ID' => 2, 'CODE' => $arResult["VARIABLES"]["SECTION_CODE"], 'SITE_ID' => "s1"));
-$section = $res->Fetch();
+		
+			$res = CIBlockSection::GetList(array(), array('IBLOCK_ID' => $arParams["IBLOCK_ID"], 'CODE' => $arResult["VARIABLES"]["SECTION_CODE"], 'SITE_ID' => "s1"));
+			$section = $res->Fetch();
   
-$section_id =  $section["ID"];
-//echo $section_id;
+			$section_id =  $section["ID"];
+			//echo $section_id;
 			//$rsResult2 = CIBlockSection::GetList(array("SORT"=>"ASC"), array("IBLOCK_ID"=>2, 'ACTIVE'=>'Y', "SECTION_ID"=>$section_id), true, array("UF_RECPRODUCTS"));
 			//	while($arResult2 = $rsResult2->GetNext())
 			//	{
@@ -390,7 +384,7 @@ $section_id =  $section["ID"];
 			//	}
 				//$arrID = array();
 				$i=0;
-				$arFilterSeo = Array('IBLOCK_ID'=>2, 'ACTIVE'=>'Y', "ID"=>$section_id);
+				$arFilterSeo = Array('IBLOCK_ID' => $arParams["IBLOCK_ID"], 'ACTIVE'=>'Y', "ID"=>$section_id);
 				$db_listSeo = CIBlockSection::GetList(Array($by=>$order), $arFilterSeo, true, Array('UF_RECPRODUCTS'));
 				if($ar_resultSeo = $db_listSeo->GetNext())
 				{
@@ -402,7 +396,7 @@ $section_id =  $section["ID"];
 							//echo $id[0];
 							$arrID[] = $id[0];
 							//$i++;
-							echo "<br/>";
+							//echo "<br/>";
 						}
 				   /*print_r($ar_resultSeo["~UF_RECPRODUCTS"]);
 				   echo "<br/>";
@@ -417,9 +411,7 @@ $section_id =  $section["ID"];
 			//$arParams["FILTER_NAME"] = "arrFilterRec";
 				if (!empty($arrFilterRec['ID'])):
 			?>
-				<br/>
 				<div class="section-title">Рекомендуемые товары</div>
-				
 			<?
 				
 			$APPLICATION->IncludeComponent(
@@ -523,10 +515,7 @@ $section_id =  $section["ID"];
                     $component
                 );
 				
-				endif;
-		
-		endif;
-		
+			endif;
 		?>
 		
         <?
@@ -572,163 +561,42 @@ if($menuTagB):?>
     </div>
 <div class="navi tag_menu_c"><span class="open is-act">Показать все</span><span class="closem">Свернуть</span></div>
 <?endif;?>
+
                 <div class="tablet-small_visible">
+				
 					<div class="section-title">Наши услуги</div>
-                    <?$APPLICATION->IncludeComponent("bitrix:news.line", "services.catalog", Array(
-                        "ACTIVE_DATE_FORMAT" => "d.m.Y",	// Формат показа даты
-                        "CACHE_GROUPS" => "Y",	// Учитывать права доступа
-                        "CACHE_TIME" => "300",	// Время кеширования (сек.)
-                        "CACHE_TYPE" => "A",	// Тип кеширования
-                        "DETAIL_URL" => "",	// URL, ведущий на страницу с содержимым элемента раздела
-                        "FIELD_CODE" => array(	// Поля
-                            0 => "PREVIEW_TEXT",
-                        ),
-                        "IBLOCKS" => array(	// Код информационного блока
-                            0 => "5",
-                        ),
-                        "IBLOCK_TYPE" => "news",	// Тип информационного блока
-                        "NEWS_COUNT" => "4",	// Количество новостей на странице
-                        "SORT_BY1" => "ACTIVE_FROM",	// Поле для первой сортировки новостей
-                        "SORT_BY2" => "SORT",	// Поле для второй сортировки новостей
-                        "SORT_ORDER1" => "DESC",	// Направление для первой сортировки новостей
-                        "SORT_ORDER2" => "ASC",	// Направление для второй сортировки новостей
-                    ),
-                        false
-                    );?>
+					
+                    <?$APPLICATION->IncludeComponent(
+	"bitrix:news.line", 
+	"services.catalog", 
+	array(
+		"ACTIVE_DATE_FORMAT" => "d.m.Y",
+		"CACHE_GROUPS" => "Y",
+		"CACHE_TIME" => "300",
+		"CACHE_TYPE" => "A",
+		"DETAIL_URL" => "",
+		"FIELD_CODE" => array(
+			0 => "PREVIEW_TEXT",
+			1 => "",
+		),
+		"IBLOCKS" => array(
+			0 => "5",
+		),
+		"IBLOCK_TYPE" => "news",
+		"NEWS_COUNT" => "4",
+		"SORT_BY1" => "ACTIVE_FROM",
+		"SORT_BY2" => "SORT",
+		"SORT_ORDER1" => "DESC",
+		"SORT_ORDER2" => "ASC",
+		"COMPONENT_TEMPLATE" => "services.catalog",
+		"COMPOSITE_FRAME_MODE" => "A",
+		"COMPOSITE_FRAME_TYPE" => "AUTO"
+	),
+	false
+);?>
 				</div>
 
-<!-- brands-section -->
-<?if (($APPLICATION->GetCurDir() == "/catalog/konditsionery/") || ($APPLICATION->GetCurDir() == "/catalog/split_sistemy/") || ($APPLICATION->GetCurDir() == "/catalog/multi_split_sistemy/")) {
-$APPLICATION->IncludeComponent(
-	"bitrix:news.line",
-	"brands-kond",
-	Array(
-		"ACTIVE_DATE_FORMAT" => "d.m.Y",
-		"CACHE_GROUPS" => "Y",
-		"CACHE_TIME" => "300",
-		"CACHE_TYPE" => "A",
-		"DETAIL_URL" => "",
-		"FIELD_CODE" => array(0=>"PREVIEW_PICTURE",1=>"PREVIEW_TEXT",2=>"PROPERTY_BREND_LINK",),
-		"IBLOCKS" => array(0=>"14",),
-		"IBLOCK_TYPE" => "news",
-		"NEWS_COUNT" => "50",
-		"SORT_BY1" => "ACTIVE_FROM",
-		"SORT_BY2" => "SORT",
-		"SORT_ORDER1" => "DESC",
-		"SORT_ORDER2" => "ASC"
-	)
-);
-}?>
-<?if (($APPLICATION->GetCurDir() == "/catalog/ventilyatsiya/") || ($APPLICATION->GetCurDir() == "/catalog/filtr_tonkoy_ochistki/") || ($APPLICATION->GetCurDir() == "/catalog/kompaktnye_bytovye_pribory/") || ($APPLICATION->GetCurDir() == "/catalog/pritochnye_ochistiteli_vozdukha/") || ($APPLICATION->GetCurDir() == "/catalog/pritochno_vytyazhnye_ustanovki/")) {
-$APPLICATION->IncludeComponent(
-	"bitrix:news.line",
-	"brands-kond",
-	Array(
-		"ACTIVE_DATE_FORMAT" => "d.m.Y",
-		"CACHE_GROUPS" => "Y",
-		"CACHE_TIME" => "300",
-		"CACHE_TYPE" => "A",
-		"DETAIL_URL" => "",
-		"FIELD_CODE" => array(0=>"PREVIEW_PICTURE",1=>"PREVIEW_TEXT",2=>"PROPERTY_BREND_LINK",),
-		"IBLOCKS" => array(0=>"50",),
-		"IBLOCK_TYPE" => "news",
-		"NEWS_COUNT" => "50",
-		"SORT_BY1" => "ACTIVE_FROM",
-		"SORT_BY2" => "SORT",
-		"SORT_ORDER1" => "DESC",
-		"SORT_ORDER2" => "ASC"
-	)
-);
-}?>
-<?if (($APPLICATION->GetCurDir() == "/catalog/obogrevateli/") || ($APPLICATION->GetCurDir() == "/catalog/konvektory/") || ($APPLICATION->GetCurDir() == "/catalog/infrakrasnye_obogrevateli/") || ($APPLICATION->GetCurDir() == "/catalog/maslyanye_radiatory/") || ($APPLICATION->GetCurDir() == "/catalog/teploventilyatory/")) {
-$APPLICATION->IncludeComponent(
-	"bitrix:news.line",
-	"brands-kond",
-	Array(
-		"ACTIVE_DATE_FORMAT" => "d.m.Y",
-		"CACHE_GROUPS" => "Y",
-		"CACHE_TIME" => "300",
-		"CACHE_TYPE" => "A",
-		"DETAIL_URL" => "",
-		"FIELD_CODE" => array(0=>"PREVIEW_PICTURE",1=>"PREVIEW_TEXT",2=>"PROPERTY_BREND_LINK",),
-		"IBLOCKS" => array(0=>"16",),
-		"IBLOCK_TYPE" => "news",
-		"NEWS_COUNT" => "50",
-		"SORT_BY1" => "ACTIVE_FROM",
-		"SORT_BY2" => "SORT",
-		"SORT_ORDER1" => "DESC",
-		"SORT_ORDER2" => "ASC"
-	)
-);
-}?>
-<?if ($APPLICATION->GetCurDir() == "/catalog/uvlazhniteli_i_ochistiteli_vozdukha/") {
-$APPLICATION->IncludeComponent(
-	"bitrix:news.line",
-	"brands-kond",
-	Array(
-		"ACTIVE_DATE_FORMAT" => "d.m.Y",
-		"CACHE_GROUPS" => "Y",
-		"CACHE_TIME" => "300",
-		"CACHE_TYPE" => "A",
-		"DETAIL_URL" => "",
-		"FIELD_CODE" => array(0=>"PREVIEW_PICTURE",1=>"PREVIEW_TEXT",2=>"PROPERTY_BREND_LINK",),
-		"IBLOCKS" => array(0=>"17",),
-		"IBLOCK_TYPE" => "news",
-		"NEWS_COUNT" => "50",
-		"SORT_BY1" => "ACTIVE_FROM",
-		"SORT_BY2" => "SORT",
-		"SORT_ORDER1" => "DESC",
-		"SORT_ORDER2" => "ASC"
-	)
-);
-}?>
-<?if (($APPLICATION->GetCurDir() == "/catalog/teplyy_pol/") || ($APPLICATION->GetCurDir() == "/catalog/nagrevatelnye_maty/") || ($APPLICATION->GetCurDir() == "/catalog/nagrevatelnye_sektsii/") || ($APPLICATION->GetCurDir() == "/catalog/infrakrasnaya_plenka/") || ($APPLICATION->GetCurDir() == "/catalog/termoregulyatory/") || ($APPLICATION->GetCurDir() == "/catalog/sistemy_antiobledeneniya/")) {
-$APPLICATION->IncludeComponent(
-	"bitrix:news.line",
-	"brands-kond",
-	Array(
-		"ACTIVE_DATE_FORMAT" => "d.m.Y",
-		"CACHE_GROUPS" => "Y",
-		"CACHE_TIME" => "300",
-		"CACHE_TYPE" => "A",
-		"DETAIL_URL" => "",
-		"FIELD_CODE" => array(0=>"PREVIEW_PICTURE",1=>"PREVIEW_TEXT",2=>"PROPERTY_BREND_LINK",),
-		"IBLOCKS" => array(0=>"18",),
-		"IBLOCK_TYPE" => "news",
-		"NEWS_COUNT" => "50",
-		"SORT_BY1" => "ACTIVE_FROM",
-		"SORT_BY2" => "SORT",
-		"SORT_ORDER1" => "DESC",
-		"SORT_ORDER2" => "ASC"
-	)
-);
-}?>
-<?if (($APPLICATION->GetCurDir() == "/catalog/almaznoe_burenie/") || ($APPLICATION->GetCurDir() == "/catalog/oborudovanie/") || ($APPLICATION->GetCurDir() == "/catalog/dvigateli_almaznogo_sverleniya/") || ($APPLICATION->GetCurDir() == "/catalog/komplekty_stoyka_dvigatel/") || ($APPLICATION->GetCurDir() == "/catalog/stoyki_dlya_dvigateley_almaznogo_sverleniya/") || 
-($APPLICATION->GetCurDir() == "/catalog/koronki/") || ($APPLICATION->GetCurDir() == "/catalog/podrozetniki/") || ($APPLICATION->GetCurDir() == "/catalog/promyshlennaya_lineyka/")) {
-$APPLICATION->IncludeComponent(
-	"bitrix:news.line",
-	"brands-kond",
-	Array(
-		"ACTIVE_DATE_FORMAT" => "d.m.Y",
-		"CACHE_GROUPS" => "Y",
-		"CACHE_TIME" => "300",
-		"CACHE_TYPE" => "A",
-		"DETAIL_URL" => "",
-		"FIELD_CODE" => array(0=>"PREVIEW_PICTURE",1=>"PREVIEW_TEXT",2=>"PROPERTY_BREND_LINK",),
-		"IBLOCKS" => array(0=>"19",),
-		"IBLOCK_TYPE" => "news",
-		"NEWS_COUNT" => "50",
-		"SORT_BY1" => "ACTIVE_FROM",
-		"SORT_BY2" => "SORT",
-		"SORT_ORDER1" => "DESC",
-		"SORT_ORDER2" => "ASC"
-	)
-);
-}?>
- <!-- end brands-section -->
-
 				<div class="text-section"><?=$arCurSection['DESCRIPTION']?></div>
-
 
 			</div>
 		</div>

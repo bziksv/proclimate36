@@ -86,6 +86,12 @@ if ($arParams['SHOW_CONTACT_PAGE'] === 'Y')
 	);
 }
 
+$availablePages[] = array(
+		"path" => '?logout=yes',
+		"name" => 'Выход',
+		"icon" => ''
+);
+
 $customPagesList = CUtil::JsObjectToPhp($arParams['~CUSTOM_PAGES']);
 if ($customPagesList)
 {
@@ -112,11 +118,11 @@ else
     </ul>
     <h1>Личный кабинет</h1>
 
-    <div class="row">
+    <div class="row" style="justify-content: center;">
         <? foreach ($availablePages as $blockElement)
         {
         ?>
-        <div class="col-sm-4">
+        <div class="col-sm-4" style="margin-bottom: 10px;">
             <div class="personal-area_menu">
                 <a href="<?=htmlspecialcharsbx($blockElement['path'])?>">
                     <span class="personal-area_menu-icon <?=$blockElement['icon']?>"></span>

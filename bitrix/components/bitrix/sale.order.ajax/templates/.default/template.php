@@ -466,8 +466,7 @@ else
 						<div class="bx-soa-section-content container-fluid"></div>
 					</div>
 				<? endif ?>
-
-				<!--	ORDER SAVE BLOCK	-->
+				<!--	ORDER SAVE BLOCK	-->2222222222
 				<div id="bx-soa-orderSave">
 					<div class="checkbox">
 						<?
@@ -508,7 +507,6 @@ else
 					</div>
 				</div>
 			</div>
-
 			<!--	SIDEBAR BLOCK	-->
 			<div id="bx-soa-total" class="col-sm-3 bx-soa-sidebar">
 				<div class="bx-soa-cart-total-ghost"></div>

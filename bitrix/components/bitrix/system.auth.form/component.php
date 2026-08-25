@@ -50,6 +50,7 @@ $arResult["RND"] = $this->randString();
 
 if(!$USER->IsAuthorized())
 {
+	
 	$arResult["STORE_PASSWORD"] = COption::GetOptionString("main", "store_password", "Y") == "Y" ? "Y" : "N";
 	$arResult["NEW_USER_REGISTRATION"] = COption::GetOptionString("main", "new_user_registration", "N") == "Y" ? "Y" : "N";
 

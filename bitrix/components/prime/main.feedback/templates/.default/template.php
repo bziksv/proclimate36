@@ -33,24 +33,23 @@ if(!defined("B_PROLOG_INCLUDED")||B_PROLOG_INCLUDED!==true)die();
             >
         </div>
     <? endforeach; ?>
+	
+
 
     <div class="text-center">
         <input type="hidden" name="PARAMS_HASH" value="<?=$arResult["PARAMS_HASH"]?>">
         <input type="submit" name="submit" class="main-btn form-callback_submit" value="Отправить">
-
-        <?if($arParams["USE_CAPTCHA"] == "Y"):?>
-            <div class="g-recaptcha" data-sitekey="<?=$arParams["CAPTCHA_SITE_KEY"]?>"></div>
-        <?endif;?>
     </div>
 
     <br>
     <div class="text-center">
         <span class="form-static_policy-text">
 
-Нажимая кнопку вы соглашаетесь с
-<a href="/upload/politics.pdf" target="_blank" style="color: #0000FF">политикой конфиденциальности </a>
-и
-<a href="/upload/compliance.pdf"  target="_blank" style="color: #0000FF">правилами обработки персональных данных</a>
+<label style="display: flex; align-items: flex-start; gap: 8px; cursor: pointer;">
+  <input type="checkbox" name="consent" required style="margin-top: 3px;">
+	<span style="text-align: left;">Нажимая на эту кнопку, я даю свое <a href="/legal/consent.pdf" target="_blank" rel="noopener noreferrer" style="color: #0000FF;">согласие</a>  на обработку персональных данных согласно условиям <a href="/legal/personal-data.pdf" target="_blank" rel="noopener noreferrer" style="color: #0000FF;">политики обработки персональных данных</a>.</span>
+</label>
+
 
 </span>
     </div>

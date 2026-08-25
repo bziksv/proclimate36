@@ -1,8 +1,8 @@
 <?
 $aMenuLinks = Array(
 	Array(
-		"Главная", 
-		"/", 
+		"Статьи", 
+		"articles/", 
 		Array(), 
 		Array(), 
 		"" 
@@ -17,13 +17,6 @@ $aMenuLinks = Array(
 	Array(
 		"Услуги", 
 		"services/", 
-		Array(), 
-		Array(), 
-		"" 
-	),
-	Array(
-		"Статьи", 
-		"articles/", 
 		Array(), 
 		Array(), 
 		"" 
@@ -69,6 +62,13 @@ $aMenuLinks = Array(
 		Array(), 
 		Array(), 
 		"CUser::IsAuthorized()" 
+	),
+	Array(
+		"Бренды", 
+		"brandsNEW/", 
+		Array(), 
+		Array(), 
+		"" 
 	)
 );
 ?>

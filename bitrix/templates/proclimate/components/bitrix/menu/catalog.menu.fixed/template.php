@@ -20,19 +20,34 @@ $this->setFrameMode(true);
         <?foreach($arResult["MENU_STRUCTURE"] as $itemID => $arColumns):?>
         <?$existPictureDescColomn = ($arResult["ALL_ITEMS"][$itemID]["PARAMS"]["picture_src"] || $arResult["ALL_ITEMS"][$itemID]["PARAMS"]["description"]) ? true : false;?>
         <ul class="catalog-dropdown_menu">
-            <li class="catalog-dropdown_menu-title"><a href="<?=$arResult["ALL_ITEMS"][$itemID]["LINK"]?>">
-                    <?=$arResult["ALL_ITEMS"][$itemID]["TEXT"]?>
-                </a>
+            <li class="catalog-dropdown_menu-title">
+				<? if(in_array($arResult["ALL_ITEMS"][$itemID]["PARAMS"]["ID"], $arResult['PROPERTIES']['UF_DELETE_INDEX'])): ?>
+                    <a href="<?=$arResult["ALL_ITEMS"][$itemID]["LINK"]?>" data-text="<?=$arResult["ALL_ITEMS"][$itemID]["TEXT"]?>"></a>
+                <? else: ?>
+					<a href="<?=$arResult["ALL_ITEMS"][$itemID]["LINK"]?>">
+						<?=$arResult["ALL_ITEMS"][$itemID]["TEXT"]?>
+					</a>
+                <? endif; ?>
             </li>
             <?foreach($arColumns as $key=>$arRow): ?>
                 <?foreach($arRow as $itemIdLevel_2 => $arLevel_3):?>
                 <li class="<?=($arLevel_3) ? 'parent' : null; ?>">
-                    <a href="<?=$arResult["ALL_ITEMS"][$itemIdLevel_2]["LINK"]?>"><?=$arResult["ALL_ITEMS"][$itemIdLevel_2]["TEXT"]?></a>
+				
+					<? if(in_array($arResult["ALL_ITEMS"][$itemIdLevel_2]["PARAMS"]["ID"], $arResult['PROPERTIES']['UF_DELETE_INDEX'])): ?>
+						<a href="<?=$arResult["ALL_ITEMS"][$itemIdLevel_2]["LINK"]?>" data-text="<?=$arResult["ALL_ITEMS"][$itemIdLevel_2]["TEXT"]?>"></a>
+					<? else: ?>
+						<a href="<?=$arResult["ALL_ITEMS"][$itemIdLevel_2]["LINK"]?>"><?=$arResult["ALL_ITEMS"][$itemIdLevel_2]["TEXT"]?></a>
+					<? endif; ?>
+					
                     <? if($arLevel_3): ?>
                     <ul class="catalog-dropdown_submenu">
                     <?foreach($arLevel_3 as $arLevel_4):?>
                         <li>
-                            <a href="<?=$arResult["ALL_ITEMS"][$arLevel_4]["LINK"]?>"><?=$arResult["ALL_ITEMS"][$arLevel_4]["TEXT"]?></a>
+							<? if(in_array($arResult["ALL_ITEMS"][$arLevel_4]["PARAMS"]["ID"], $arResult['PROPERTIES']['UF_DELETE_INDEX'])): ?>
+								<a href="<?=$arResult["ALL_ITEMS"][$arLevel_4]["LINK"]?>" data-text="<?=$arResult["ALL_ITEMS"][$arLevel_4]["TEXT"]?>"></a>
+							<? else: ?>
+								<a href="<?=$arResult["ALL_ITEMS"][$arLevel_4]["LINK"]?>"><?=$arResult["ALL_ITEMS"][$arLevel_4]["TEXT"]?></a>
+							<? endif; ?>
                         </li>
                     <?endforeach;?>
                     </ul>

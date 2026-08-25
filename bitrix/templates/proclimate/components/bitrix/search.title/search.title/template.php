@@ -27,7 +27,7 @@ if($arParams["SHOW_INPUT"] !== "N"):?>
         <div class="head_search_icon"><span class="glipf-search"></span></div>
         <form action="<?echo $arResult["FORM_ACTION"]?>" class="head_form-search">
             <input id="<?echo $INPUT_ID?>" class="head_form-search_input" placeholder="Поиск среди 4000 товаров" type="text" name="q" value="" size="40" maxlength="50" autocomplete="off" />
-            <input name="s" type="submit" class="head_form-search_submit" value="<?=GetMessage("CT_BST_SEARCH_BUTTON");?>" disabled="disabled" />
+            <input name="s" type="submit" class="head_form-search_submit" value="<?=GetMessage("CT_BST_SEARCH_BUTTON");?>" />
         </form>
     </div>
 <?endif?>

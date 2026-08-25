@@ -19,7 +19,9 @@ if (empty($arResult["CATEGORIES"]) || !$arResult['CATEGORIES_ITEMS_EXISTS'])
 				<div style="clear:both;"></div>
 			</div>
 		<?elseif(isset($arResult["ELEMENTS"][$arItem["ITEM_ID"]])):
-			$arElement = $arResult["ELEMENTS"][$arItem["ITEM_ID"]];?>
+			$arElement = $arResult["ELEMENTS"][$arItem["ITEM_ID"]];
+			
+			?>
 			<div class="bx_item_block">
 				<?if (is_array($arElement["PICTURE"])):?>
 				<div class="bx_img_element">

@@ -28,7 +28,7 @@ $this->setFrameMode(true);
     <div class="product-unified_slider">
         <? foreach ($arResult['ITEMS'] as $key => $arItem): ?>
             <div class="product-item">
-            <div class="product-item_img">
+				<div class="product-item_img" style="height:210px">
                 <?
                 if($arItem['PROPERTIES']['MARK']['VALUE_XML_ID'])
                     include('mark/'.$arItem['PROPERTIES']['MARK']['VALUE_XML_ID'].'.php');
@@ -37,9 +37,7 @@ $this->setFrameMode(true);
                     <img data-src="<?=$arItem['PREVIEW_PICTURE']['SRC']?>" alt="<?=$arItem['NAME']?>">
                 </a>
             </div>
-            <span class="product-item_category">
-                <?=($arItem['IBLOCK_SECTION_ID']) ? CIBlockSection::GetByID($arItem['IBLOCK_SECTION_ID'])->GetNext()['NAME'] : '';?>
-            </span>
+            <span class="product-item_category"></span>
             <div class="product-item_title">
                 <a href="<?=$arItem['DETAIL_PAGE_URL']?>"><?=$arItem['NAME']?></a>
             </div>
@@ -47,11 +45,13 @@ $this->setFrameMode(true);
             <div class="product-item_hidden">
                 <ul class="product-item_features">
                     <? foreach ($arParams['LIST_PROPERTY_CODE'] as $code):?>
+					<? if($arItem['PROPERTIES'][$code]['VALUE']): ?>
                         <li>
                             <span class="<?=($arItem['PROPERTIES'][$code]['HINT']) ?: 'glipf-swing'?>"></span>
                             <span class="gray-color"><?=$arItem['PROPERTIES'][$code]['NAME']?></span> -
                             <? echo (is_array($arItem['PROPERTIES'][$code]['VALUE']) ? implode(' / ', $arItem['PROPERTIES'][$code]['VALUE']) : $arItem['PROPERTIES'][$code]['VALUE']);?>
                         </li>
+					<? endif; ?>
                     <? endforeach; ?>
                 </ul>
                 <a href="#" class="product-item_buy-btn main-btn" data-id="<?=$arItem['ID']?>">Купить</a>
