@@ -3040,7 +3040,13 @@ if(maxPrice_40){
     "clearIncomplete": true,
     showMaskOnHover: false,
     showMaskOnFocus: true,
-    placeholder: '_'
+    placeholder: '_',
+    onBeforeMask: function(value) {
+      var digits = String(value || '').replace(/\D/g, '');
+      if (digits.charAt(0) === '8') digits = '7' + digits.substr(1);
+      if (digits.charAt(0) === '7') digits = digits.substr(1);
+      return digits;
+    }
   });
 
   // phone mask for dynamically rendered order form fields
@@ -3053,7 +3059,13 @@ if(maxPrice_40){
       clearIncomplete: true,
       showMaskOnHover: false,
       showMaskOnFocus: true,
-      placeholder: '_'
+      placeholder: '_',
+      onBeforeMask: function(value) {
+        var digits = String(value || '').replace(/\D/g, '');
+        if (digits.charAt(0) === '8') digits = '7' + digits.substr(1);
+        if (digits.charAt(0) === '7') digits = digits.substr(1);
+        return digits;
+      }
     });
     $input.data('soa-phone-masked', true);
   });

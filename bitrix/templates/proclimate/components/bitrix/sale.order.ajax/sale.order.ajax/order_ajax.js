@@ -7159,7 +7159,16 @@ BX.namespace('BX.Sale.OrderAjaxComponent');
 					clearIncomplete: true,
 					showMaskOnHover: false,
 					showMaskOnFocus: true,
-					placeholder: '_'
+					placeholder: '_',
+					onBeforeMask: function(value)
+					{
+						var digits = String(value || '').replace(/\D/g, '');
+						if (digits.charAt(0) === '8')
+							digits = '7' + digits.substr(1);
+						if (digits.charAt(0) === '7')
+							digits = digits.substr(1);
+						return digits;
+					}
 				});
 				$input.data('soa-phone-masked', true);
 				return true;
@@ -7771,8 +7780,11 @@ BX.namespace('BX.Sale.OrderAjaxComponent');
 					input.value = value = BX.util.trim(value);
 					if (value.length)
 					{
-						re = /^\+7-\d{3}-\d{3}-\d{2}-\d{2}$/;
-						if (!re.test(value))
+						var phoneDigits = value.replace(/\D/g, '');
+						if (phoneDigits.length === 11 && phoneDigits.charAt(0) === '8')
+							phoneDigits = '7' + phoneDigits.substr(1);
+						// accept both mask (+7-900-000-00-00) and Bitrix-normalized (79000000000)
+						if (!/^7\d{10}$/.test(phoneDigits))
 						{
 							errors.push(field + ' ' + (BX.message('SOA_INVALID_PHONE') || BX.message('SOA_INVALID_PATTERN')));
 						}
