@@ -23,7 +23,7 @@ $arParams["OK_TEXT"] = trim($arParams["OK_TEXT"]);
 if($arParams["OK_TEXT"] == '')
 	$arParams["OK_TEXT"] = GetMessage("MF_OK_MESSAGE");
 
-$arPropertyFild = array();
+$arPropertyField = array();
 foreach($arParams['PROPERTY_CODE'] as $code){
 	$rsProp = CIBlockProperty::GetList(array(), array("ACTIVE"=>"Y", "IBLOCK_ID" => $arParams['IBLOCK_ID'],"CODE" => $code));
 	if($arr = $rsProp->Fetch())
@@ -39,7 +39,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && $_POST["submit"] <> '' && (!isset($_P
 
 		foreach($arPropertyField as $field){
 			if($field['IS_REQUIRED'] == "Y"){
-				if(strlen($_POST[$field['CODE']]) < 1)
+				if(strlen((string)($_POST[$field['CODE']] ?? '')) < 1)
 					$arResult["ERROR_MESSAGE"][] = GetMessage("FIELD_ERROR").': '.$field['NAME'];
 			}
 		}

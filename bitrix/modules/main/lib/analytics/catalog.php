@@ -413,9 +413,9 @@ class Catalog
 		return $data;
 	}
 
-	protected function getBxUserId()
+	protected static function getBxUserId()
 	{
-		return $_COOKIE['BX_USER_ID'];
+		return $_COOKIE['BX_USER_ID'] ?? null;
 	}
 
 	public static function normalizePhoneNumber($phone)

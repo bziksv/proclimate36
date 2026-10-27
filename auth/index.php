@@ -2,16 +2,19 @@
 require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
 $APPLICATION->SetTitle("");
 
-$userName = CUser::GetFullName();
-if (!$userName)
-	$userName = CUser::GetLogin();
+global $USER;
+$userName = is_object($USER) ? $USER->GetFullName() : '';
+if (!$userName && is_object($USER))
+	$userName = $USER->GetLogin();
 ?>
+<main class="main-content">
+	<div class="container" style="padding-top: 2em; padding-bottom: 3em;">
 
 <? if($_REQUEST["USER_LOGIN"] && $_REQUEST["USER_CHECKWORD"]): ?>
 
 <?$APPLICATION->IncludeComponent("bitrix:main.auth.changepasswd", ".default", Array(
-	"AUTH_AUTH_URL" => "/auth/",	// Страница для авторизации
-		"AUTH_REGISTER_URL" => "/auth/registration.php",	// Страница для регистрации
+	"AUTH_AUTH_URL" => "/auth/",
+		"AUTH_REGISTER_URL" => "/auth/registration.php",
 		"COMPOSITE_FRAME_MODE" => "A",
 		"COMPOSITE_FRAME_TYPE" => "AUTO"
 	),
@@ -35,4 +38,6 @@ if (!$userName)
 
 <? endif; ?>
 
+	</div>
+</main>
 <?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php");?>

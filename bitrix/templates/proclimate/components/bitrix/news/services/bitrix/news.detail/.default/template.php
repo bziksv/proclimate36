@@ -103,5 +103,15 @@ $this->setFrameMode(true);
 <? endif; ?>
 <!-- end services-detailed_box -->
 <div class="services-detailed_footer-text">
-    <?=$arResult['PROPERTIES']['INFO']['~VALUE']['TEXT'];?>
+    <?
+	$infoValue = $arResult['PROPERTIES']['INFO']['~VALUE'] ?? '';
+	if (is_array($infoValue))
+	{
+		echo $infoValue['TEXT'] ?? '';
+	}
+	else
+	{
+		echo $infoValue;
+	}
+	?>
 </div>

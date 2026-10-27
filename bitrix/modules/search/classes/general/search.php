@@ -285,7 +285,7 @@ class CAllSearch extends CDBResult
 		return md5($perm.$sql.$this->strTags);
 	}
 
-	function chr($a)
+	public static function chr($a)
 	{
 		return chr($a[1]);
 	}
@@ -1214,7 +1214,7 @@ class CAllSearch extends CDBResult
 				return 0;
 
 			reset($arFields["SITE_ID"]);
-			list($arFields["LID"], $url) = each($arFields["SITE_ID"]);
+			$arFields["LID"] = (string)key($arFields["SITE_ID"]);
 
 			$arSites = array();
 			foreach ($arFields["SITE_ID"] as $site => $url)

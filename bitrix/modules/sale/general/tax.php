@@ -3,7 +3,7 @@ IncludeModuleLangFile(__FILE__);
 
 class CAllSaleTax
 {
-	public static function DoProcessOrderBasket(&$arOrder, $arOptions, &$arErrors)
+	public static function DoProcessOrderBasket(&$arOrder, $arOptions, &$arErrors = array())
 	{
 		if ((!array_key_exists("TAX_LOCATION", $arOrder) || intval($arOrder["TAX_LOCATION"]) <= 0) && (!$arOrder["USE_VAT"] || $arOrder["USE_VAT"]!="Y"))
 			return;
@@ -19,7 +19,7 @@ class CAllSaleTax
 	 * @param $arOptions
 	 * @param $arErrors
 	 */
-	public static function calculateTax(&$arOrder, $arOptions, &$arErrors)
+	public static function calculateTax(&$arOrder, $arOptions, &$arErrors = array())
 	{
 		if ((!array_key_exists("TAX_LOCATION", $arOrder) || strval(trim($arOrder["TAX_LOCATION"])) == "") && (!$arOrder["USE_VAT"] || $arOrder["USE_VAT"]!="Y"))
 			return;
@@ -150,7 +150,7 @@ class CAllSaleTax
 		$arOrder["TAX_PRICE"] = \Bitrix\Sale\PriceMaths::roundPrecision($arOrder["TAX_PRICE"]);
 	}
 
-	public static function DoProcessOrderDelivery(&$arOrder, $arOptions, &$arErrors)
+	public static function DoProcessOrderDelivery(&$arOrder, $arOptions, &$arErrors = array())
 	{
 		if ((!array_key_exists("TAX_LOCATION", $arOrder) || intval($arOrder["TAX_LOCATION"]) <= 0) && (!$arOrder["USE_VAT"] || $arOrder["USE_VAT"]!="Y"))
 			return;
@@ -166,7 +166,7 @@ class CAllSaleTax
 	 * @param $arOptions
 	 * @param $arErrors
 	 */
-	public static function calculateDeliveryTax(&$arOrder, $arOptions, &$arErrors)
+	public static function calculateDeliveryTax(&$arOrder, $arOptions, &$arErrors = array())
 	{
 		if ((!array_key_exists("TAX_LOCATION", $arOrder) || strval(trim($arOrder["TAX_LOCATION"])) == "") && (!$arOrder["USE_VAT"] || $arOrder["USE_VAT"]!="Y"))
 			return;
@@ -273,7 +273,7 @@ class CAllSaleTax
 
 	}
 
-	static function DoSaveOrderTax($orderId, $taxList, &$arErrors)
+	public static function DoSaveOrderTax($orderId, $taxList, &$arErrors = array())
 	{
 		$duplicateList = array();
 		$idList = array();
@@ -413,7 +413,7 @@ class CAllSaleTax
 		}
 	}
 
-	function CheckFields($ACTION, &$arFields)
+	public static function CheckFields($ACTION, &$arFields)
 	{
 		global $DB;
 
@@ -444,7 +444,7 @@ class CAllSaleTax
 		return true;
 	}
 
-	function Update($ID, $arFields)
+	public static function Update($ID, $arFields)
 	{
 		global $DB;
 		$ID = IntVal($ID);
@@ -461,7 +461,7 @@ class CAllSaleTax
 		return $ID;
 	}
 
-	function Delete($ID)
+	public static function Delete($ID)
 	{
 		global $DB;
 		$ID = IntVal($ID);
@@ -476,7 +476,7 @@ class CAllSaleTax
 		return $DB->Query("DELETE FROM b_sale_tax WHERE ID = ".$ID."", true);
 	}
 
-	function GetByID($ID)
+	public static function GetByID($ID)
 	{
 		global $DB;
 
@@ -494,7 +494,7 @@ class CAllSaleTax
 		return False;
 	}
 
-	function GetList($arOrder=Array("NAME"=>"ASC"), $arFilter=Array())
+	public static function GetList($arOrder=Array("NAME"=>"ASC"), $arFilter=Array())
 	{
 		global $DB;
 		$arSqlSearch = Array();
@@ -582,7 +582,7 @@ class CAllSaleTax
 		return $db_res;
 	}
 
-	function GetExemptList($arFilter = array())
+	public static function GetExemptList($arFilter = array())
 	{
 		global $DB;
 		$arSqlSearch = Array();
@@ -660,7 +660,7 @@ class CAllSaleTax
 		return $db_res;
 	}
 
-	function AddExempt($arFields)
+	public static function AddExempt($arFields)
 	{
 		global $DB;
 
@@ -678,7 +678,7 @@ class CAllSaleTax
 		return True;
 	}
 
-	function DeleteExempt($arFields)
+	public static function DeleteExempt($arFields)
 	{
 		global $DB;
 
