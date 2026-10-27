@@ -6,11 +6,18 @@ Thumbs.db
 *.swp
 *~
 
+# === Cursor (локально для агента, не в репозиторий) ===
+.cursorignore
+.cursor/
+
 # === Секреты / конфиг БД ===
 bitrix/.settings.php
 bitrix/.settings_extra.php
 bitrix/php_interface/dbconn.php
+bitrix/php_interface/dbconn.local.php
 bitrix/license_key.php
+.env
+.env.*
 
 # php_interface: всё кроме init.php
 bitrix/php_interface/*
@@ -31,6 +38,9 @@ upload/*
 
 # === Логи и архивы ===
 *.log
+logs/
+pathLog.txt
+log_*.txt
 *.zip
 *.tar.gz
 *.sql
@@ -39,12 +49,12 @@ bitrix/modules/updater*.log
 bitrix/modules/updater_versions.php
 bitrix/modules/*.zip
 bitrix/modules/*.tar.gz
+bitrix/modules/*.dat
 bitrix/templates/*.tar.gz
 
 # === Sitemap (генерируются) ===
-sitemap.xml
-sitemap-iblock-*.xml
-sitemap-files.xml
+sitemap*.xml
+~2sitemap*.xml
 
 # === Служебное ===
 access/*

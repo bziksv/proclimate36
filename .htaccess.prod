@@ -1,0 +1,128 @@
+<RequireAll>
+    Require all granted
+
+    Require not ip 49.13.193.0/24
+    Require not ip 5.139.230.0/24
+    Require not ip 5.139.253.0/24
+    Require not ip 31.181.248.0/24
+    Require not ip 37.18.38.0/24
+    Require not ip 37.77.111.0/24
+    Require not ip 45.140.18.0/24
+    Require not ip 62.183.46.0/24
+    Require not ip 77.110.108.0/24
+    Require not ip 83.239.97.0/24
+    Require not ip 85.172.109.0/24
+    Require not ip 85.174.205.0/24
+    Require not ip 85.175.197.0/24
+    Require not ip 85.175.217.0/24
+    Require not ip 91.233.43.0/24
+    Require not ip 95.153.163.0/24
+    Require not ip 95.153.177.0/24
+    Require not ip 95.153.178.0/24
+    Require not ip 95.153.180.0/24
+    Require not ip 95.25.184.0/24
+    Require not ip 178.176.211.0/24
+    Require not ip 185.10.173.0/24
+    Require not ip 188.162.140.0/24
+    Require not ip 188.162.143.0/24
+    Require not ip 188.170.169.0/24
+    Require not ip 217.78.231.0/24
+</RequireAll>
+
+
+
+Options -Indexes 
+ErrorDocument 404 /404.php
+
+<IfModule mod_php5.c>
+  php_flag session.use_trans_sid off
+  #php_flag default_charset UTF-8
+  #php_value display_errors 1
+</IfModule>
+
+<IfModule mod_php7.c>
+  php_flag session.use_trans_sid off
+  #php_flag default_charset UTF-8
+  #php_value display_errors 1
+</IfModule>
+
+<IfModule mod_rewrite.c>
+  Options +FollowSymLinks
+  RewriteEngine On
+
+
+# Убрать index.html index.php
+
+RewriteCond %{THE_REQUEST} ^[A-Z]{3,9}\ /.*index\.(html|php)?\ HTTP/
+RewriteRule ^(.*)index\.(html|php)?$ http://proclimate36.ru/$1 [R=301,L]
+
+#Без WWW
+RewriteCond %{HTTP_HOST} ^www.proclimate36.ru$ [NC]
+RewriteRule ^(.*)$ http://proclimate36.ru$1 [R=301,L]
+
+#Протокол HTTPS
+RewriteEngine On
+RewriteCond %{HTTPS} =off
+RewriteCond %{REQUEST_URI} !^/bitrix/admin/1c_exchange.php
+RewriteCond %{REQUEST_URI} !^/hand1CtoSite.php
+RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+
+#убрать //
+RewriteCond %{REQUEST_URI} /{2,} [OR]
+RewriteCond %{THE_REQUEST} \s/{2,}
+RewriteRule ^(.*)$ /$1 [R=301,L]
+
+#добавить / если его нет 
+RewriteCond %{REQUEST_URI} !\?
+RewriteCond %{REQUEST_URI} !\&
+RewriteCond %{REQUEST_URI} !\=
+RewriteCond %{REQUEST_URI} !\.
+RewriteCond %{REQUEST_URI} !\/$
+RewriteRule ^(.*[^\/])$ /$1/ [R=301,L]
+
+
+
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -l [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteCond %{REQUEST_FILENAME} [\xC2-\xDF][\x80-\xBF] [OR]
+RewriteCond %{REQUEST_FILENAME} \xE0[\xA0-\xBF][\x80-\xBF] [OR]
+RewriteCond %{REQUEST_FILENAME} [\xE1-\xEC\xEE\xEF][\x80-\xBF]{2} [OR]
+RewriteCond %{REQUEST_FILENAME} \xED[\x80-\x9F][\x80-\xBF] [OR]
+RewriteCond %{REQUEST_FILENAME} \xF0[\x90-\xBF][\x80-\xBF]{2} [OR]
+RewriteCond %{REQUEST_FILENAME} [\xF1-\xF3][\x80-\xBF]{3} [OR]
+RewriteCond %{REQUEST_FILENAME} \xF4[\x80-\x8F][\x80-\xBF]{2}
+RewriteCond %{REQUEST_FILENAME} !/bitrix/virtual_file_system.php$
+RewriteRule ^(.*)$ /bitrix/virtual_file_system.php [L]
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-l
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteCond %{REQUEST_FILENAME} !/bitrix/urlrewrite.php$
+  RewriteRule ^(.*)$ /bitrix/urlrewrite.php [L]
+  RewriteRule .* - [E=REMOTE_USER:%{HTTP:Authorization}]
+</IfModule>
+
+<IfModule mod_dir.c>
+  DirectoryIndex index.php index.html
+</IfModule>
+
+<IfModule mod_expires.c>
+  ExpiresActive on
+  ExpiresByType image/jpeg "access plus 3 day"
+  ExpiresByType image/gif "access plus 3 day"
+  ExpiresByType image/png "access plus 3 day"
+  ExpiresByType text/css "access plus 3 day"
+  ExpiresByType application/javascript "access plus 3 day"  
+</IfModule>
+
+redirect 301 /news/ /
+redirect 301 /catalog/infrakrasnye_teplye_poly/ /catalog/infrakrasnie_teplye_poly/
+redirect 301 /catalog/plenochnyy_teplyy_pol/ /catalog/plenochniy_teplyy_pol/
+redirect 301 /catalog/product/split_sistema/ /catalog/split_sistemy/
+redirect 301 /catalog/product/split_sistema_/ /catalog/product/split_sistema_mitsubishi_electric_msz_ap20vg/
+redirect 301 /catalog/product/nastennyy_vnutrenniy_blok/ /catalog/product/split_sistema_panasonic_kit_te25_tke_cs_te25tkew/
+redirect 301 /catalog/product/stoyka_almaznogo_bureniya/ /catalog/product/stoyka_almaznogo_bureniya_messer_dm160/
+redirect 301 /catalog/uvlazhniteli-vozdukha/ /catalog/uvlazhniteli/
+redirect 301 /catalog/kompaktnye_bytovye_pribory/ /catalog/rekuperator_dlya_doma/
+redirect 301 /articles/v_oktyabre_montazh_v_podarok/ /articles/montazh_v_podarok/
+redirect 301 /catalog/nastennye_vnutrennie_bloki_emagic_inverter_2018/ /catalog/konditsionery_lessar/
