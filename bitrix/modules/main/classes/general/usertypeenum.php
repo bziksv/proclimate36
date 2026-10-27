@@ -11,7 +11,7 @@ class CUserTypeEnum extends \Bitrix\Main\UserField\TypeBase
 {
 	const USER_TYPE_ID = "enumeration";
 
-	function GetUserTypeDescription()
+	public static function GetUserTypeDescription()
 	{
 		return array(
 			"USER_TYPE_ID" => static::USER_TYPE_ID,

@@ -8,7 +8,13 @@ if (($pos = strpos($_SERVER["REQUEST_URI"], "?")) !== false)
 {
 	$params = substr($_SERVER["REQUEST_URI"], $pos+1);
 	parse_str($params, $_GET);
-	$GLOBALS += $_GET;
+	foreach ($_GET as $key => $val)
+	{
+		if (!isset($GLOBALS[$key]))
+		{
+			$GLOBALS[$key] = $val;
+		}
+	}
 	$HTTP_GET_VARS = $_GET;
 }
 

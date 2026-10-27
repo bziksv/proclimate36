@@ -15,7 +15,7 @@ class CUserTypeDate extends Main\UserField\TypeBase
 {
 	const USER_TYPE_ID = 'date';
 
-	function GetUserTypeDescription()
+	public static function GetUserTypeDescription()
 	{
 		return array(
 			"USER_TYPE_ID" => static::USER_TYPE_ID,

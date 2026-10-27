@@ -3,7 +3,7 @@ IncludeModuleLangFile(__FILE__);
 
 class CUserTypeIBlockSection extends CUserTypeEnum
 {
-	function GetUserTypeDescription()
+	public static function GetUserTypeDescription()
 	{
 		return array(
 			"USER_TYPE_ID" => "iblock_section",

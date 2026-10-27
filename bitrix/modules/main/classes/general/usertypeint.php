@@ -5,7 +5,7 @@ class CUserTypeInteger extends \Bitrix\Main\UserField\TypeBase
 {
 	const USER_TYPE_ID = 'integer';
 
-	function GetUserTypeDescription()
+	public static function GetUserTypeDescription()
 	{
 		return array(
 			"USER_TYPE_ID" => static::USER_TYPE_ID,

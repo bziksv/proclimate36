@@ -154,7 +154,7 @@ class OrmAnnotateCommand extends Command
 
 		// output file path
 		$filePath = $input->getArgument('output');
-		$filePath = ($filePath{0} == '/')
+		$filePath = ($filePath[0] == '/')
 			? $filePath // absolute
 			: getcwd().'/'.$filePath; // relative
 
@@ -168,7 +168,7 @@ class OrmAnnotateCommand extends Command
 
 			foreach ($rawAnnotations as $rawAnnotation)
 			{
-				if ($rawAnnotation{0} === ':')
+				if ($rawAnnotation[0] === ':')
 				{
 					$endPos = strpos($rawAnnotation, ' */');
 					$entityClass = substr($rawAnnotation, 1, $endPos-1);

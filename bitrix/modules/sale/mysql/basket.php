@@ -975,7 +975,7 @@ class CSaleBasket extends CAllSaleBasket
 
 class CSaleUser extends CAllSaleUser
 {
-	function Add()
+	public static function Add()
 	{
 		global $DB, $USER;
 
@@ -1013,7 +1013,7 @@ class CSaleUser extends CAllSaleUser
 		return $ID;
 	}
 
-	function _Add($arFields)
+	public static function _Add($arFields)
 	{
 		global $DB;
 
@@ -1050,7 +1050,7 @@ class CSaleUser extends CAllSaleUser
 		return $ID;
 	}
 
-	function DeleteOld($nDays)
+	public static function DeleteOld($nDays)
 	{
 		global $DB;
 
@@ -1075,7 +1075,7 @@ class CSaleUser extends CAllSaleUser
 		return true;
 	}
 
-	function GetBuyersList($arOrder = Array(), $arFilter = Array(), $arGroupBy = false, $arNavStartParams = false, $arSelectFields = Array())
+	public static function GetBuyersList($arOrder = Array(), $arFilter = Array(), $arGroupBy = false, $arNavStartParams = false, $arSelectFields = Array())
 	{
 		global $DB;
 		if(empty($arSelectFields) || in_array("*", $arSelectFields))
@@ -1201,7 +1201,7 @@ class CSaleUser extends CAllSaleUser
 		return $dbRes;
 	}
 
-	function GetUserID ($intFUserID)
+	public static function GetUserID ($intFUserID)
 	{
 		global $DB;
 		$intFUserID = intval($intFUserID);

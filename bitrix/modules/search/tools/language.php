@@ -316,7 +316,9 @@ class CSearchLanguage
 		if(empty($cache))
 		{
 			$cache[] = "en";//English is always in mind and on the first place
-			$rsLanguages = CLanguage::GetList(($b=""), ($o=""));
+			$by = "";
+			$order = "";
+			$rsLanguages = CLanguage::GetList($by, $order);
 			while($arLanguage = $rsLanguages->Fetch())
 				if($arLanguage["LID"] != "en")
 					$cache[] = $arLanguage["LID"];

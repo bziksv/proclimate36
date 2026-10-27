@@ -12,6 +12,9 @@
 /** @var CBitrixComponent $component */
 
 $this->setFrameMode(true);
+$ufDeleteIndex = (isset($arResult['PROPERTIES']['UF_DELETE_INDEX']) && is_array($arResult['PROPERTIES']['UF_DELETE_INDEX']))
+	? $arResult['PROPERTIES']['UF_DELETE_INDEX']
+	: array();
 ?>
 <div class="head-catalog">
     <span class="head-catalog_hamburger"></span>
@@ -21,7 +24,7 @@ $this->setFrameMode(true);
         <?$existPictureDescColomn = ($arResult["ALL_ITEMS"][$itemID]["PARAMS"]["picture_src"] || $arResult["ALL_ITEMS"][$itemID]["PARAMS"]["description"]) ? true : false;?>
         <ul class="catalog-dropdown_menu">
             <li class="catalog-dropdown_menu-title">
-				<? if(in_array($arResult["ALL_ITEMS"][$itemID]["PARAMS"]["ID"], $arResult['PROPERTIES']['UF_DELETE_INDEX'])): ?>
+				<? if(in_array($arResult["ALL_ITEMS"][$itemID]["PARAMS"]["ID"], $ufDeleteIndex)): ?>
                     <a href="<?=$arResult["ALL_ITEMS"][$itemID]["LINK"]?>" data-text="<?=$arResult["ALL_ITEMS"][$itemID]["TEXT"]?>"></a>
                 <? else: ?>
 					<a href="<?=$arResult["ALL_ITEMS"][$itemID]["LINK"]?>">
@@ -33,7 +36,7 @@ $this->setFrameMode(true);
                 <?foreach($arRow as $itemIdLevel_2 => $arLevel_3):?>
                 <li class="<?=($arLevel_3) ? 'parent' : null; ?>">
 				
-					<? if(in_array($arResult["ALL_ITEMS"][$itemIdLevel_2]["PARAMS"]["ID"], $arResult['PROPERTIES']['UF_DELETE_INDEX'])): ?>
+					<? if(in_array($arResult["ALL_ITEMS"][$itemIdLevel_2]["PARAMS"]["ID"], $ufDeleteIndex)): ?>
 						<a href="<?=$arResult["ALL_ITEMS"][$itemIdLevel_2]["LINK"]?>" data-text="<?=$arResult["ALL_ITEMS"][$itemIdLevel_2]["TEXT"]?>"></a>
 					<? else: ?>
 						<a href="<?=$arResult["ALL_ITEMS"][$itemIdLevel_2]["LINK"]?>"><?=$arResult["ALL_ITEMS"][$itemIdLevel_2]["TEXT"]?></a>
@@ -43,7 +46,7 @@ $this->setFrameMode(true);
                     <ul class="catalog-dropdown_submenu">
                     <?foreach($arLevel_3 as $arLevel_4):?>
                         <li>
-							<? if(in_array($arResult["ALL_ITEMS"][$arLevel_4]["PARAMS"]["ID"], $arResult['PROPERTIES']['UF_DELETE_INDEX'])): ?>
+							<? if(in_array($arResult["ALL_ITEMS"][$arLevel_4]["PARAMS"]["ID"], $ufDeleteIndex)): ?>
 								<a href="<?=$arResult["ALL_ITEMS"][$arLevel_4]["LINK"]?>" data-text="<?=$arResult["ALL_ITEMS"][$arLevel_4]["TEXT"]?>"></a>
 							<? else: ?>
 								<a href="<?=$arResult["ALL_ITEMS"][$arLevel_4]["LINK"]?>"><?=$arResult["ALL_ITEMS"][$arLevel_4]["TEXT"]?></a>

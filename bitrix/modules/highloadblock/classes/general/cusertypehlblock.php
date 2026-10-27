@@ -9,7 +9,7 @@ class CUserTypeHlblock extends CUserTypeEnum
 	const DISPLAY_LIST = 'LIST';
 	const DISPLAY_CHECKBOX = 'CHECKBOX';
 
-	function GetUserTypeDescription()
+	public static function GetUserTypeDescription()
 	{
 		return array(
 			"USER_TYPE_ID" => self::USER_TYPE_ID,

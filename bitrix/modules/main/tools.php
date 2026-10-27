@@ -4289,7 +4289,13 @@ function InitURLParam($url=false)
 		parse_str($params, $_GET);
 		parse_str($params, $arr);
 		$_REQUEST += $arr;
-		$GLOBALS += $arr;
+		foreach ($arr as $key => $val)
+		{
+			if (!isset($GLOBALS[$key]))
+			{
+				$GLOBALS[$key] = $val;
+			}
+		}
 	}
 }
 

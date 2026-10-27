@@ -2,7 +2,7 @@
 IncludeModuleLangFile(__FILE__);
 class CIBlockPropertyTopicID
 {
-	function GetUserTypeDescription()
+	public static function GetUserTypeDescription()
 	{
 		return array(
 			"PROPERTY_TYPE"		=>"S",

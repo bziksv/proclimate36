@@ -5,7 +5,7 @@ class CUserTypeStringFormatted extends \CUserTypeString
 {
 	const USER_TYPE_ID = "string_formatted";
 
-	function GetUserTypeDescription()
+	public static function GetUserTypeDescription()
 	{
 		return array(
 			"USER_TYPE_ID" => static::USER_TYPE_ID,

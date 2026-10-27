@@ -6,7 +6,7 @@ class CUserTypeIBlockElement extends CUserTypeEnum
 {
 	private static $iblockIncluded = null;
 
-	function GetUserTypeDescription()
+	public static function GetUserTypeDescription()
 	{
 
 		return array(
