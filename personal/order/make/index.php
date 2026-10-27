@@ -4,7 +4,7 @@ $APPLICATION->SetTitle("Заказы");
 
 global $USER;
 if(!$USER->IsAuthorized())
-	LocalRedirect("/auth/");	
+	LocalRedirect("/auth/?backurl=".rawurlencode("/personal/cart/"));
 ?>    
 <main class="main-content">
         <div class="cart-section">

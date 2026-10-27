@@ -2508,7 +2508,7 @@ class CAllSaleOrder
 		if(!empty($arReminder))
 		{
 			$arSites = Array();
-			$minDay = mktime();
+			$minDay = time();
 			foreach($arReminder as $key => $val)
 			{
 				if($val["use"] == "Y" && $val["frequency"] > 0)
@@ -2519,7 +2519,7 @@ class CAllSaleOrder
 					for($i=0; $i <= floor($val["period"] / $val["frequency"]); $i++)
 					{
 						$day = AddToTimeStamp(Array("DD" => -($val["after"] + $val["period"] - $val["frequency"]*$i)));
-						if($day < mktime())
+						if($day < time())
 						{
 							if($minDay > $day)
 								$minDay = $day;

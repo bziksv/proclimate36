@@ -14,11 +14,28 @@ if ($arResult['SHOW_ERRORS'] == 'Y' && $arResult['ERROR'])
 	ShowMessage($arResult['ERROR_MESSAGE']);
 ?>
 
+<?
+// Prefer explicit ?backurl= from checkout/cart flow over current /auth/ URL.
+$authBackUrl = '';
+if (!empty($_REQUEST['backurl']) && is_string($_REQUEST['backurl']))
+{
+	$candidate = $_REQUEST['backurl'];
+	if (strpos($candidate, '/') === 0 && strpos($candidate, '//') === false && strpos($candidate, '/auth') !== 0)
+		$authBackUrl = $candidate;
+}
+if ($authBackUrl === '' && !empty($arResult['~BACKURL']) && is_string($arResult['~BACKURL']))
+{
+	$candidate = $arResult['~BACKURL'];
+	if (strpos($candidate, '/') === 0 && strpos($candidate, '/auth') === false)
+		$authBackUrl = $candidate;
+}
+?>
+
 <?if($arResult["FORM_TYPE"] == "login"):?>
 
 <form name="system_auth_form<?=$arResult["RND"]?>" method="post" target="_top" action="<?=$arResult["AUTH_URL"]?>">
-<?if($arResult["BACKURL"] <> ''):?>
-	<input type="hidden" name="backurl" value="<?=$arResult["BACKURL"]?>" />
+<?if($authBackUrl <> ''):?>
+	<input type="hidden" name="backurl" value="<?=htmlspecialcharsbx($authBackUrl)?>" />
 <?endif?>
 <?foreach ($arResult["POST"] as $key => $value):?>
 	<input type="hidden" name="<?=$key?>" value="<?=$value?>" />
@@ -55,11 +72,20 @@ if ($arResult['SHOW_ERRORS'] == 'Y' && $arResult['ERROR'])
 
 <hr class="bxe-light">
 
+<?
+$authRegisterUrl = $arResult["AUTH_REGISTER_URL"];
+$authForgotUrl = $arResult["AUTH_FORGOT_PASSWORD_URL"];
+if ($authBackUrl !== '')
+{
+	$authRegisterUrl = "/auth/registration.php?backurl=".rawurlencode($authBackUrl);
+	$authForgotUrl = "/auth/forget.php?backurl=".rawurlencode($authBackUrl);
+}
+?>
 <div class="bx-authform-formgroup-container">
-	<a href="<?=$arResult["AUTH_REGISTER_URL"]?>" class="btn btn-primary" rel="nofollow"><?=GetMessage("AUTH_REGISTER")?></a>
-	<a href="<?=$arResult["AUTH_FORGOT_PASSWORD_URL"]?>" class="btn btn-primary" rel="nofollow"><?=GetMessage("AUTH_FORGOT_PASSWORD_2")?></a>
+	<a href="<?=htmlspecialcharsbx($authRegisterUrl)?>" class="btn btn-primary" rel="nofollow"><?=GetMessage("AUTH_REGISTER")?></a>
+	<a href="<?=htmlspecialcharsbx($authForgotUrl)?>" class="btn btn-primary" rel="nofollow"><?=GetMessage("AUTH_FORGOT_PASSWORD_2")?></a>
 </div>
 <? else: ?>
-	<? LocalRedirect($arParams["PROFILE_URL"]); ?>
+	<? LocalRedirect($authBackUrl !== '' ? $authBackUrl : $arParams["PROFILE_URL"]); ?>
 <?endif?>
 </div>

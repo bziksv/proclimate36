@@ -677,7 +677,7 @@ class CSaleViewedProduct extends CAllSaleViewedProduct
 	* @param
 	* @return true false
 	*/
-	public function _ClearViewed()
+	public static function _ClearViewed()
 	{
 		global $DB;
 
