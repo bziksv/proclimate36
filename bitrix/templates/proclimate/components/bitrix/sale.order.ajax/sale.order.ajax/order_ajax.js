@@ -1775,8 +1775,20 @@ BX.namespace('BX.Sale.OrderAjaxComponent');
 				if (wrap)
 				{
 					BX.addClass(wrap, 'bx-soa-pd-consent--error');
+					if (this.animateScrollTo)
+					{
+						this.animateScrollTo(wrap, 800, 20);
+					}
+					else
+					{
+						wrap.scrollIntoView({behavior: 'smooth', block: 'center'});
+					}
 				}
-				checkbox.focus();
+				try
+				{
+					checkbox.focus();
+				}
+				catch (e) {}
 				return false;
 			}
 

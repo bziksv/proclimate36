@@ -220,7 +220,8 @@ class CSiteCheckerTest
 			}
 		}
 
-		list($this->function, $this->strCurrentTestName) = each($this->arTest[$this->step]);
+		$this->function = key($this->arTest[$this->step]);
+		$this->strCurrentTestName = current($this->arTest[$this->step]);
 		$this->strNextTestName = $this->strCurrentTestName;
 
 		$LICENSE_KEY = '';
@@ -302,7 +303,8 @@ class CSiteCheckerTest
 				$this->step++;
 				$this->test_percent = 0;
 				$this->arTestVars['last_value'] = '';
-				list($this->function, $this->strNextTestName) = each($this->arTest[$this->step]);
+				$this->function = key($this->arTest[$this->step]);
+				$this->strNextTestName = current($this->arTest[$this->step]);
 			}
 			else // finish
 			{
@@ -2014,7 +2016,7 @@ class CSiteCheckerTest
 		while($f = $res->Fetch())
 		{
 			$i++;
-			list($k, $table) = each($f);
+			$table = current($f);
 
 			if ($this->arTestVars['last_value'])
 			{
@@ -2200,7 +2202,7 @@ class CSiteCheckerTest
 		while($f = $res->Fetch())
 		{
 			$i++;
-			list($k, $table) = each($f);
+			$table = current($f);
 
 			if ($this->arTestVars['last_value'])
 			{
