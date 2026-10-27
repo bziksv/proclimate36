@@ -61,7 +61,7 @@ $aMenuLinks = Array(
 		"personal/", 
 		Array(), 
 		Array(), 
-		"CUser::IsAuthorized()" 
+		"\$GLOBALS['USER']->IsAuthorized()"
 	),
 	Array(
 		"Бренды", 

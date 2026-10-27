@@ -32,7 +32,7 @@ IncludeModuleLangFile(__FILE__);
 
 class CSeoEventHandlers
 {
-	function SeoOnPanelCreate()
+	public static function SeoOnPanelCreate()
 	{
 		global $APPLICATION, $USER;
 
@@ -68,7 +68,7 @@ class CSeoEventHandlers
 
 		$prop_code = ToUpper(COption::GetOptionString('seo', 'property_window_title', 'title'));
 
-		if (is_array($APPLICATION->arPagePropertiesChanger[$prop_code]))
+		if (isset($APPLICATION->arPagePropertiesChanger[$prop_code]) && is_array($APPLICATION->arPagePropertiesChanger[$prop_code]))
 		{
 			if (isset($APPLICATION->arPagePropertiesChanger[$prop_code]['PUBLIC_EDIT_LINK']))
 				$encWinTitleChangerLink = urlencode(base64_encode($APPLICATION->arPagePropertiesChanger[$prop_code]['PUBLIC_EDIT_LINK']));

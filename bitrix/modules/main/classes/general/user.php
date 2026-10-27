@@ -2906,7 +2906,7 @@ abstract class CAllUser extends CDBResult
 
 		foreach (GetModuleEvents("main", "OnAfterSetUserGroup", true) as $arEvent)
 		{
-			ExecuteModuleEventEx($arEvent, array("USER_ID"=>$USER_ID, "GROUPS"=>$inserted));
+			ExecuteModuleEventEx($arEvent, array($USER_ID, $inserted));
 		}
 
 		if($aPrevGroups <> $inserted)
