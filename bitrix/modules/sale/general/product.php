@@ -601,7 +601,7 @@ class CAllSaleViewedProduct
 	* @param
 	* @return true false
 	*/
-	public function ClearViewed()
+	public static function ClearViewed()
 	{
 		CSaleViewedProduct::_ClearViewed();
 

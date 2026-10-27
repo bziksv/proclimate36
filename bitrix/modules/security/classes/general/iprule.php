@@ -1258,7 +1258,7 @@ class CSecurityIPRule
 		return true;
 	}
 
-	function CleanUpAgent()
+	public static function CleanUpAgent()
 	{
 		$agentName = "CSecurityIPRule::CleanUpAgent();";
 		$cleanupDays = 2;

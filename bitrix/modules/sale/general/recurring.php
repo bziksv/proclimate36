@@ -775,7 +775,7 @@ class CAllSaleRecurring
 		return $res;
 	}
 
-	function AgentCheckRecurring()
+	public static function AgentCheckRecurring()
 	{
 		$bTmpUser = False;
 		if (!isset($GLOBALS["USER"]) || !is_object($GLOBALS["USER"]))

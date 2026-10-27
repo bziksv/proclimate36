@@ -2500,7 +2500,7 @@ class CAllSaleOrder
 		return false;
 	}
 
-	function RemindPayment()
+	public static function RemindPayment()
 	{
 		$reminder = COption::GetOptionString("sale", "pay_reminder", "");
 		$arReminder = unserialize($reminder);

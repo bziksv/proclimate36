@@ -2560,7 +2560,9 @@ abstract class CAllUser extends CDBResult
 		}
 		else
 		{
-			$rs = CUser::GetList(($by="id"), ($order="asc"), array("ID_EQUAL_EXACT"=>intval($ID)), array("SELECT"=>array("UF_*")));
+			$by = "id";
+			$order = "asc";
+			$rs = CUser::GetList($by, $order, array("ID_EQUAL_EXACT"=>intval($ID)), array("SELECT"=>array("UF_*")));
 			if($userID > 0 && $ID == $userID)
 			{
 				self::$CURRENT_USER = array($rs->Fetch());
@@ -2573,7 +2575,9 @@ abstract class CAllUser extends CDBResult
 
 	public static function GetByLogin($LOGIN)
 	{
-		$rs = CUser::GetList(($by="id"), ($order="asc"), array("LOGIN_EQUAL_EXACT"=>$LOGIN), array("SELECT"=>array("UF_*")));
+		$by = "id";
+		$order = "asc";
+		$rs = CUser::GetList($by, $order, array("LOGIN_EQUAL_EXACT"=>$LOGIN), array("SELECT"=>array("UF_*")));
 		return $rs;
 	}
 
