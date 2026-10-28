@@ -2083,7 +2083,7 @@ class CAdminResult extends CDBResult
 	 * @param int|array $nPageSize
 	 * @return int
 	 */
-	public function GetNavSize($table_id=false, $nPageSize=20)
+	public static function GetNavSize($table_id=false, $nPageSize=20)
 	{
 		/** @global CMain $APPLICATION */
 		global $NavNum, $APPLICATION;

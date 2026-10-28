@@ -3,7 +3,7 @@ IncludeModuleLangFile(__FILE__);
 
 class TheBrains {
 
-    public function showBtn(&$menu){
+    public static function showBtn(&$menu){
 
         global $APPLICATION;
         /** @global $USER CUser */
@@ -70,7 +70,7 @@ class TheBrains {
         return true;
     }
 
-    function actionBtn(){
+    public static function actionBtn(){
 
         /** @global $APPLICATION CMain */
         global $APPLICATION;
@@ -124,7 +124,7 @@ class TheBrains {
                     unset($prop_fields["ID"]);
                     foreach($prop_fields as $k=>$v){
                         if(!is_array($v))$prop_fields[$k]=trim($v);
-                        if($k{0}=='~') unset($prop_fields[$k]);
+                        if($k[0]=='~') unset($prop_fields[$k]);
                     }
 
                     $PropID = $ibp->Add($prop_fields);
@@ -182,7 +182,7 @@ class TheBrains {
         }
     }
 
-    public function addElement($old_ib,$new_ib,$old_sect,$new_sect){
+    public static function addElement($old_ib,$new_ib,$old_sect,$new_sect){
 
         $arSelect = Array("ID", "IBLOCK_ID","SORT", "NAME","PREVIEW_TEXT","DETAIL_TEXT", "DATE_ACTIVE_FROM","CODE", "PROPERTY_*");
         $arFilter = Array("IBLOCK_ID" => $old_ib,"SECTION_ID" => $old_sect, "ACTIVE_DATE" => "Y", "ACTIVE" => "Y");

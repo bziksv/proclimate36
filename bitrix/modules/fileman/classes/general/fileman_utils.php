@@ -20,7 +20,9 @@ class CFilemanUtils
 			$arLangArray[] = 'pack';
 
 		$arSites = Array();
-		$dbSitesList = CSite::GetList($b = "SORT", $o = "asc");
+		$b = "SORT";
+		$o = "asc";
+		$dbSitesList = CSite::GetList($b, $o);
 		while($arSite = $dbSitesList->GetNext())
 		{
 			$arSites[] = array(

@@ -3380,7 +3380,9 @@ if($saleModulePermissions == "W" || ($saleModulePermissions >= 'P' && !empty($al
 	$arSiteMenu = array();
 	$arSitesShop = array();
 	$arSitesTmp = array();
-	$rsSites = CSite::GetList($b = "id", $o = "asc", Array("ACTIVE" => "Y"));
+	$b = "id";
+	$o = "asc";
+	$rsSites = CSite::GetList($b, $o, Array("ACTIVE" => "Y"));
 
 	while ($arSite = $rsSites->GetNext())
 	{

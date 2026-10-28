@@ -245,7 +245,7 @@ class CAdminList
 	{
 		if($_SERVER['REQUEST_METHOD']=='POST' && isset($_REQUEST['save'])  && check_bitrix_sessid())
 		{
-			$arrays = array(&$_POST, &$_REQUEST, &$GLOBALS);
+			$arrays = array(&$_POST, &$_REQUEST);
 			foreach($arrays as $i => $array)
 			{
 				if(is_array($array["FIELDS"]))
@@ -261,6 +261,23 @@ class CAdminList
 								{
 									unset($arrays[$i]["FIELDS"][$id][$key]);
 								}
+							}
+						}
+					}
+				}
+			}
+			if (is_array($GLOBALS["FIELDS"]))
+			{
+				foreach ($GLOBALS["FIELDS"] as $id => $fields)
+				{
+					if (is_array($fields))
+					{
+						$keys = array_keys($fields);
+						foreach ($keys as $key)
+						{
+							if (($c = substr($key, 0, 1)) == '~' || $c == '=')
+							{
+								unset($GLOBALS["FIELDS"][$id][$key]);
 							}
 						}
 					}

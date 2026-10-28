@@ -574,7 +574,7 @@ function AddToTimeStamp($arrAdd, $stmp=false)
 		$stmp = time();
 	if (is_array($arrAdd) && count($arrAdd)>0)
 	{
-		while(list($key, $value) = each($arrAdd))
+		foreach($arrAdd as $key => $value)
 		{
 			$value = intval($value);
 			if (is_int($value))
@@ -1644,7 +1644,7 @@ function array_convert_name_2_value($arr)
 	$arr_res = array();
 	if (is_array($arr) && count($arr)>0)
 	{
-		while (list($key, $value)=each($arr))
+		foreach($arr as $key => $value)
 		{
 			global $$value;
 			$arr_res[$key] = $$value;
@@ -1671,7 +1671,7 @@ function TrimArr(&$arr, $trim_value=false)
 		return false;
 
 	$found = false;
-	while (list($key,$value)=each($arr))
+	foreach($arr as $key => $value)
 	{
 		if ($trim_value)
 		{

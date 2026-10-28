@@ -94,7 +94,7 @@ class CAdminFilter
 		}
 	}
 
-	private function err_mess()
+	private static function err_mess()
 	{
 		return "<br>Class: CAdminFilter<br>File: ".__FILE__;
 	}

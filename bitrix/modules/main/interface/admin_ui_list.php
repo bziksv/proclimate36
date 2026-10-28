@@ -175,7 +175,7 @@ class CAdminUiList extends CAdminList
 			check_bitrix_sessid()
 		)
 		{
-			$arrays = array(&$_POST, &$_REQUEST, &$GLOBALS);
+			$arrays = array(&$_POST, &$_REQUEST);
 			foreach ($arrays as $i => &$array)
 			{
 				$customFields = [];
@@ -1801,7 +1801,7 @@ class CAdminUiResult extends CAdminResult
 		);
 	}
 
-	public function GetNavSize($tableId = false, $nPageSize = 20, $listUrl = '')
+	public static function GetNavSize($tableId = false, $nPageSize = 20, $listUrl = '')
 	{
 		$tableId = $tableId ? $tableId : $this->table_id;
 		$gridOptions = new Bitrix\Main\Grid\Options($tableId);

@@ -182,12 +182,15 @@ function GetFilterHiddens($var = "filter_", $button = array("filter" => "Y", "se
 
 	if(is_array($button))
 	{
-		reset($button); // php bug
-		while(list($key, $value) = each($button))
-			$res.='<input type="hidden" name="'.htmlspecialcharsbx($key).'" value="'.htmlspecialcharsbx($value).'">';
+		foreach($button as $key => $val)
+		{
+			$res.='<input type="hidden" name="'.htmlspecialcharsbx($key).'" value="'.htmlspecialcharsbx($val).'">';
+		}
 	}
 	else
+	{
 		$res .= $button;
+	}
 
 	return $res;
 }
@@ -239,9 +242,10 @@ function GetFilterParams($var="filter_", $bDoHtmlEncode=true, $button = array("f
 
 	if(is_array($button))
 	{
-		reset($button); // php bug
-		while(list($key, $value) = each($button))
-			$res .= "&".$key."=".urlencode($value);
+		foreach($button as $key => $val)
+		{
+			$res .= "&".$key."=".urlencode($val);
+		}
 	}
 	else
 		$res .= $button;
@@ -291,7 +295,7 @@ function GetUrlFromArray($arr)
 	if(!is_array($arr))
 		return "";
 	$str = "";
-	while (list($key,$value) = each($arr))
+	foreach($arr as $key => $value)
 	{
 		if (is_array($value) && count($value)>0)
 		{
