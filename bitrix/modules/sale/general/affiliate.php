@@ -163,7 +163,7 @@ class CAllSaleAffiliate
 		return false;
 	}
 
-	function GetAffiliate($affiliateID = 0)
+	public static function GetAffiliate($affiliateID = 0)
 	{
 		$affiliateID = IntVal($affiliateID);
 

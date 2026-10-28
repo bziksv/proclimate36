@@ -175,10 +175,12 @@ BX.namespace('BX.Sale.OrderAjaxComponent');
 
 			action = BX.type.isNotEmptyString(action) ? action : 'refreshOrderAjax';
 
+			// save must use submitAjax: posts the real form (flat ORDER_PROP_*, pd_consent)
+			// + signedParamsString. Plain BX.ajax+getData broke signature/JSON → silent no-op.
 			if (action === 'saveOrderAjax')
 			{
 				form = BX('bx-soa-order-form');
-				if (form)
+				if (form && form.querySelector('input[type=hidden][name=sessid]'))
 				{
 					form.querySelector('input[type=hidden][name=sessid]').value = BX.bitrix_sessid();
 				}
@@ -341,42 +343,68 @@ BX.namespace('BX.Sale.OrderAjaxComponent');
 
 		saveOrderWithJson: function(result)
 		{
-			var redirected = false;
+			var redirected = false,
+				hasOrderPayload = !!(result && result.order),
+				orderResult;
 
-			if (result && result.order)
+			try
 			{
-				result = result.order;
-
-				if (result.REDIRECT_URL)
+				if (hasOrderPayload)
 				{
-					if (this.params.USE_ENHANCED_ECOMMERCE === 'Y')
+					orderResult = result.order;
+
+					if (orderResult.REDIRECT_URL)
 					{
-						this.setAnalyticsDataLayer('purchase', result.ID);
+						// Analytics must not block redirect (TOTAL may be missing → TypeError).
+						try
+						{
+							if (this.params.USE_ENHANCED_ECOMMERCE === 'Y')
+							{
+								this.setAnalyticsDataLayer('purchase', orderResult.ID);
+							}
+
+							var orderSum = (this.result && this.result.TOTAL) ? this.result.TOTAL.ORDER_PRICE : null;
+							(window.b24order = window.b24order || []).push({id: orderResult.ID, sum: orderSum});
+						}
+						catch (e) {}
+
+						redirected = true;
+						location.href = orderResult.REDIRECT_URL;
 					}
+					else if (orderResult.SHOW_AUTH)
+					{
+						this.result.SHOW_AUTH = orderResult.SHOW_AUTH;
+						this.result.AUTH = orderResult.AUTH;
+						this.result.SMS_AUTH = orderResult.SMS_AUTH;
 
-					(window.b24order=window.b24order||[]).push({id: result.ID, sum: this.result.TOTAL.ORDER_PRICE});
-
-					redirected = true;
-					location.href = result.REDIRECT_URL;
+						this.editAuthBlock();
+						this.showAuthBlock();
+						this.animateScrollTo(this.authBlockNode);
+					}
+					else
+					{
+						this.showErrors(orderResult.ERROR, true, true);
+					}
 				}
-				else if (result.SHOW_AUTH)
+			}
+			catch (e)
+			{
+				if (window.console && console.error)
 				{
-					this.result.SHOW_AUTH = result.SHOW_AUTH;
-					this.result.AUTH = result.AUTH;
-					this.result.SMS_AUTH = result.SMS_AUTH;
-
-					this.editAuthBlock();
-					this.showAuthBlock();
-					this.animateScrollTo(this.authBlockNode);
+					console.error('saveOrderWithJson', e);
 				}
-				else
-				{
-					this.showErrors(result.ERROR, true, true);
-				}
+				hasOrderPayload = false;
 			}
 
 			if (!redirected)
 			{
+				if (!hasOrderPayload && this.mainErrorsNode)
+				{
+					this.showError(
+						this.mainErrorsNode,
+						'Не удалось сохранить заказ. Обновите страницу и попробуйте ещё раз.'
+					);
+				}
 				this.handleNotRedirected();
 			}
 		},
@@ -7168,7 +7196,7 @@ BX.namespace('BX.Sale.OrderAjaxComponent');
 					return true;
 
 				$input.inputmask('+7-999-999-99-99', {
-					clearIncomplete: true,
+					clearIncomplete: false,
 					showMaskOnHover: false,
 					showMaskOnFocus: true,
 					placeholder: '_',

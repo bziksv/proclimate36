@@ -3037,7 +3037,7 @@ if(maxPrice_40){
   });
 
   $('input[type="tel"]').inputmask("+7-999-999-99-99", {
-    "clearIncomplete": true,
+    "clearIncomplete": false,
     showMaskOnHover: false,
     showMaskOnFocus: true,
     placeholder: '_',
@@ -3056,7 +3056,7 @@ if(maxPrice_40){
       return;
     }
     $input.inputmask("+7-999-999-99-99", {
-      clearIncomplete: true,
+      clearIncomplete: false,
       showMaskOnHover: false,
       showMaskOnFocus: true,
       placeholder: '_',

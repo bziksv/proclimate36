@@ -342,7 +342,9 @@ abstract class CAllMain
 			$POLICY_ATTEMPTS = 0;
 			if($login <> '')
 			{
-				$rsUser = CUser::GetList(($o='LOGIN'), ($b='DESC'),
+				$o = 'LOGIN';
+				$b = 'DESC';
+				$rsUser = CUser::GetList($o, $b,
 					array(
 						"LOGIN_EQUAL_EXACT" => $login,
 						"EXTERNAL_AUTH_ID" => "",
@@ -373,7 +375,9 @@ abstract class CAllMain
 			//We need to know how many attempts user made
 			if($USER_ATTEMPTS === false)
 			{
-				$rsUser = CUser::GetList(($o='LOGIN'), ($b='DESC'),
+				$o = 'LOGIN';
+				$b = 'DESC';
+				$rsUser = CUser::GetList($o, $b,
 					array(
 						"LOGIN_EQUAL_EXACT" => $login,
 						"EXTERNAL_AUTH_ID" => "",

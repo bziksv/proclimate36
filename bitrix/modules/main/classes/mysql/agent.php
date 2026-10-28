@@ -161,8 +161,9 @@ class CAgent extends CAllAgent
 				$eval_result = "";
 				$e = eval("\$eval_result=".$arAgent["NAME"]);
 			}
-			catch (Exception $e)
+			catch (Throwable $e)
 			{
+				// PHP 8: TypeError/Error не наследники Exception — иначе агент валит весь хиты белым экраном
 				CTimeZone::Enable();
 
 				$application = \Bitrix\Main\Application::getInstance();

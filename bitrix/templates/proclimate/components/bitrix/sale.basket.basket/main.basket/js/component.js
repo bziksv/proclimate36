@@ -576,6 +576,13 @@
 
 		checkOutAction: function()
 		{
+			var button = this.getEntity(document, 'basket-checkout-button');
+			if (button)
+			{
+				BX.addClass(button, 'disabled');
+				button.disabled = true;
+				button.innerHTML = button.innerHTML.replace(/\s*$/, '') + '…';
+			}
 			document.location.href = this.params.PATH_TO_ORDER;
 		},
 

@@ -8,7 +8,10 @@
     <link href="<?=SITE_DIR?>img/favicon.png" rel="icon" type="image/png" />
     <link href="<?=SITE_DIR?>img/apple-touch-icon.png" rel="apple-touch-icon" />
     <? $APPLICATION->ShowHead(); ?>
-    <style>body{opacity: 0;}</style>
+    <?
+    // Раньше здесь было body{opacity:0} до CSS/JS в footer — при fatal/агенте страница
+    // оставалась белой и скрывала даже [Error]. Preloader в .wrapper-loader достаточен.
+    ?>
     <script>var filterPrice = {},filterPrice_2 = {},filterPrice_3 = {},filterPrice_4 = {},filterPrice_5 = {},filterPrice_6 = {},filterPrice_7 = {},filterPrice_8 = {},filterPrice_9 = {},filterPrice_10 = {},filterPrice_11 = {},filterPrice_12 = {},filterPrice_13 = {},filterPrice_14 = {},filterPrice_15 = {},filterPrice_16 = {},filterPrice_17 = {},filterPrice_18 = {},filterPrice_19 = {},filterPrice_20 = {},filterPrice_21 = {},filterPrice_22 = {},filterPrice_23 = {},filterPrice_24 = {},filterPrice_25 = {},filterPrice_26 = {},filterPrice_27 = {},filterPrice_28 = {},filterPrice_29 = {},filterPrice_30 = {},filterPrice_31 = {},filterPrice_32 = {},filterPrice_33 = {},filterPrice_34 = {},filterPrice_35 = {},filterPrice_36 = {},filterPrice_37 = {},filterPrice_38 = {},filterPrice_39 = {},filterPrice_40 = {};</script>
 <meta name="yandex-verification" content="61fd2e608af458fc" />
 <meta name="google-site-verification" content="XVUUN__jKHjLxmKfdliCBFVVRv9jrw9XoC6BGbpXYiI" />
@@ -43,7 +46,7 @@
 					<div class="logo-head">
                         <div class="head-logo">
                             <a href="/">
-                                <img data-src="<?=SITE_TEMPLATE_PATH?>/img/static/logo.png" alt="alt">
+                                <img src="<?=SITE_TEMPLATE_PATH?>/img/static/logo.png" data-src="<?=SITE_TEMPLATE_PATH?>/img/static/logo.png" alt="Proclimate">
                             </a>
                         </div>
 						<div class="logo-head-text">Климатическая техника с установкой</div>

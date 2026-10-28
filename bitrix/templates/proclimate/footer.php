@@ -125,7 +125,8 @@
 
 
 
-<!-- Yandex.Metrika counter -->
+<?php if (strpos($_SERVER['HTTP_HOST'] ?? '', '.local') === false && strpos($_SERVER['HTTP_HOST'] ?? '', '127.0.0.1') === false): ?>
+<!-- Yandex.Metrika counter (prod only; webvisor on .local slows cart→order navigation) -->
 <script type="text/javascript" >
    (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
    m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
@@ -140,6 +141,7 @@
 </script>
 <noscript><div><img src="https://mc.yandex.ru/watch/62466880" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
 <!-- /Yandex.Metrika counter -->
+<?php endif; ?>
 
 <script>
 	$('[data-text]').each(function(i, el){
