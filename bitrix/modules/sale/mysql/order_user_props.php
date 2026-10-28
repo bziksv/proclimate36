@@ -126,7 +126,7 @@ class CSaleOrderUserProps extends CAllSaleOrderUserProps
 		return $dbRes;
 	}
 
-	function Add($arFields)
+	public static function Add($arFields)
 	{
 		global $DB;
 

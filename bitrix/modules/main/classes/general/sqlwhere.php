@@ -187,15 +187,15 @@ class CAllSQLWhere
 			foreach($arFields as $key=>$arField)
 			{
 				$key = strtoupper($key);
-				if(!isset($this->fields[$key]) && is_array($arField) && strlen($arField["FIELD_NAME"])>0)
+				if(!isset($this->fields[$key]) && is_array($arField) && isset($arField["FIELD_NAME"]) && strlen($arField["FIELD_NAME"])>0)
 				{
 					$ar = array();
-					$ar["TABLE_ALIAS"] = $arField["TABLE_ALIAS"];
+					$ar["TABLE_ALIAS"] = $arField["TABLE_ALIAS"] ?? null;
 					$ar["FIELD_NAME"] = $arField["FIELD_NAME"];
-					$ar["FIELD_TYPE"] = $arField["FIELD_TYPE"];
-					$ar["USER_TYPE_ID"] = $arField["USER_TYPE_ID"];
+					$ar["FIELD_TYPE"] = $arField["FIELD_TYPE"] ?? null;
+					$ar["USER_TYPE_ID"] = $arField["USER_TYPE_ID"] ?? null;
 					$ar["MULTIPLE"] = isset($arField["MULTIPLE"])? $arField["MULTIPLE"]: "N";
-					$ar["JOIN"] = $arField["JOIN"];
+					$ar["JOIN"] = $arField["JOIN"] ?? null;
 					if(isset($arField["LEFT_JOIN"]))
 						$ar["LEFT_JOIN"] = $arField["LEFT_JOIN"];
 					if(isset($arField["CALLBACK"]))

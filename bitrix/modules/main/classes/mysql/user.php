@@ -549,7 +549,7 @@ class CUser extends CAllUser
 			".$userFieldsSelect."
 		";
 
-		if (is_array($arParams['SELECT']))
+		if (isset($arParams['SELECT']) && is_array($arParams['SELECT']))
 		{
 			$arRatingInSelect = array();
 			foreach ($arParams['SELECT'] as $column)

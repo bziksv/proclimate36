@@ -1144,10 +1144,17 @@ abstract class OrderBase extends Internals\Entity
 			$result->addWarnings($r->getErrors());
 		}
 
-		$this->callEventOnSaleOrderSaved();
-		$this->callDelayedEvents();
-
-		$this->onAfterSave();
+		// PHP 8.2: OnSaleOrderSaved handlers (e.g. catalog subscribe GetList by-ref) and
+		// delayed events must not abort ajax JSON after the order is already persisted.
+		try
+		{
+			$this->callEventOnSaleOrderSaved();
+			$this->callDelayedEvents();
+			$this->onAfterSave();
+		}
+		catch (\Throwable $e)
+		{
+		}
 
 		$this->isNew = false;
 		$this->isSaveExecuting = false;

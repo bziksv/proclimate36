@@ -2346,18 +2346,26 @@ class Order extends OrderBase implements \IShipmentOrder, \IPaymentOrder, IBusin
 	{
 		$result = parent::save();
 
-		$registry = Registry::getInstance(static::getRegistryType());
-
-		/** @var OrderHistory $orderHistory */
-		$orderHistory = $registry->getOrderHistoryClassName();
-		$orderHistory::collectEntityFields('ORDER', $this->getId(), $this->getId());
-
-		/** @var EntityMarker $entityMarker */
-		$entityMarker = $registry->getEntityMarkerClassName();
-		if ($entityMarker::hasErrors($this))
+		// PHP 8.2: post-save history/markers must not kill ajax JSON (order already persisted).
+		try
 		{
-			$entityMarker::saveMarkers($this);
-			static::updateInternal($this->getId(), array("MARKED" => "Y"));
+			$registry = Registry::getInstance(static::getRegistryType());
+
+			/** @var OrderHistory $orderHistory */
+			$orderHistory = $registry->getOrderHistoryClassName();
+			$orderHistory::collectEntityFields('ORDER', $this->getId(), $this->getId());
+
+			/** @var EntityMarker $entityMarker */
+			$entityMarker = $registry->getEntityMarkerClassName();
+			if ($entityMarker::hasErrors($this))
+			{
+				$entityMarker::saveMarkers($this);
+				static::updateInternal($this->getId(), array("MARKED" => "Y"));
+			}
+		}
+		catch (\Throwable $e)
+		{
+			// keep $result success so sale.order.ajax can emit REDIRECT_URL
 		}
 
 		return $result;

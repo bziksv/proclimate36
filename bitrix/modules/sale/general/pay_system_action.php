@@ -197,7 +197,7 @@ class CAllSalePaySystemAction
 		);
 	}
 
-	function InitParamArrays($arOrder, $orderID = 0, $psParams = "", $relatedData = array(), $payment = array(), $shipment = array(), $registryType = Sale\Registry::REGISTRY_TYPE_ORDER)
+	public static function InitParamArrays($arOrder, $orderID = 0, $psParams = "", $relatedData = array(), $payment = array(), $shipment = array(), $registryType = Sale\Registry::REGISTRY_TYPE_ORDER)
 	{
 		if(!is_array($relatedData))
 			$relatedData = array();
@@ -268,14 +268,24 @@ class CAllSalePaySystemAction
 			$GLOBALS["SALE_INPUT_PARAMS"]["ORDER"]["SHOULD_PAY"] = DoubleVal($GLOBALS["SALE_INPUT_PARAMS"]["ORDER"]["PRICE"]) - DoubleVal($GLOBALS["SALE_INPUT_PARAMS"]["ORDER"]["SUM_PAID"]);
 		}
 
-		$arDateInsert = explode(" ", $GLOBALS["SALE_INPUT_PARAMS"]["ORDER"]["DATE_INSERT"]);
+		$dateInsertRaw = $GLOBALS["SALE_INPUT_PARAMS"]["ORDER"]["DATE_INSERT"];
+		if (is_object($dateInsertRaw) && method_exists($dateInsertRaw, 'toString'))
+			$dateInsertRaw = $dateInsertRaw->toString();
+		elseif (!is_string($dateInsertRaw) && !is_numeric($dateInsertRaw))
+			$dateInsertRaw = (string)$dateInsertRaw;
+		$arDateInsert = explode(" ", $dateInsertRaw);
 		if (is_array($arDateInsert) && count($arDateInsert) > 0)
 			$GLOBALS["SALE_INPUT_PARAMS"]["ORDER"]["DATE_INSERT_DATE"] = $arDateInsert[0];
 		else
-			$GLOBALS["SALE_INPUT_PARAMS"]["ORDER"]["DATE_INSERT_DATE"] = $GLOBALS["SALE_INPUT_PARAMS"]["ORDER"]["DATE_INSERT"];
+			$GLOBALS["SALE_INPUT_PARAMS"]["ORDER"]["DATE_INSERT_DATE"] = $dateInsertRaw;
 
 		if (!empty($payment))
-			$GLOBALS["SALE_INPUT_PARAMS"]["ORDER"]["DATE_BILL_DATE"] = ConvertTimeStamp(MakeTimeStamp($payment["DATE_BILL"]), 'SHORT');
+		{
+			$dateBillRaw = $payment["DATE_BILL"];
+			if (is_object($dateBillRaw) && method_exists($dateBillRaw, 'toString'))
+				$dateBillRaw = $dateBillRaw->toString();
+			$GLOBALS["SALE_INPUT_PARAMS"]["ORDER"]["DATE_BILL_DATE"] = ConvertTimeStamp(MakeTimeStamp($dateBillRaw), 'SHORT');
+		}
 
 		$userID = IntVal($GLOBALS["SALE_INPUT_PARAMS"]["ORDER"]["USER_ID"]);
 		if ($userID > 0)

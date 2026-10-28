@@ -29,11 +29,16 @@ AddEventHandler('main', 'OnBeforeProlog', 'proclimateLogSoaIncoming');
 function proclimateLogSoaIncoming()
 {
 	$uri = (string)($_SERVER['REQUEST_URI'] ?? '');
-	$isSoa = (strpos($uri, '/personal/order/make') !== false)
-		|| (strpos($uri, 'sale.order.ajax/ajax.php') !== false);
+	$isSoaAjax = (strpos($uri, 'sale.order.ajax/ajax.php') !== false);
+	$isSoa = (strpos($uri, '/personal/order/make') !== false) || $isSoaAjax;
 	if (!$isSoa)
 	{
 		return;
+	}
+	// Keep ajax JSON clean: PHP 8.2 notices must not prepend HTML to REDIRECT_URL payload.
+	if ($isSoaAjax)
+	{
+		@ini_set('display_errors', '0');
 	}
 	$via = (string)($_REQUEST['via_ajax'] ?? '');
 	$action = (string)($_REQUEST['soa-action'] ?? $_REQUEST['action'] ?? '');
@@ -87,20 +92,26 @@ AddEventHandler('sale', 'OnSaleComponentOrderShowAjaxAnswer', 'proclimateLogSoaA
 function proclimateLogSoaAjaxAnswer(&$result)
 {
 	$request = \Bitrix\Main\Context::getCurrent()->getRequest();
-	$action = (string)$request->get('soa-action');
-	if ($action === '')
+	$action = (string)$request->get('action');
+	$soaAction = (string)$request->get('soa-action');
+	$isSave = ($action === 'saveOrderAjax' || $soaAction === 'saveOrderAjax');
+
+	// Ensure success redirect even if ACCOUNT_NUMBER was lost mid-save side-effects.
+	if ($isSave && is_array($result) && isset($result['order']) && is_array($result['order']))
 	{
-		$action = (string)$request->get('action');
-	}
-	if ($action !== 'saveOrderAjax')
-	{
-		return;
+		if (empty($result['order']['REDIRECT_URL']) && !empty($result['order']['ID']))
+		{
+			$result['order']['REDIRECT_URL'] = '/personal/order/make/?ORDER_ID=' . rawurlencode((string)$result['order']['ID']);
+		}
 	}
 
 	$line = date('c')
-		. ' OUT pd_consent=' . (string)$request->get('pd_consent')
+		. ' OUT action=' . $action
+		. ' soa=' . $soaAction
+		. ' pd_consent=' . (string)$request->get('pd_consent')
 		. ' has_order=' . (isset($result['order']) ? 'Y' : 'N')
 		. ' redirect=' . (isset($result['order']['REDIRECT_URL']) ? (string)$result['order']['REDIRECT_URL'] : '')
+		. ' id=' . (isset($result['order']['ID']) ? (string)$result['order']['ID'] : '')
 		. ' error=' . (isset($result['order']['ERROR']) ? json_encode($result['order']['ERROR'], JSON_UNESCAPED_UNICODE) : '')
 		. "\n";
 	@file_put_contents(
@@ -147,26 +158,23 @@ function proclimateSoaSaveShutdownHook()
 	});
 }
 
-AddEventHandler('sale', 'OnSaleOrderBeforeSaved', static function (\Bitrix\Main\Event $event) {
+// D7 sale events (compatible with OrderBase::callEventOnBeforeOrderSaved)
+$proclimateEventManager = \Bitrix\Main\EventManager::getInstance();
+$proclimateEventManager->addEventHandler('sale', 'OnSaleOrderBeforeSaved', static function (\Bitrix\Main\Event $event) {
 	proclimateSoaLog('EVT OnSaleOrderBeforeSaved');
 });
-AddEventHandler('sale', 'OnSaleOrderSaved', static function (\Bitrix\Main\Event $event) {
-	/** @var \Bitrix\Sale\Order $order */
+$proclimateEventManager->addEventHandler('sale', 'OnSaleOrderSaved', static function (\Bitrix\Main\Event $event) {
 	$order = $event->getParameter('ENTITY');
 	$id = is_object($order) ? (string)$order->getId() : '';
 	proclimateSoaLog('EVT OnSaleOrderSaved id=' . $id);
 });
 AddEventHandler('sale', 'OnSaleComponentOrderCreated', static function (&$order, &$arUserResult, $request, &$arParams, &$arResult) {
-	$action = is_object($request) ? (string)$request->get('soa-action') : '';
-	if ($action === '')
+	if (!is_object($request) || (string)$request->get('action') !== 'saveOrderAjax')
 	{
-		$action = is_object($request) ? (string)$request->get('action') : '';
+		return;
 	}
-	if ($action === 'saveOrderAjax')
-	{
-		$errCnt = (isset($arResult['ERROR']) && is_array($arResult['ERROR'])) ? count($arResult['ERROR']) : 0;
-		proclimateSoaLog('EVT OnSaleComponentOrderCreated errors=' . $errCnt);
-	}
+	$errCnt = (isset($arResult['ERROR']) && is_array($arResult['ERROR'])) ? count($arResult['ERROR']) : 0;
+	proclimateSoaLog('EVT OnSaleComponentOrderCreated errors=' . $errCnt . ' pd_consent=' . (string)$request->get('pd_consent'));
 });
 
 AddEventHandler('sale', 'OnSaleComponentOrderCreated', 'proclimateRequirePdConsent');
@@ -177,12 +185,10 @@ function proclimateRequirePdConsent(&$order, &$arUserResult, $request, &$arParam
 		return;
 	}
 
-	$action = (string)$request->get('soa-action');
-	if ($action === '')
-	{
-		$action = (string)$request->get('action');
-	}
-	if ($action !== 'saveOrderAjax')
+	// submitAjax save sends top-level action=saveOrderAjax.
+	// Do NOT trust soa-action here: refreshOrderAjax does $request->set(order),
+	// and the form hidden soa-action=saveOrderAjax overwrites the real refresh action.
+	if ((string)$request->get('action') !== 'saveOrderAjax')
 	{
 		return;
 	}
@@ -195,6 +201,10 @@ function proclimateRequirePdConsent(&$order, &$arUserResult, $request, &$arParam
 		{
 			$consent = (string)$orderData['pd_consent'];
 		}
+	}
+	if ($consent === '' && isset($_POST['pd_consent']))
+	{
+		$consent = (string)$_POST['pd_consent'];
 	}
 
 	if ($consent !== 'Y')

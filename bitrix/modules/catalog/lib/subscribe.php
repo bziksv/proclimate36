@@ -217,10 +217,12 @@ class SubscribeTable extends Entity\DataManager
 			if(!$userId || empty($listProductId))
 				return;
 
-			$user = \CUser::getList($by = 'ID', $order = 'ASC',
+			$by = 'ID';
+			$orderDir = 'ASC';
+			$user = \CUser::getList($by, $orderDir,
 				array('ID' => $userId) , array('FIELDS' => array('EMAIL'))
 			)->fetch();
-			if($user['EMAIL'])
+			if($user && $user['EMAIL'])
 			{
 				$listSubscribe = static::getList(array(
 					'select' => array('ID'),

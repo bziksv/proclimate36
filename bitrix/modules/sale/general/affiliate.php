@@ -181,7 +181,8 @@ class CAllSaleAffiliate
 		if ($affiliateID <= 0)
 		{
 			$cookieName = COption::GetOptionString("main", "cookie_name", "BITRIX_SM");
-			$affiliateID = IntVal($_COOKIE[$cookieName."_SALE_AFFILIATE"]);
+			$cookieKey = $cookieName."_SALE_AFFILIATE";
+			$affiliateID = IntVal($_COOKIE[$cookieKey] ?? 0);
 		}
 
 		if ($affiliateID > 0)

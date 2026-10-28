@@ -182,6 +182,11 @@ abstract class ScalarField extends Field implements IStorable, ITypeHintable
 			$value = $value->compile();
 		}
 
+		if (is_array($value))
+		{
+			return empty($value);
+		}
+
 		return (strval($value) === '');
 	}
 

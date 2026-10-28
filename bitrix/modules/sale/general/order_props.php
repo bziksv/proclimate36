@@ -380,7 +380,7 @@ class CSaleOrderProps
 			CSaleOrderPropsValue::Delete($id);
 	}
 
-	function GetList($arOrder = array(), $arFilter = array(), $arGroupBy = false, $arNavStartParams = false, $arSelectFields = array())
+	public static function GetList($arOrder = array(), $arFilter = array(), $arGroupBy = false, $arNavStartParams = false, $arSelectFields = array())
 	{
 		if (!is_array($arOrder) && !is_array($arFilter))
 		{
@@ -597,7 +597,7 @@ class CSaleOrderProps
 		}
 	}
 
-	function GetByID($ID)
+	public static function GetByID($ID)
 	{
 		$id = (int) $ID;
 		return $id > 0 && $id == $ID
@@ -605,7 +605,7 @@ class CSaleOrderProps
 			: false;
 	}
 
-	function CheckFields($ACTION, &$arFields, $ID = 0)
+	public static function CheckFields($ACTION, &$arFields, $ID = 0)
 	{
 		global $APPLICATION;
 
@@ -676,7 +676,7 @@ class CSaleOrderProps
 		return true;
 	}
 
-	function Add($arFields)
+	public static function Add($arFields)
 	{
 		foreach (GetModuleEvents('sale', 'OnBeforeOrderPropsAdd', true) as $arEvent)
 			if (ExecuteModuleEventEx($arEvent, array(&$arFields)) === false)
@@ -697,7 +697,7 @@ class CSaleOrderProps
 		return $ID;
 	}
 
-	function Update($ID, $arFields)
+	public static function Update($ID, $arFields)
 	{
 		if (! $ID)
 			return false;
@@ -721,7 +721,7 @@ class CSaleOrderProps
 		return $ID;
 	}
 
-	function Delete($ID)
+	public static function Delete($ID)
 	{
 		if (! $ID)
 			return false;
@@ -746,7 +746,7 @@ class CSaleOrderProps
 		return $DB->Query("DELETE FROM b_sale_order_props WHERE ID = ".$ID, true);
 	}
 
-	function GetRealValue($propertyID, $propertyCode, $propertyType, $value, $lang = false)
+	public static function GetRealValue($propertyID, $propertyCode, $propertyType, $value, $lang = false)
 	{
 		$propertyID = IntVal($propertyID);
 		$propertyCode = Trim($propertyCode);
@@ -854,7 +854,7 @@ class CSaleOrderProps
 	 * @param array $arFilter with keys: PROPERTY_ID, ENTITY_ID, ENTITY_TYPE
 	 * @return dbResult
 	 */
-	function GetOrderPropsRelations($arFilter = array())
+	public static function GetOrderPropsRelations($arFilter = array())
 	{
 		global $DB;
 
@@ -899,7 +899,7 @@ class CSaleOrderProps
 	 * @param string $entityType - P/D (payment or delivery systems)
 	 * @return dbResult
 	 */
-	function UpdateOrderPropsRelations($ID, $arEntityIDs, $entityType)
+	public static function UpdateOrderPropsRelations($ID, $arEntityIDs, $entityType)
 	{
 		global $DB;
 

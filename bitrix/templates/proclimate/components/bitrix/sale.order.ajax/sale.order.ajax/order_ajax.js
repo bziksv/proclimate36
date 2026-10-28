@@ -199,7 +199,34 @@ BX.namespace('BX.Sale.OrderAjaxComponent');
 							signedParamsString: this.signedParamsString
 						},
 						onsuccess: BX.proxy(this.saveOrderWithJson, this),
-						onfailure: BX.proxy(this.handleNotRedirected, this)
+						onfailure: BX.delegate(function(data) {
+							// Order may already be saved while PHP 8.2 warning HTML broke JSON.
+							var raw = '';
+							try
+							{
+								if (data && data.xhr && data.xhr.responseText)
+									raw = String(data.xhr.responseText);
+								else if (BX.type.isString(data))
+									raw = data;
+							}
+							catch (e) {}
+
+							var redirectMatch = raw.match(/"REDIRECT_URL"\s*:\s*"([^"]+)"/);
+							if (redirectMatch && redirectMatch[1])
+							{
+								window.location.href = redirectMatch[1].replace(/\\\//g, '/');
+								return;
+							}
+
+							var orderMatch = raw.match(/ORDER_ID(?:=|\\":\\"|":")(\d+)/i);
+							if (orderMatch && orderMatch[1])
+							{
+								window.location.href = '/personal/order/make/?ORDER_ID=' + orderMatch[1];
+								return;
+							}
+
+							this.handleNotRedirected();
+						}, this)
 					}
 				);
 			}

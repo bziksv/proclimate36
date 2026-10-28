@@ -6198,12 +6198,33 @@ class SaleOrderAjax extends \CBitrixComponent
 
 		if (empty($arResult['ERROR']))
 		{
-			$this->saveProfileData();
+			// PHP 8.2: legacy CSale* profile helpers may still throw; order is already saved — keep JSON redirect
+			try
+			{
+				$this->saveProfileData();
+			}
+			catch (\Throwable $e)
+			{
+				AddMessage2Log(
+					'SaleOrderAjax::saveProfileData: '.$e->getMessage().' @ '.$e->getFile().':'.$e->getLine(),
+					'sale.order.ajax'
+				);
+			}
 		}
 
 		if (empty($arResult['ERROR']))
 		{
-			$this->addStatistic();
+			try
+			{
+				$this->addStatistic();
+			}
+			catch (\Throwable $e)
+			{
+				AddMessage2Log(
+					'SaleOrderAjax::addStatistic: '.$e->getMessage(),
+					'sale.order.ajax'
+				);
+			}
 
 			if ($saveToSession)
 			{
