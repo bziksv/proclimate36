@@ -17,17 +17,9 @@ $this->setFrameMode(true);
 		display:none;
 }*/
 </style>
-<script
-  src="https://code.jquery.com/jquery-2.2.4.min.js"
-  integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
-  crossorigin="anonymous"></script>
-<script>
-	/*$(function() {
-		$('body').on('click', function() {
-			$('body').find('.catalog-product_content.is-active .needtohide').remove();
-		});
-});*/
-</script>
+<?php
+// jQuery уже в шаблоне (js/min.js). Внешний code.jquery.com не подключаем.
+?>
 
 <div class="row catalog-product_content catalog-product_contentclass">
     <? if (!empty($arResult['ITEMS'])): ?>
