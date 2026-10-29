@@ -74,6 +74,18 @@ $arComponentParameters = array(
 			"DEFAULT" => GetMessage("MFP_OK_TEXT"), 
 			"PARENT" => "BASE",
 		),
+		"EMAIL_TO" => Array(
+			"NAME" => GetMessage("MFP_EMAIL_TO"),
+			"TYPE" => "STRING",
+			"DEFAULT" => "info@proclimate36.ru",
+			"PARENT" => "BASE",
+		),
+		"USE_CAPTCHA" => Array(
+			"NAME" => GetMessage("MFP_CAPTCHA"),
+			"TYPE" => "CHECKBOX",
+			"DEFAULT" => "Y",
+			"PARENT" => "BASE",
+		),
 		"EVENT_MESSAGE_ID" => Array(
 			"NAME" => GetMessage("MFP_EMAIL_TEMPLATES"), 
 			"TYPE"=>"LIST", 

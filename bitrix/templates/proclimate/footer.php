@@ -85,6 +85,8 @@
                     "IBLOCK_ID" => "10",
                     "IBLOCK_TYPE" => "feedback",
                     "OK_TEXT" => "Спасибо, ваше сообщение принято.",
+                    "EMAIL_TO" => "info@proclimate36.ru",
+                    "USE_CAPTCHA" => "Y",
                     "PROPERTY_CODE" => array(
                         0 => "NAME",
                         1 => "PHONE",

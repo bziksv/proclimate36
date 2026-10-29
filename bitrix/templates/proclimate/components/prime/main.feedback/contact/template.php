@@ -44,6 +44,21 @@ if(!defined("B_PROLOG_INCLUDED")||B_PROLOG_INCLUDED!==true)die();
 
     <? endforeach; ?>
 
+    <div style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;" aria-hidden="true">
+        <label>Fax<input type="text" name="fax" value="" tabindex="-1" autocomplete="off"></label>
+    </div>
+
+    <?if($arParams["USE_CAPTCHA"] == "Y"):?>
+        <div class="form-group">
+            <labek class="form-label">*Код с картинки:</labek>
+            <input type="hidden" name="captcha_sid" value="<?=$arResult["capCode"]?>">
+            <div style="margin-bottom:8px;">
+                <img src="/bitrix/tools/captcha.php?captcha_sid=<?=$arResult["capCode"]?>" width="180" height="40" alt="CAPTCHA">
+            </div>
+            <input type="text" class="form-input" name="captcha_word" maxlength="50" value="" autocomplete="off" required placeholder="Код с картинки">
+        </div>
+    <?endif;?>
+
     <div class="text-center">
         <input type="hidden" name="PARAMS_HASH" value="<?=$arResult["PARAMS_HASH"]?>">
 		<input type="submit" name="submit" class="main-btn form-callback_submit" value="Отправить">
