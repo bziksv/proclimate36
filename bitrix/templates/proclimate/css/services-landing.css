@@ -1,0 +1,500 @@
+/* Scoped landing look for /services/* detail pages only */
+
+.svc-land-page {
+  padding: 1.5em 0 2.5em;
+  background:
+    radial-gradient(1200px 420px at 12% -10%, rgba(60, 176, 230, 0.18), transparent 60%),
+    radial-gradient(900px 380px at 100% 0%, rgba(23, 118, 155, 0.12), transparent 55%),
+    #f7fbfe;
+}
+
+.svc-land-page__crumbs {
+  margin-bottom: 0.75em;
+}
+
+.svc-land {
+  position: relative;
+}
+
+.svc-land__hero {
+  position: relative;
+  margin-bottom: 1.75em;
+  padding: 1.75em 1.5em 1.5em;
+  background: linear-gradient(145deg, #0f3f55 0%, #17769b 48%, #3cb0e6 100%);
+  border-radius: 18px;
+  color: #fff;
+  overflow: hidden;
+  box-shadow: 0 18px 40px rgba(15, 63, 85, 0.28);
+}
+
+.svc-land__hero-grid {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+  gap: 1.5em;
+  align-items: start;
+}
+
+@media (max-width: 767px) {
+  .svc-land__hero-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.svc-land__hero-glow {
+  position: absolute;
+  right: -80px;
+  top: -90px;
+  width: 320px;
+  height: 320px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.12);
+  pointer-events: none;
+}
+
+.svc-land__eyebrow {
+  display: inline-block;
+  margin-bottom: 0.75em;
+  padding: 0.35em 0.9em;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 999px;
+  font-size: 0.8rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  font-weight: 600;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.svc-land__title {
+  margin: 0 0 0.65em;
+  color: #fff;
+  font-size: clamp(1.75rem, 3vw, 2.45rem);
+  line-height: 1.15;
+  font-weight: 700;
+}
+
+.svc-land__price-pill {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.55em;
+  margin-bottom: 1em;
+  padding: 0.45em 1em 0.45em 0.85em;
+  background: #fff;
+  color: #0f3f55;
+  border-radius: 999px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+}
+
+.svc-land__price-label {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  opacity: 0.65;
+  font-weight: 600;
+}
+
+.svc-land__price-value {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #17769b;
+}
+
+.svc-land__lead {
+  max-width: 38rem;
+  font-size: 1.02rem;
+  line-height: 1.55;
+  color: rgba(255, 255, 255, 0.95);
+}
+
+.svc-land__lead,
+.svc-land__lead p,
+.svc-land__lead li,
+.svc-land__lead strong {
+  color: rgba(255, 255, 255, 0.95) !important;
+}
+
+.svc-land__lead > p {
+  margin: 0 0 0.85em;
+}
+
+.svc-land__lead .services-detailed_list {
+  margin: 0 0 0.25em;
+  padding: 0;
+  list-style: none;
+}
+
+.svc-land__lead .services-detailed_list li {
+  position: relative;
+  margin: 0 0 0.45em;
+  padding: 0.55em 0.75em 0.55em 1.35em;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 10px;
+}
+
+.svc-land__lead .services-detailed_list li:before {
+  content: "";
+  position: absolute;
+  left: 0.55em;
+  top: 50%;
+  width: 0.42em;
+  height: 0.42em;
+  margin-top: -0.21em;
+  border-radius: 50%;
+  background: #fff;
+}
+
+.svc-land__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75em;
+  margin: 1.25em 0 1.35em;
+}
+
+.svc-land__btn {
+  min-width: 190px;
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.18);
+}
+
+.svc-land__btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 190px;
+  min-height: 50px;
+  padding: 0 1.15em;
+  border: 2px solid rgba(255, 255, 255, 0.75);
+  border-radius: 5px;
+  background: rgba(255, 255, 255, 0.06);
+  color: #fff !important;
+  font-size: 1.05rem;
+  font-weight: 700;
+  text-decoration: none !important;
+  transition: background-color 0.2s, border-color 0.2s;
+}
+
+.svc-land__btn-ghost:hover {
+  background: rgba(255, 255, 255, 0.16);
+  border-color: #fff;
+  color: #fff !important;
+}
+
+.svc-land__lead--bullets {
+  margin-top: 1.1em;
+}
+
+.svc-land__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55em;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.svc-land__chips li {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45em;
+  padding: 0.45em 0.8em;
+  border-radius: 999px;
+  background: rgba(15, 63, 85, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.svc-land__chip-icon {
+  font-size: 1rem;
+  opacity: 0.95;
+}
+
+.svc-land__visual {
+  position: sticky;
+  top: 1rem;
+  margin-top: 0.25em;
+}
+
+.svc-land__visual-frame {
+  position: relative;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 22px 40px rgba(0, 0, 0, 0.28);
+  background: #0b2d3d;
+  transform: rotate(-1.2deg);
+}
+
+.svc-land__visual-frame img {
+  display: block;
+  width: 100%;
+  min-height: 280px;
+  object-fit: cover;
+}
+
+.svc-land__visual-badge {
+  position: absolute;
+  left: 0;
+  bottom: 1.25em;
+  display: inline-flex;
+  align-items: center;
+  min-height: 40px;
+  padding: 0.25em 1.6em 0.25em 1.2em;
+  background: #3cb0e6;
+  color: #fff;
+  font-weight: 800;
+  font-size: 1.15rem;
+  clip-path: polygon(0 0, 88% 0%, 100% 100%, 0% 100%);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.svc-land__visual-note {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  margin-top: 0.9em;
+  margin-left: 0.5em;
+  padding: 0.55em 0.95em;
+  background: #fff;
+  color: #0f3f55;
+  border-radius: 12px;
+  font-size: 0.92rem;
+  font-weight: 600;
+  box-shadow: 0 10px 24px rgba(15, 63, 85, 0.15);
+}
+
+.svc-land__panel {
+  margin: 0 0 1.75em;
+  padding: 1.35em 1.25em 1.15em;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 10px 28px rgba(15, 63, 85, 0.08);
+  border: 1px solid rgba(60, 176, 230, 0.12);
+}
+
+.svc-land__panel--price {
+  border-color: rgba(60, 176, 230, 0.35);
+  background:
+    linear-gradient(#fff, #fff) padding-box,
+    linear-gradient(120deg, rgba(60, 176, 230, 0.35), rgba(23, 118, 155, 0.15)) border-box;
+}
+
+.svc-land__panel-head {
+  margin-bottom: 0.85em;
+}
+
+.svc-land__panel-head .services-detailed_box-title {
+  margin-bottom: 0.35em;
+}
+
+.svc-land__panel-hint {
+  margin: 0;
+  color: #5a6b75;
+  font-size: 0.95rem;
+}
+
+.svc-land__accordion.services-detailed_box {
+  margin-bottom: 0;
+}
+
+.svc-land__accordion .services-detailed_work-item {
+  border: 1px solid #e7eef2;
+  border-radius: 12px;
+  margin-bottom: 0.55em;
+  overflow: hidden;
+  background: #fbfcfd;
+}
+
+.svc-land__accordion .services-detailed_work-item_header {
+  padding: 0.95em 2.75em 0.95em 1em;
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.svc-land__accordion .services-detailed_work-item_header:after {
+  top: 50%;
+  bottom: auto;
+  right: 1.05em;
+  margin: 0;
+  transform: translateY(-70%) rotate(45deg);
+}
+
+.svc-land__accordion .services-detailed_work-item.is-active .services-detailed_work-item_header:after {
+  top: 50%;
+  transform: translateY(-30%) rotate(-135deg);
+}
+
+.svc-land__accordion .services-detailed_work-item_header:hover {
+  background: rgba(60, 176, 230, 0.08);
+}
+
+.svc-land__accordion .services-detailed_work-item.is-active {
+  border-color: rgba(60, 176, 230, 0.45);
+  background: #fff;
+  box-shadow: 0 8px 18px rgba(23, 118, 155, 0.08);
+}
+
+.svc-land__accordion .services-detailed_work-item.is-active .services-detailed_work-item_header {
+  padding-bottom: 0.95em;
+}
+
+.svc-land__accordion .services-detailed_work-item_body {
+  padding: 0 1em 1em;
+}
+
+.svc-land__more-toggle {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1em;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #0f3f55;
+  font-size: 1.05rem;
+  font-weight: 700;
+  cursor: pointer;
+  text-align: left;
+}
+
+.svc-land__more-toggle i {
+  width: 0.65em;
+  height: 0.65em;
+  border-right: 2px solid #17769b;
+  border-bottom: 2px solid #17769b;
+  transform: rotate(45deg);
+  transition: transform 0.2s;
+  flex: 0 0 auto;
+}
+
+.svc-land__more-toggle.is-open i {
+  transform: rotate(-135deg);
+}
+
+.svc-land__more-body {
+  margin-top: 1em;
+  padding-top: 1em;
+  border-top: 1px solid #e7eef2;
+  color: #334049;
+  line-height: 1.55;
+}
+
+.svc-land__more-body .services-detailed_list {
+  margin: 0.5em 0 1em;
+  padding: 0;
+  list-style: none;
+}
+
+.svc-land__more-body .services-detailed_list li {
+  position: relative;
+  padding: 0.35em 0 0.35em 1.1em;
+  border-bottom: 1px solid #f0f3f5;
+}
+
+.svc-land__more-body .services-detailed_list li:before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.85em;
+  width: 0.4em;
+  height: 0.4em;
+  border-radius: 50%;
+  background: #3cb0e6;
+}
+
+.svc-land__footer-cta {
+  margin-top: 0.5em;
+  padding: 1.35em 1.35em;
+  border-radius: 16px;
+  background: linear-gradient(120deg, #17769b, #3cb0e6);
+  color: #fff;
+  box-shadow: 0 16px 32px rgba(23, 118, 155, 0.25);
+}
+
+.svc-land__footer-cta-inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1em;
+}
+
+.svc-land__footer-cta-title {
+  font-size: 1.35rem;
+  font-weight: 800;
+  margin-bottom: 0.25em;
+}
+
+.svc-land__footer-cta p {
+  margin: 0;
+  max-width: 34rem;
+  color: #fff !important;
+  opacity: 1;
+}
+
+.svc-land__footer-cta-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.85em;
+}
+
+.svc-land__link-prices {
+  color: #fff;
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.svc-land__link-prices:hover {
+  color: #fff;
+  opacity: 0.85;
+}
+
+.svc-land__info {
+  margin-bottom: 1.25em;
+}
+
+@media (min-width: 992px) {
+  .svc-land__hero {
+    padding: 2.25em 2em 2em;
+  }
+
+  .svc-land__visual {
+    margin-top: 0;
+    padding-left: 0.75em;
+  }
+}
+
+@media (max-width: 767px) {
+  .svc-land-page {
+    padding-top: 1em;
+  }
+
+  .svc-land__hero {
+    padding: 1.25em 1em 1.15em;
+    border-radius: 14px;
+  }
+
+  .svc-land__actions .main-btn,
+  .svc-land__actions .border-blue_btn {
+    width: 100%;
+  }
+
+  .svc-land__visual-frame {
+    transform: none;
+  }
+
+  .svc-land__panel {
+    padding: 1.1em 0.9em;
+  }
+
+  .svc-land__footer-cta-actions {
+    width: 100%;
+  }
+
+  .svc-land__footer-cta-actions .main-btn {
+    width: 100%;
+  }
+}

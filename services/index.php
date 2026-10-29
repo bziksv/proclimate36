@@ -63,9 +63,11 @@ $APPLICATION->SetTitle("Услуги");
 		"DETAIL_PROPERTY_CODE" => array(	// Свойства
 			0 => "PRICE",
 			1 => "STANDART",
-			2 => "WORK",
-			3 => "MATERIALS",
-			4 => "INFO",
+			2 => "PRICE_LIST",
+			3 => "WORK",
+			4 => "MATERIALS",
+			5 => "INFO",
+			6 => "MAIN_ICON",
 		),
 		"DETAIL_DISPLAY_TOP_PAGER" => "N",	// Выводить над списком
 		"DETAIL_DISPLAY_BOTTOM_PAGER" => "Y",	// Выводить под списком
