@@ -37,6 +37,11 @@ $MESS["MAIN_SC_COMP_DISABLED_MOD"] = "The server doesn't support compression, th
 $MESS["MAIN_SC_CORRECT"] = "Correct";
 $MESS["MAIN_SC_CORRECT_DESC"] = "Intranet requires special configuration of the server environment. <a href=\"http://www.bitrixsoft.com/products/virtual_appliance/\" target=\"_blank\">Bitrix Virtual Appliance</a> is configured properly out-of-the-box. Some features may be unavailable if you fail to adjust the required parameters.";
 $MESS["MAIN_SC_CORRECT_SETTINGS"] = "Settings are correct";
+$MESS["MAIN_SC_DEFAULT_CHARSET"] = "The default_charset parameter must not be empty.";
+$MESS["MAIN_SC_ENC_EQUAL"] = "The mbstring.internal_encoding and default_charset values do not match. It is recommended to clear mbstring.internal_encoding and set default_charset values.";
+$MESS["MAIN_SC_ENC_UTF"] = "The value of default_charset must be set to UTF-8.";
+$MESS["MAIN_SC_ENC_NON_UTF"] = "The value of default_charset must be set to a non-UTF-8 encoding.";
+$MESS["MAIN_SC_FUNC_OVERLOAD"] = "Legacy parameter mbstring.func_overload detected. Please delete it.";
 $MESS["MAIN_SC_DOCS_EDIT_MS_OFFICE"] = "Editing documents in Microsoft Office";
 $MESS["MAIN_SC_ENABLED"] = "The server supports compression, the Bitrix Compression module needs to be uninstalled";
 $MESS["MAIN_SC_ENABLED_MOD"] = "Using the web server module for compression";

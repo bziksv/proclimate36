@@ -11,7 +11,8 @@ if (!$USER->CanDoOperation('fileman_view_all_settings'))
 
 function isValidLang($lang)
 {
-	$rsLang = CLanguage::GetList($by="sort", $order="desc");
+	$by="sort"; $order="desc";
+	$rsLang = CLanguage::GetList($by, $order);
 	$is_valid_lang = false;
 	while ($arLang = $rsLang->Fetch())
 	{
@@ -27,7 +28,8 @@ function isValidLang($lang)
 if ($REQUEST_METHOD=="GET" && $USER->CanDoOperation('fileman_edit_all_settings') && strlen($RestoreDefaults)>0 && check_bitrix_sessid())
 {
 	COption::RemoveOption("fileman");
-	$z = CGroup::GetList($v1="id",$v2="asc", array("ACTIVE" => "Y", "ADMIN" => "N"));
+	$v1="id"; $v2="asc";
+	$z = CGroup::GetList($v1, $v2, array("ACTIVE" => "Y", "ADMIN" => "N"));
 	while($zr = $z->Fetch())
 		$APPLICATION->DelGroupRight($module_id, array($zr["ID"]));
 }
@@ -462,7 +464,8 @@ if($USER->isAdmin())
 	$aTabs[] = $rightsTab;
 }
 	$siteList = array();
-	$rsSites = CSite::GetList($by="sort", $order="asc", Array());
+	$by="sort"; $order="asc";
+	$rsSites = CSite::GetList($by, $order, Array());
 	$i = 0;
 	while($arRes = $rsSites->Fetch())
 	{
@@ -1758,7 +1761,8 @@ function InitEventForType(id)
 		<td>
 <?
 $arGroups = explode(",", COption::GetOptionString('fileman', 'default_edit_groups', ''));
-$gr = CGroup::GetList(($v1="sort"), ($v2="asc"), array("ACTIVE"=>"Y", "ADMIN"=>"N", "ANONYMOUS"=>"N"));
+$v1="sort"; $v2="asc";
+$gr = CGroup::GetList($v1, $v2, array("ACTIVE"=>"Y", "ADMIN"=>"N", "ANONYMOUS"=>"N"));
 $sOptions = '';
 $sSel = '';
 while($group = $gr->Fetch())

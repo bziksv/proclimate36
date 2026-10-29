@@ -117,7 +117,8 @@ $lAdmin->AddHeaders(array(
 $arVisibleColumns = $lAdmin->GetVisibleHeaderColumns();
 
 $arLangs = array();
-$dbLangsList = CSite::GetList(($b = "sort"), ($o = "asc"));
+$b = "sort"; $o = "asc";
+$dbLangsList = CSite::GetList($b, $o);
 while ($arLang = $dbLangsList->Fetch())
 	$arLangs[$arLang["LID"]] = "[".$arLang["LID"]."]&nbsp;".$arLang["NAME"];
 

@@ -10,7 +10,7 @@ $GLOBALS["SALE_PERSON_TYPE_LIST_CACHE"] = Array();
 
 class CAllSalePersonType
 {
-	static function DoProcessOrder(&$arOrder, $personTypeId, &$arErrors, $arOptions)
+	public static function DoProcessOrder(&$arOrder, $personTypeId, &$arErrors, $arOptions)
 	{
 		$personTypeId = intval($personTypeId);
 
@@ -66,7 +66,7 @@ class CAllSalePersonType
 		}
 	}
 
-	function GetByID($ID)
+	public static function GetByID($ID)
 	{
 		global $DB;
 
@@ -79,7 +79,7 @@ class CAllSalePersonType
 		return False;
 	}
 
-	function CheckFields($ACTION, &$arFields, $ID=false)
+	public static function CheckFields($ACTION, &$arFields, $ID=false)
 	{
 		global $DB, $USER;
 
@@ -130,7 +130,7 @@ class CAllSalePersonType
 		return True;
 	}
 
-	function Update($ID, $arFields)
+	public static function Update($ID, $arFields)
 	{
 		global $DB;
 
@@ -194,7 +194,7 @@ class CAllSalePersonType
 		return $ID;
 	}
 
-	function Delete($ID)
+	public static function Delete($ID)
 	{
 		global $DB, $APPLICATION;
 
@@ -258,14 +258,14 @@ class CAllSalePersonType
 		return $DB->Query("DELETE FROM b_sale_person_type WHERE ID = ".$ID."", true);
 	}
 
-	function OnBeforeLangDelete($lang)
+	public static function OnBeforeLangDelete($lang)
 	{
 		global $DB;
 		$r = $DB->Query("SELECT 'x' FROM b_sale_person_type WHERE LID = '".$DB->ForSQL($lang, 2)."' AND ENTITY_REGISTRY_TYPE='".\Bitrix\Sale\Registry::REGISTRY_TYPE_ORDER."'");
 		return ($r->Fetch() ? false : true);
 	}
 
-	function SelectBox($sFieldName, $sValue, $sDefaultValue = "", $bFullName = True, $JavaFunc = "", $sAddParams = "")
+	public static function SelectBox($sFieldName, $sValue, $sDefaultValue = "", $bFullName = True, $JavaFunc = "", $sAddParams = "")
 	{
 		if (!isset($GLOBALS["SALE_PERSON_TYPE_LIST_CACHE"]) || !is_array($GLOBALS["SALE_PERSON_TYPE_LIST_CACHE"]) || count($GLOBALS["SALE_PERSON_TYPE_LIST_CACHE"])<1)
 		{

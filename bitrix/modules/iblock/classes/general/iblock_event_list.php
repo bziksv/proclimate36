@@ -40,7 +40,7 @@ class CEventIBlock
 
 		return  $arFilter;
 	}
-	function GetAuditTypes()
+	public static function GetAuditTypes()
 	{
 		AddEventHandler("main", "GetAuditTypesIblock", array("CAllIBlock", "GetAuditTypes"));
 		$db_events = GetModuleEvents("main", "GetAuditTypesIblock");

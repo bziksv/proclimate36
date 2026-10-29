@@ -8,7 +8,7 @@
 
 class CAllVoteUser
 {
-	function err_mess()
+	public static function err_mess()
 	{
 		$module_id = "vote";
 		return "<br>Module: ".$module_id."<br>Class: CAllVoteUser<br>File: ".__FILE__;
@@ -30,7 +30,7 @@ class CAllVoteUser
 		return $res;
 	}
 
-	function GetList(&$by, &$order, $arFilter=Array(), &$is_filtered)
+	public static function GetList(&$by, &$order, $arFilter=Array(), &$is_filtered)
 	{
 		$err_mess = (CAllVoteUser::err_mess())."<br>Function: GetList<br>Line: ";
 		global $DB;

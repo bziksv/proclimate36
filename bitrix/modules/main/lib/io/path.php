@@ -210,7 +210,7 @@ class Path
 		$physicalEncoding = defined("BX_FILE_SYSTEM_ENCODING") ? BX_FILE_SYSTEM_ENCODING : "";
 		if ($physicalEncoding == "")
 		{
-			if (strtoupper(substr(PHP_OS, 0, 3)) === "WIN")
+			if (strtoupper(substr(PHP_OS, 0, 3)) === "WIN" && PHP_VERSION_ID < 70100)
 				$physicalEncoding = "windows-1251";
 			else
 				$physicalEncoding = "utf-8";

@@ -995,7 +995,7 @@ class BusinessValueHandlers
 							list ($propertyCode, $propertyId, $locationField) = call_user_func($parseId, $providerValue);
 
 							// for crm invoice compatibility
-							if (method_exists($provider, 'getRegistryType'))
+							if (is_object($provider) && method_exists($provider, 'getRegistryType'))
 							{
 								$registry = $provider::getRegistryType();
 							}

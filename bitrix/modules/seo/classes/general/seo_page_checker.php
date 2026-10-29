@@ -57,7 +57,8 @@ class CSeoPageChecker
 			if (strlen($this->__server_name) > 0)
 			{
 				$this->__url = (CMain::IsHTTPS() ? "https://" : "http://")
-					.CBXPunycode::ToASCII($this->__server_name, $e = null)
+					$e = null;
+					.CBXPunycode::ToASCII($this->__server_name, $e)
 					.$url;
 
 				if(!$get || $this->GetHTTPData())

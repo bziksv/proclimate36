@@ -308,7 +308,17 @@ class CModule
 		if (!class_exists($className))
 			return false;
 
-		return new $className;
+		$moduleObject = new $className;
+		// PHP 8: PHP4-style constructors (function modulename()) are not called on new.
+		if (
+			(string)$moduleObject->MODULE_NAME === ''
+			&& method_exists($moduleObject, $className)
+		)
+		{
+			$moduleObject->{$className}();
+		}
+
+		return $moduleObject;
 	}
 }
 

@@ -22,7 +22,7 @@ class CEventFileman
 		return  $arFilter;
 	}
 	
-	function GetAuditTypes()
+	public static function GetAuditTypes()
 	{
 		return array(
 			"PAGE_EDIT" => "[PAGE_EDIT] ".GetMessage("LOG_TYPE_PAGE_EDIT"), 

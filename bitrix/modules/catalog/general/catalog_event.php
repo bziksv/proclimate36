@@ -4,7 +4,7 @@ Loc::loadMessages(__FILE__);
 
 class CCatalogEvent
 {
-	function GetAuditTypes()
+	public static function GetAuditTypes()
 	{
 		return array(
 			"CAT_YAND_AGENT" => "[CAT_YAND_AGENT] ".Loc::getMessage("CAT_YAND_AGENT"),
@@ -12,12 +12,12 @@ class CCatalogEvent
 		);
 	}
 
-	function GetYandexAgentEvent()
+	public static function GetYandexAgentEvent()
 	{
 		return array('CAT_YAND_AGENT','CAT_YAND_FILE');
 	}
 
-	function GetYandexAgentFilter()
+	public static function GetYandexAgentFilter()
 	{
 		return '&find_audit_type[]=CAT_YAND_AGENT&find_audit_type[]=CAT_YAND_FILE';
 	}

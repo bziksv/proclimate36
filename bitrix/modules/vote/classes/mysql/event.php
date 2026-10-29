@@ -9,7 +9,7 @@ require_once($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/vote/classes/general/eve
 
 class CVoteEvent extends CAllVoteEvent
 {
-	function err_mess()
+	public static function err_mess()
 	{
 		$module_id = "vote";
 		return "<br>Module: ".$module_id."<br>Class: CVoteEvent<br>File: ".__FILE__;

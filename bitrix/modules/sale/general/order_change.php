@@ -3,7 +3,7 @@ IncludeModuleLangFile(__FILE__);
 
 class CAllSaleOrderChange
 {
-	function CheckFields($ACTION, &$arFields, $ID = 0)
+	public static function CheckFields($ACTION, &$arFields, $ID = 0)
 	{
 		if ((is_set($arFields, "ORDER_ID") || $ACTION=="ADD") && strlen($arFields["ORDER_ID"]) <= 0)
 		{
@@ -26,7 +26,7 @@ class CAllSaleOrderChange
 		return true;
 	}
 
-	public function GetByID($ID)
+	public static function GetByID($ID)
 	{
 		global $DB;
 
@@ -47,7 +47,7 @@ class CAllSaleOrderChange
 		return False;
 	}
 
-	public function Delete($ID)
+	public static function Delete($ID)
 	{
 		global $DB;
 
@@ -64,7 +64,7 @@ class CAllSaleOrderChange
 	 *
 	 * @return bool|CDBResult
 	 */
-	public function deleteByOrderId($id)
+	public static function deleteByOrderId($id)
 	{
 		global $DB;
 
@@ -292,7 +292,7 @@ class CAllSaleOrderChange
 	 * @param string $data - serialized data saved in the database for the record of this type
 	 * @return array with keys: NAME - record name, INFO - full description (string)
 	 */
-	public function GetRecordDescription($type, $data)
+	public static function GetRecordDescription($type, $data)
 	{
 		foreach (CSaleOrderChangeFormat::$operationTypes as $typeCode => $arInfo)
 		{

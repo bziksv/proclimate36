@@ -21,7 +21,9 @@ class CBXVirtualIoFileSystem
 			self::$systemEncoding = strtolower(defined("BX_FILE_SYSTEM_ENCODING") ? BX_FILE_SYSTEM_ENCODING : "");
 			if (empty(self::$systemEncoding))
 			{
-				if (strtoupper(substr(PHP_OS, 0, 3)) === "WIN")
+				// PHP 7.1+ Win32 builds return UTF-8 filesystem names; converting
+				// from windows-1251 double-encodes Cyrillic folder names in fileman.
+				if (strtoupper(substr(PHP_OS, 0, 3)) === "WIN" && PHP_VERSION_ID < 70100)
 					self::$systemEncoding = "windows-1251";
 				else
 					self::$systemEncoding = "utf-8";

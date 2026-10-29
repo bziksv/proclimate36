@@ -23,7 +23,7 @@ class CSiteCheckerTest
 		$this->cafile = $_SERVER['DOCUMENT_ROOT'].'/bitrix/tmp/cacert.pem';
 		$this->force_repair = defined('SITE_CHECKER_FORCE_REPAIR') && SITE_CHECKER_FORCE_REPAIR === true;
 
-		$this->host = $_REQUEST['HTTP_HOST'] ? $_REQUEST['HTTP_HOST'] : 'localhost';
+		$this->host = !empty($_REQUEST['HTTP_HOST']) ? $_REQUEST['HTTP_HOST'] : 'localhost';
 		if (!$fix_mode) // no need to know the host in fix mode
 		{
 			if (!preg_match('/^[a-z0-9\.\-]+$/i', $this->host)) // cyrillic domain hack
@@ -47,8 +47,8 @@ class CSiteCheckerTest
 				$this->host = $host;
 			}
 		}
-		$this->ssl = $_REQUEST['HTTPS'] == 'on';
-		$this->port = $_REQUEST['SERVER_PORT'] ? $_REQUEST['SERVER_PORT'] : ($this->ssl ? 443 : 80);
+		$this->ssl = ($_REQUEST['HTTPS'] ?? '') == 'on';
+		$this->port = !empty($_REQUEST['SERVER_PORT']) ? $_REQUEST['SERVER_PORT'] : ($this->ssl ? 443 : 80);
 
 		$arTestGroup = array();
 		$arGroupName = array();
@@ -1098,34 +1098,52 @@ class CSiteCheckerTest
 		if (\Bitrix\Main\Config\Configuration::getValue("utf_mode") !== (defined('BX_UTF') && BX_UTF === true))
 		{
 			return $this->Result(false, GetMessage('MAIN_SC_MBSTRING_SETTIGNS_DIFFER'));
-			$this->arTestVars['check_mbstring_fail'] = true;
+		}
+
+		// PHP 8+: mbstring.func_overload removed; Bitrix expects default_charset=UTF-8 and overload absent (kawe / main>=20.100)
+		$encoding = strtolower(ini_get('mbstring.internal_encoding'));
+		$default = strtolower(ini_get('default_charset'));
+
+		if ($default == "")
+		{
+			return $this->Result(false, GetMessage("MAIN_SC_DEFAULT_CHARSET"));
+		}
+
+		if ($encoding <> '' && $encoding <> $default)
+		{
+			return $this->Result(false, GetMessage("MAIN_SC_ENC_EQUAL"));
+		}
+
+		if (ini_get('mbstring.func_overload') > 0)
+		{
+			return $this->Result(false, GetMessage("MAIN_SC_FUNC_OVERLOAD"));
 		}
 
 		$retVal = true;
 		$bUtf = false;
 
-		$rs = CSite::GetList($by,$order,array('ACTIVE'=>'Y'));
+		$by = '';
+		$order = '';
+		$rs = CSite::GetList($by, $order, array('ACTIVE'=>'Y'));
 		while($f = $rs->Fetch())
-			if (strpos(strtolower($f['CHARSET']),'utf')!==false)
+		{
+			if (strpos(strtolower($f['CHARSET']), 'utf') !== false)
 			{
 				$bUtf = true;
 				break;
 			}
-
-
-		$overload  = intval(ini_get('mbstring.func_overload'));
-		$encoding = strtolower(ini_get('mbstring.internal_encoding'));
-		$default = strtolower(ini_get('default_charset'));
-		$current = str_replace(array("-", "windows"), array("", "cp"), $encoding ? $encoding : $default);
+		}
 
 		if ($bUtf)
 		{
 			$text = GetMessage('SC_MB_UTF');
 
-			$retVal = $overload == 2 && $current == 'utf8';
-			if (!$retVal)
-				$text .= ', '.GetMessage('SC_MB_CUR_SETTINGS').'<br>mbstring.func_overload='.$overload.'<br>mbstring.internal_encoding="'.$encoding.'"<br>default_charset="'.$default.'"'.
-				'<br>'.GetMessage('SC_MB_REQ_SETTINGS').'<br>mbstring.func_overload=2<br>mbstring.internal_encoding=""<br>default_charset="utf-8"';
+			if ($default <> "utf-8")
+			{
+				$retVal = false;
+				$text .= '<br>'.GetMessage("MAIN_SC_ENC_UTF");
+				$this->arTestVars['check_mbstring_fail'] = true;
+			}
 
 			if (!defined('BX_UTF') || BX_UTF !== true)
 			{
@@ -1138,21 +1156,12 @@ class CSiteCheckerTest
 		{
 			$text = GetMessage('SC_MB_NOT_UTF');
 
-			if ($overload == 2)
+			if ($default == "utf-8")
 			{
-				$ru = LANG_CHARSET == 'windows-1251';
-				$mb_string_req = '<br>mbstring.internal_encoding=""<br>default_charset="'.($ru ? 'cp1251' : 'latin1').'"';
-
-				$retVal = false === strpos($current,'utf');
+				$retVal = false;
+				$text .= '<br>'.GetMessage("MAIN_SC_ENC_NON_UTF");
+				$this->arTestVars['check_mbstring_fail'] = true;
 			}
-			else
-			{
-				$mb_string_req = '<br>mbstring.func_overload=0';
-				$retVal = $overload == 0;
-			}
-			if (!$retVal)
-				$text .= ', '.GetMessage('SC_MB_CUR_SETTINGS').'<br>mbstring.func_overload='.$overload.'<br>mbstring.internal_encoding="'.$encoding.'"<br>default_charset="'.$default.'"'.
-				'<br>'.GetMessage('SC_MB_REQ_SETTINGS').$mb_string_req;
 
 			if (defined('BX_UTF'))
 			{
@@ -1164,8 +1173,8 @@ class CSiteCheckerTest
 
 		if ($retVal)
 		{
-			$l = strlen("\xd0\xa2");
-			if (!($retVal = $bUtf && $l == 1 || !$bUtf && $l == 2))
+			$retVal = (strlen("\xd0\xa2") == 2);
+			if (!$retVal)
 				$text = GetMessage('SC_STRLEN_FAIL_PHP56');
 
 			if (!$bUtf && LANG_CHARSET == 'windows-1251' && !($retVal = strtoupper("\xe0") == "\xc0"))

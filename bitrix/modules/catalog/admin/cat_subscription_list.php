@@ -275,7 +275,8 @@ while($subscribe = $queryObject->fetch())
 
 $listUserId = array_keys($listUserData);
 $listUsers = implode(' | ', $listUserId);
-$userQuery = CUser::getList($byUser = 'ID', $orderUser = 'ASC',
+$byUser = 'ID'; $orderUser = 'ASC';
+$userQuery = CUser::getList($byUser, $orderUser,
 	array('ID' => $listUsers) ,
 	array('FIELDS' => array('ID' ,'LOGIN', 'NAME', 'LAST_NAME')));
 while($user = $userQuery->fetch())

@@ -116,7 +116,7 @@ abstract class CAllBitrixCloudOption
 		");
 
 		$sort = 0;
-		while (list($key, $val) = each($value))
+		foreach ($value as $key => $val)
 		{
 			if ($db_row = $rs->fetch())
 			{

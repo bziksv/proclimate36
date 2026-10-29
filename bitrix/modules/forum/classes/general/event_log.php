@@ -48,7 +48,7 @@ class CForumEventLog
 		CEventLog::Log("NOTICE", $type, "forum", $id, $description);
 	}
 
-	function GetAuditTypes()
+	public static function GetAuditTypes()
 	{
 		return array(
 			"FORUM_MESSAGE_APPROVE" => "[FORUM_MESSAGE_APPROVE] ".GetMessage("FORUM_MESSAGE_APPROVE"),
@@ -96,7 +96,7 @@ class CEventForum
 		return  $arFilter;
 	}
 
-	function GetAuditTypes()
+	public static function GetAuditTypes()
 	{
 		AddEventHandler("main", "GetAuditTypesForum", array("CForumEventLog", "GetAuditTypes"));
 		foreach(GetModuleEvents("main", "GetAuditTypesForum", true) as $arEvent)

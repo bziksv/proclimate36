@@ -2833,7 +2833,7 @@ class CAllSaleOrder
 	* @param array $arSelectFields - array to selectes fields
 	* @return object $dbRes - object result
 	*/
-	public function GetHistoryList($arOrder = array("ID"=>"DESC"), $arFilter = array(), $arGroupBy = false, $arNavStartParams = false, $arSelectFields = array())
+	public static function GetHistoryList($arOrder = array("ID"=>"DESC"), $arFilter = array(), $arGroupBy = false, $arNavStartParams = false, $arSelectFields = array())
 	{
 		global $DB;
 

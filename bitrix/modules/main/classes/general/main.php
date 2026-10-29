@@ -1103,10 +1103,19 @@ abstract class CAllMain
 
 	public function GetViewContent($view)
 	{
-		if(!is_array($this->__view[$view]))
+		if(!isset($this->__view[$view]) || !is_array($this->__view[$view]))
 			return '';
 
-		uasort($this->__view[$view], create_function('$a, $b', 'if($a[1] == $b[1]) return 0; return ($a[1] < $b[1])? -1 : 1;'));
+		uasort(
+			$this->__view[$view],
+			function ($a, $b) {
+				if ($a[1] == $b[1])
+				{
+					return 0;
+				}
+				return ($a[1] < $b[1] ? -1 : 1);
+			}
+		);
 
 		$res = array();
 		foreach($this->__view[$view] as $item)
@@ -3278,7 +3287,14 @@ abstract class CAllMain
 	{
 		if(strpos($str, "%u")!==false)
 		{
-			$str = preg_replace_callback("'%u([0-9A-F]{2})([0-9A-F]{2})'i", create_function('$ch', '$res = chr(hexdec($ch[2])).chr(hexdec($ch[1])); return $GLOBALS["APPLICATION"]->ConvertCharset($res, "UTF-16", LANG_CHARSET);'), $str);
+			$str = preg_replace_callback(
+				"'%u([0-9A-F]{2})([0-9A-F]{2})'i",
+				function ($ch) {
+					$res = chr(hexdec($ch[2])).chr(hexdec($ch[1]));
+					return $GLOBALS["APPLICATION"]->ConvertCharset($res, "UTF-16", LANG_CHARSET);
+				},
+				$str
+			);
 		}
 		return $str;
 	}
@@ -3583,7 +3599,7 @@ abstract class CAllMain
 
 		//Fork was successfull let's do seppuku on shutdown
 		if($pid == 0)
-			register_shutdown_function(create_function('', 'posix_kill(getmypid(), 9);'));
+			register_shutdown_function(function () { posix_kill(getmypid(), 9); });
 
 		//Mark start of execution
 		define("BX_FORK_AGENTS_AND_EVENTS_FUNCTION_STARTED", true);

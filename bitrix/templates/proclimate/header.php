@@ -7,10 +7,12 @@
     <title><?$APPLICATION->ShowTitle()?></title>    <link href="<?=SITE_DIR?>img/favicon.ico" rel="icon" type="image/png" />
     <link href="<?=SITE_DIR?>img/favicon.png" rel="icon" type="image/png" />
     <link href="<?=SITE_DIR?>img/apple-touch-icon.png" rel="apple-touch-icon" />
-    <? $APPLICATION->ShowHead(); ?>
     <?
-    // Раньше здесь было body{opacity:0} до CSS/JS в footer — при fatal/агенте страница
-    // оставалась белой и скрывала даже [Error]. Preloader в .wrapper-loader достаточен.
+    // CSS в head — иначе FOUC: стили раньше висели в footer.php, а body{opacity:0}
+    // маскировал вспышку и при fatal прятал даже [Error].
+    $APPLICATION->SetAdditionalCSS(SITE_TEMPLATE_PATH.'/css/min.css');
+    $APPLICATION->SetAdditionalCSS(SITE_TEMPLATE_PATH.'/css/main.css');
+    $APPLICATION->ShowHead();
     ?>
     <script>var filterPrice = {},filterPrice_2 = {},filterPrice_3 = {},filterPrice_4 = {},filterPrice_5 = {},filterPrice_6 = {},filterPrice_7 = {},filterPrice_8 = {},filterPrice_9 = {},filterPrice_10 = {},filterPrice_11 = {},filterPrice_12 = {},filterPrice_13 = {},filterPrice_14 = {},filterPrice_15 = {},filterPrice_16 = {},filterPrice_17 = {},filterPrice_18 = {},filterPrice_19 = {},filterPrice_20 = {},filterPrice_21 = {},filterPrice_22 = {},filterPrice_23 = {},filterPrice_24 = {},filterPrice_25 = {},filterPrice_26 = {},filterPrice_27 = {},filterPrice_28 = {},filterPrice_29 = {},filterPrice_30 = {},filterPrice_31 = {},filterPrice_32 = {},filterPrice_33 = {},filterPrice_34 = {},filterPrice_35 = {},filterPrice_36 = {},filterPrice_37 = {},filterPrice_38 = {},filterPrice_39 = {},filterPrice_40 = {};</script>
 <meta name="yandex-verification" content="61fd2e608af458fc" />

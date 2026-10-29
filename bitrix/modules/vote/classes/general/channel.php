@@ -9,7 +9,7 @@ IncludeModuleLangFile(__FILE__);
 
 class CAllVoteChannel
 {
-	function err_mess()
+	public static function err_mess()
 	{
 		$module_id = "vote";
 		return "<br>Module: ".$module_id."<br>Class: CAllVoteChannel<br>File: ".__FILE__;

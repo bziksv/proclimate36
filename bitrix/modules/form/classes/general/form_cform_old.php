@@ -83,7 +83,7 @@ class CForm_old
 		}
 	}
 
-	function IsOldVersion()
+	public static function IsOldVersion()
 	{
 		return 'N';
 

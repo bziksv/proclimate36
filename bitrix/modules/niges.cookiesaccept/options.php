@@ -16,7 +16,8 @@ require $_SERVER['DOCUMENT_ROOT'].'/bitrix/modules/main/include/prolog_admin_aft
 
 $moduleId = CNigesCookiesAcceptHelper::MODULE_ID;
 $arSites = array();
-$l = CLang::GetList($by = 'sort', $order = 'asc');
+$by = 'sort'; $order = 'asc';
+$l = CLang::GetList($by, $order);
 while ($row = $l->Fetch()) {
 	$arSites[$row['LID']] = $row;
 }

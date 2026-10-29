@@ -235,7 +235,22 @@ class _CFileTree
 				return false;
 		}
 
-		$next = each($this->_dir);
+		$key = key($this->_dir);
+		if ($key === null)
+		{
+			$next = false;
+		}
+		else
+		{
+			$val = current($this->_dir);
+			$next = array(
+				1 => $val,
+				"value" => $val,
+				0 => $key,
+				"key" => $key,
+			);
+			next($this->_dir);
+		}
 
 		if($next === false)
 		{

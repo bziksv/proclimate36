@@ -1628,7 +1628,7 @@ class CSaleYMHandler
 	 * @return array|false
 	 * @throws \Bitrix\Main\ArgumentException
 	 */
-	public function getOrderInfo($orderId)
+	public static function getOrderInfo($orderId)
 	{
 		if(intval($orderId) <= 0)
 			return array();
@@ -1894,7 +1894,7 @@ class CSaleYMHandler
 		return $result;
 	}
 
-	public function OnEventLogGetAuditTypes()
+	public static function OnEventLogGetAuditTypes()
 	{
 		return array(
 			"YMARKET_STATUS_CHANGE" => "[YMARKET_STATUS_CHANGE] ".GetMessage("SALE_YMH_LOG_TYPE_STATUS_CHANGE"),

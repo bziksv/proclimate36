@@ -11,7 +11,8 @@ $arFilter = Array("ACTIVE"=>"Y");
 if($md->SHOW_SUPER_ADMIN_GROUP_RIGHTS != "Y")
 	$arFilter["ADMIN"] = "N";
 
-$z = CGroup::GetList($v1="sort", $v2="asc", $arFilter);
+$v1="sort"; $v2="asc";
+$z = CGroup::GetList($v1, $v2, $arFilter);
 while($zr = $z->Fetch())
 {
 	$ar = array();

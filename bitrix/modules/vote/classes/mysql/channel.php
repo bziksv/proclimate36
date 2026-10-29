@@ -9,7 +9,7 @@ require_once($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/vote/classes/general/cha
 
 class CVoteChannel extends CAllVoteChannel
 {
-	function err_mess()
+	public static function err_mess()
 	{
 		$module_id = "vote";
 		return "<br>Module: ".$module_id."<br>Class: CVoteChannel<br>File: ".__FILE__;

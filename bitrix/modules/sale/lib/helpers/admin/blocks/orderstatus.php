@@ -235,7 +235,9 @@ class OrderStatus
 		if (isset($users[$userId]))
 			return $users[$userId];
 
-		$dbRes = \CUser::GetList(($by="id"), ($byOrder="asc"), array("ID" => $userId), array("FIELDS" => array("ID", "NAME", "LOGIN")));
+		$by = "id";
+		$byOrder = "asc";
+		$dbRes = \CUser::GetList($by, $byOrder, array("ID" => $userId), array("FIELDS" => array("ID", "NAME", "LOGIN")));
 		$user = $dbRes->Fetch();
 
 		if ($user)

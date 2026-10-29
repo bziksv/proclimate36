@@ -2323,7 +2323,7 @@ class CAdminMessage
 		}
 	}
 
-	function ShowMessage($message)
+	public static function ShowMessage($message)
 	{
 		if(!empty($message))
 		{
@@ -2332,7 +2332,7 @@ class CAdminMessage
 		}
 	}
 
-	function ShowNote($message)
+	public static function ShowNote($message)
 	{
 		if(!empty($message))
 			CAdminMessage::ShowMessage(array("MESSAGE"=>$message, "TYPE"=>"OK"));

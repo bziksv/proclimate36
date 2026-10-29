@@ -26,7 +26,8 @@ $rateName = $_GET['rate'];
 
 if (! $rateType = $rateTypes[$rateName])
 {
-	list ($rateName, $rateType) = each($rateTypes);
+	$rateName = key($rateTypes);
+	$rateType = current($rateTypes);
 }
 
 // ATTRIBUTES

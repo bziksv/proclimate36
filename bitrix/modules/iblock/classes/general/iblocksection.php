@@ -2573,7 +2573,7 @@ class CAllIBlockSection
 		return $strResult;
 	}
 
-	function GetCount($arFilter=Array())
+	public static function GetCount($arFilter=Array())
 	{
 		global $DB, $USER;
 

@@ -175,7 +175,9 @@ if(!$boolLocked && $isAllowUpdate)
 }
 
 $arSysLangs = array();
-$db_lang = CLangAdmin::GetList(($b="sort"), ($o="asc"), array("ACTIVE" => "Y"));
+$b = "sort";
+$o = "asc";
+$db_lang = CLangAdmin::GetList($b, $o, array("ACTIVE" => "Y"));
 while ($arLang = $db_lang->Fetch())
 	$arSysLangs[] = $arLang["LID"];
 

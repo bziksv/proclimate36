@@ -503,7 +503,9 @@ if(!$bSearch && strlen($path) > 0 && ($logical != "Y" || rtrim($arSite["DIR"], "
 {
 	$row =& $lAdmin->AddRow(".", array("NAME" => GetMessage("FILEMAN_UP")));
 
-	$dbSitesList = CSite::GetList($b = "lendir", $o = "desc");
+	$b = "lendir";
+	$o = "desc";
+	$dbSitesList = CSite::GetList($b, $o);
 	while ($arSite = $dbSitesList->GetNext())
 	{
 		if ($arSite['DOC_ROOT'] == CSite::GetSiteDocRoot($site) || $arSite['DOC_ROOT'] == '')
